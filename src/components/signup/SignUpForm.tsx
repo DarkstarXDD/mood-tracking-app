@@ -1,3 +1,5 @@
+import Link from "next/link"
+
 import Button from "@/components/ui/Button"
 import TextField from "@/components/ui/TextField"
 
@@ -18,8 +20,19 @@ export default function SignUpForm() {
         <TextField label="Password" />
       </div>
 
-      <Button>Sign Up</Button>
-      <Button variant="secondary">Upload</Button>
+      <div className="grid gap-5">
+        <Button>Sign Up</Button>
+
+        <p className="text-center text-lg leading-normal tracking-tight">
+          <span className="text-neutral-600">Already got an account? </span>
+          <Link
+            href="/login"
+            className="text-blue-600 underline hover:text-blue-700"
+          >
+            Log in.
+          </Link>
+        </p>
+      </div>
     </form>
   )
 }
