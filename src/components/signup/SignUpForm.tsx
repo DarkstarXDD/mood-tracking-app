@@ -1,3 +1,4 @@
+import Button from "@/components/ui/Button"
 import TextField from "@/components/ui/TextField"
 
 export default function SignUpForm() {
@@ -16,6 +17,9 @@ export default function SignUpForm() {
         <TextField label="Email address" />
         <TextField label="Password" />
       </div>
+
+      <Button>Sign Up</Button>
+      <Button variant="secondary">Upload</Button>
     </form>
   )
 }
