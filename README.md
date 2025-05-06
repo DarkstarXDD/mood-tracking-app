@@ -6,7 +6,7 @@ This is my solution to the [Mood Tracking App](https://www.frontendmentor.io/cha
 
 ### Links 🔗
 
-- Live Site URL: https://mood-tracking-app-darkstarxdd.vercel.app/
+- Live Site URL: https://mood-tracker-darkstarxdd.vercel.app/
 
 #
 

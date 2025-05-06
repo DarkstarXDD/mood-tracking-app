@@ -5,7 +5,7 @@ import "./globals.css"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Mood Tracking App",
+  title: "Mood Tracker",
   description:
     "Check out Darkstar's solution for the Mood Tracking App challenge on Frontend Mentor",
 
@@ -16,14 +16,14 @@ export const metadata: Metadata = {
 
   openGraph: {
     type: "website",
-    url: "https://mood-tracking-app-darkstarxdd.vercel.app/",
-    title: "Mood Tracking App",
+    url: "https://mood-tracker-darkstarxdd.vercel.app/",
+    title: "Mood Tracker",
 
     description:
       "Check out Darkstar's solution for the Mood Tracking App challenge on Frontend Mentor",
 
     images: {
-      url: "https://mood-tracking-app-darkstarxdd.vercel.app/og-img.jpeg",
+      url: "https://mood-tracker-darkstarxdd.vercel.app/og-img.jpeg",
       type: "image/jpeg",
       width: 1440,
       height: 756,
