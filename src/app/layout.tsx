@@ -45,7 +45,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${redditSans.variable} font-reddit-sans bg-zinc-800 text-white`}
+        className={`${redditSans.variable} font-reddit-sans from-gradient-start to-gradient-end min-h-dvh bg-linear-to-b from-75% bg-no-repeat px-4 py-20`}
       >
         {children}
       </body>
