@@ -4,6 +4,7 @@ import { Prisma } from "@prisma/client"
 import { hash, compare } from "bcryptjs"
 import { redirect } from "next/navigation"
 
+import { messages } from "@/lib/messages"
 import { prisma } from "@/lib/prisma/prisma"
 import { authSchema } from "@/lib/schema"
 import { createSession } from "@/lib/session"
@@ -14,10 +15,7 @@ export async function registerUser(userData: AuthSchemaType) {
   const validationResult = authSchema.safeParse(userData)
 
   if (!validationResult.success) {
-    return {
-      type: "validation_error",
-      message: "Server validation error. Please try again.",
-    }
+    return messages.errors.validation
   }
 
   const hashedPassword = await hash(validationResult.data.password, 10)
@@ -39,17 +37,9 @@ export async function registerUser(userData: AuthSchemaType) {
       e instanceof Prisma.PrismaClientKnownRequestError &&
       e.code === "P2002"
     ) {
-      return {
-        type: "auth_error",
-        message:
-          "An account with this email already exists. Try logging in instead.",
-      }
+      return messages.errors.existingEmail
     }
-
-    return {
-      type: "server_error",
-      message: "Something went wrong. Please try again.",
-    }
+    return messages.errors.generic
   }
   redirect("/")
 }
@@ -67,26 +57,18 @@ export async function loginUser(userData: AuthSchemaType) {
     })
 
     if (!user) {
-      return {
-        type: "auth_error",
-        message: "Incorrect username or password.",
-      }
+      return messages.errors.auth
     }
 
     const isUserValid = await compare(userData.password, user.password)
 
     if (!isUserValid) {
-      return {
-        type: "auth_error",
-        message: "Incorrect username or password.",
-      }
+      return messages.errors.auth
     }
+
     await createSession(user.id)
   } catch {
-    return {
-      type: "server_error",
-      message: "Something went wrong. Please try again.",
-    }
+    return messages.errors.generic
   }
   redirect("/")
 }
