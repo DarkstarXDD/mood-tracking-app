@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import Link from "next/link"
 import { useForm } from "react-hook-form"
 
-import { addNewUser } from "@/action/auth"
+import { registerUser } from "@/action/auth"
 import Button from "@/components/ui/Button"
 import TextField from "@/components/ui/TextField"
 import { authSchema } from "@/lib/schema"
@@ -25,7 +25,7 @@ export default function SignUpForm() {
     <form
       className="shadow-main grid w-full max-w-lg gap-8 rounded-2xl bg-white px-4 py-10 md:px-8"
       onSubmit={handleSubmit(async (data) => {
-        const response = await addNewUser(data)
+        const response = await registerUser(data)
         if (response) {
           setError("email", response)
         }
