@@ -6,7 +6,7 @@ import { cookies } from "next/headers"
 const secretKey = process.env.SESSION_SECRET
 const encodedSecretKey = new TextEncoder().encode(secretKey)
 
-async function createToken(payload: { id: string }) {
+async function createToken(payload: { userId: string }) {
   const token = new SignJWT(payload)
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
@@ -18,7 +18,7 @@ async function createToken(payload: { id: string }) {
 
 export async function createSession(userId: string) {
   const expiresAt = new Date(Date.now() + 1000 * 60 * 60 * 24 * 7)
-  const token = await createToken({ id: userId })
+  const token = await createToken({ userId: userId })
   const cookieStore = await cookies()
 
   cookieStore.set("token", token, {
@@ -31,7 +31,7 @@ export async function createSession(userId: string) {
 
 export async function verifyToken(token: string | undefined = "") {
   try {
-    const payload = await jwtVerify(token, encodedSecretKey, {
+    const { payload } = await jwtVerify(token, encodedSecretKey, {
       algorithms: ["HS256"],
     })
     return payload
