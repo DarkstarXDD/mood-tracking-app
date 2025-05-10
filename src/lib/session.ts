@@ -31,9 +31,13 @@ export async function createSession(userId: string) {
 
 export async function verifyToken(token: string | undefined = "") {
   try {
-    const { payload } = await jwtVerify(token, encodedSecretKey, {
-      algorithms: ["HS256"],
-    })
+    const { payload } = await jwtVerify<{ userId: string }>(
+      token,
+      encodedSecretKey,
+      {
+        algorithms: ["HS256"],
+      }
+    )
     return payload
   } catch {
     return undefined
