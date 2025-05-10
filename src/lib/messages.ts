@@ -16,7 +16,7 @@ export const messages = {
         "An account with this email already exists. Try logging in instead.",
     },
 
-    auth: {
+    invalidCredentials: {
       type: "auth_error",
       message: "Incorrect username or password.",
     },
