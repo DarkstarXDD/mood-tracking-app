@@ -6,7 +6,7 @@ import { redirect } from "next/navigation"
 
 import * as user from "@/lib/dal/user"
 import { messages } from "@/lib/messages"
-import { prisma } from "@/lib/prisma/prisma"
+import { prisma } from "@/lib/prisma"
 import { authSchema } from "@/lib/schema"
 import { createSession } from "@/lib/session"
 

@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import Image from "next/image"
 import { useForm } from "react-hook-form"
 
-import { updateUser } from "@/action/auth"
+import { updateUser } from "@/actions/auth"
 import avatarPlaceholder from "@/assets/avatar-placeholder.svg"
 import Button from "@/components/ui/Button"
 import FileInput from "@/components/ui/FileInput"
