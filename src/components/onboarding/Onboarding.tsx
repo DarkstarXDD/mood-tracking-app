@@ -42,7 +42,7 @@ export default function Onboarding() {
         </p>
       </div>
 
-      <div className="grid gap-5">
+      <div className="grid gap-6">
         <TextField
           label="Name"
           placeholder="Jane Appleseed"

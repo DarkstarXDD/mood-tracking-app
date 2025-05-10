@@ -54,5 +54,8 @@ export async function loginUser(userData: AuthSchemaType) {
 
 export async function updateUser({ name, avatarUrl }: userProfileSchemaType) {
   const response = await user.updateUser({ name, avatarUrl })
-  return response
+  if (response) {
+    return response
+  }
+  redirect("/")
 }
