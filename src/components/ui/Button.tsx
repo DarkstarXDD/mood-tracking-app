@@ -1,6 +1,7 @@
+import { Button as RACButton } from "react-aria-components"
 import { tv } from "tailwind-variants"
 
-import type { ComponentProps } from "react"
+import type { ButtonProps as RACButtonProps } from "react-aria-components"
 import type { VariantProps } from "tailwind-variants"
 
 const buttonStyles = tv({
@@ -19,8 +20,18 @@ const buttonStyles = tv({
 })
 
 type ButtonVariants = VariantProps<typeof buttonStyles>
-type ButtonProps = ComponentProps<"button"> & ButtonVariants
+type ButtonProps = Omit<RACButtonProps, "className"> &
+  ButtonVariants & { className?: string }
 
-export default function Button({ children, variant }: ButtonProps) {
-  return <button className={buttonStyles({ variant })}>{children}</button>
+export default function Button({
+  children,
+  variant,
+  className,
+  ...props
+}: ButtonProps) {
+  return (
+    <RACButton {...props} className={buttonStyles({ variant, className })}>
+      {children}
+    </RACButton>
+  )
 }

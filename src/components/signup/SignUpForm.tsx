@@ -55,7 +55,7 @@ export default function SignUpForm() {
       </div>
 
       <div className="grid gap-5">
-        <Button>Sign Up</Button>
+        <Button type="submit">Sign Up</Button>
 
         <p className="text-center text-lg leading-normal tracking-tight">
           <span className="text-neutral-600">Already got an account? </span>

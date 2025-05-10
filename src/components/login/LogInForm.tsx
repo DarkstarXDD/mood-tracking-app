@@ -56,7 +56,7 @@ export default function LogInForm() {
       </div>
 
       <div className="grid gap-5">
-        <Button>Log In</Button>
+        <Button type="submit">Log In</Button>
 
         <p className="text-center text-lg leading-normal tracking-tight">
           <span className="text-neutral-600">
