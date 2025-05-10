@@ -5,7 +5,7 @@ import SignUpForm from "@/components/signup/SignUpForm"
 
 export default function SignUpPage() {
   return (
-    <div className="grid justify-items-center gap-8 md:gap-12">
+    <main className="grid justify-items-center gap-8 md:gap-12">
       <Image
         src={moodTrackerLogo}
         alt="Mood Tracker"
@@ -13,6 +13,6 @@ export default function SignUpPage() {
         className="h-10 w-45"
       />
       <SignUpForm />
-    </div>
+    </main>
   )
 }

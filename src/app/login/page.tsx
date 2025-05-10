@@ -5,7 +5,7 @@ import LogInForm from "@/components/login/LogInForm"
 
 export default function LogInPage() {
   return (
-    <div className="grid justify-items-center gap-8 md:gap-12">
+    <main className="grid justify-items-center gap-8 md:gap-12">
       <Image
         src={moodTrackerLogo}
         alt="Mood Tracker"
@@ -13,6 +13,6 @@ export default function LogInPage() {
         className="h-10 w-45"
       />
       <LogInForm />
-    </div>
+    </main>
   )
 }
