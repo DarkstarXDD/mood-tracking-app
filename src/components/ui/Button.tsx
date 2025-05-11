@@ -9,13 +9,19 @@ const buttonStyles = tv({
   variants: {
     variant: {
       primary:
-        "w-full rounded-xl border-blue-600 bg-blue-600 px-4 py-3 text-xl leading-normal font-semibold text-white ring-blue-600 ring-offset-2 ring-offset-white hover:border-blue-700 hover:bg-blue-700",
+        "rounded-xl border-blue-600 bg-blue-600 text-white ring-blue-600 ring-offset-2 ring-offset-white hover:border-blue-700 hover:bg-blue-700",
       secondary:
-        "rounded-lg border-neutral-300 px-4 py-2 text-lg leading-tight font-medium text-neutral-900 ring-neutral-300 hover:border-neutral-900 hover:ring-neutral-900 focus-visible:ring-2",
+        "rounded-lg border-neutral-300 text-neutral-900 ring-neutral-300 hover:border-neutral-900 hover:ring-neutral-900",
+    },
+    size: {
+      base: "px-4 py-3 text-xl leading-normal font-semibold",
+      small: "px-4 py-2 text-lg leading-tight font-medium",
+      large: "px-8 py-4 text-xl leading-normal font-semibold",
     },
   },
   defaultVariants: {
     variant: "primary",
+    size: "base",
   },
 })
 
@@ -26,11 +32,15 @@ type ButtonProps = Omit<RACButtonProps, "className"> &
 export default function Button({
   children,
   variant,
+  size,
   className,
   ...props
 }: ButtonProps) {
   return (
-    <RACButton {...props} className={buttonStyles({ variant, className })}>
+    <RACButton
+      {...props}
+      className={buttonStyles({ variant, size, className })}
+    >
       {children}
     </RACButton>
   )
