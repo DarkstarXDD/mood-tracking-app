@@ -13,4 +13,4 @@ export const userProfileSchema = z.object({
   name: z.string().trim().min(1, "Name cannot be empty."),
   avatarUrl: z.string().optional(),
 })
-export type userProfileSchemaType = z.infer<typeof userProfileSchema>
+export type UserProfileSchemaType = z.infer<typeof userProfileSchema>

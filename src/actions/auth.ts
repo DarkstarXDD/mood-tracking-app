@@ -10,7 +10,7 @@ import { prisma } from "@/lib/prisma"
 import { authSchema } from "@/lib/schema"
 import { createSession } from "@/lib/session"
 
-import type { AuthSchemaType, userProfileSchemaType } from "@/lib/schema"
+import type { AuthSchemaType, UserProfileSchemaType } from "@/lib/schema"
 
 export async function registerUser(userData: AuthSchemaType) {
   const validationResult = authSchema.safeParse(userData)
@@ -52,7 +52,7 @@ export async function loginUser(userData: AuthSchemaType) {
   redirect("/")
 }
 
-export async function updateUser({ name, avatarUrl }: userProfileSchemaType) {
+export async function updateUser({ name, avatarUrl }: UserProfileSchemaType) {
   const response = await user.updateUser({ name, avatarUrl })
   if (response) {
     return response

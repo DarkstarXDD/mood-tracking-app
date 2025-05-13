@@ -11,7 +11,7 @@ import FileInput from "@/components/ui/FileInput"
 import TextField from "@/components/ui/TextField"
 import { userProfileSchema } from "@/lib/schema"
 
-import type { userProfileSchemaType } from "@/lib/schema"
+import type { UserProfileSchemaType } from "@/lib/schema"
 
 export default function Onboarding() {
   const {
@@ -19,7 +19,7 @@ export default function Onboarding() {
     handleSubmit,
     formState: { errors },
     setError,
-  } = useForm<userProfileSchemaType>({
+  } = useForm<UserProfileSchemaType>({
     resolver: zodResolver(userProfileSchema),
   })
 
