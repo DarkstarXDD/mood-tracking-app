@@ -1,4 +1,7 @@
 @import "tailwindcss";
+@plugin "tailwindcss-react-aria-components" {
+  prefix: rac;
+}
 
 @theme {
   --font-reddit-sans: var(--font-reddit-sans);
@@ -32,6 +35,7 @@
   --color-neutral-600: hsl(240, 17%, 41%); /* secondary  */
   --color-neutral-900: hsl(240, 40%, 22%); /* foreground */
 
+  --color-blue-50: hsl(226, 72%, 97%);
   --color-blue-100: hsl(226, 72%, 93%);
   --color-blue-200: hsl(225, 75%, 87%);
   --color-blue-300: hsl(207, 100%, 77%);
