@@ -1,5 +1,6 @@
 "use client"
 import Image from "next/image"
+import { useState } from "react"
 import {
   MenuTrigger,
   Button,
@@ -12,48 +13,62 @@ import {
 import { FiSettings, FiLogOut } from "react-icons/fi"
 
 import avatarPlaceholder from "@/assets/avatar-placeholder.svg"
+import UpdateProfileDialog from "@/components/home/UpdateProfileDialog"
 
 export default function AccountMenu() {
-  return (
-    <MenuTrigger>
-      <Button
-        aria-label="Account Details"
-        className="rac-focus-visible:ring-3 cursor-pointer rounded-full ring-blue-600 outline-none"
-      >
-        <Image
-          src={avatarPlaceholder}
-          alt=""
-          className="h-10 w-10 rounded-full"
-        />
-      </Button>
-      <Popover
-        placement="bottom end"
-        className="overflow-auto rounded-lg bg-white px-1 py-1"
-      >
-        <div className="grid gap-1">
-          <div className="grid gap-0.25 px-3 py-2">
-            <p className="text-lg leading-snug font-medium tracking-normal text-neutral-900">
-              Lisa Maria
-            </p>
-            <p className="text-base leading-normal font-normal tracking-tight text-neutral-300">
-              lisa@mail.com
-            </p>
-          </div>
-          <Separator className="h-0.25 border-none bg-blue-100" />
+  const [isDialogOpen, setIsDialogOpen] = useState(false)
 
-          <Menu className="outline-none">
-            <AccountMenuItem>
-              <FiSettings className="size-4" />
-              <span>Settings</span>
-            </AccountMenuItem>
-            <AccountMenuItem>
-              <FiLogOut className="size-4" />
-              <span>Logout</span>
-            </AccountMenuItem>
-          </Menu>
-        </div>
-      </Popover>
-    </MenuTrigger>
+  const openDialog = () => setIsDialogOpen(true)
+  const closeDialog = () => setIsDialogOpen(false)
+
+  return (
+    <>
+      <MenuTrigger>
+        <Button
+          aria-label="Account Details"
+          className="rac-focus-visible:ring-3 cursor-pointer rounded-full ring-blue-600 outline-none"
+        >
+          <Image
+            src={avatarPlaceholder}
+            alt=""
+            className="h-10 w-10 rounded-full"
+          />
+        </Button>
+        <Popover
+          placement="bottom end"
+          className="overflow-auto rounded-lg bg-white px-1 py-1"
+        >
+          <div className="grid gap-1">
+            <div className="grid gap-0.25 px-3 py-2">
+              <p className="text-lg leading-snug font-medium tracking-normal text-neutral-900">
+                Lisa Maria
+              </p>
+              <p className="text-base leading-normal font-normal tracking-tight text-neutral-300">
+                lisa@mail.com
+              </p>
+            </div>
+            <Separator className="h-0.25 border-none bg-blue-100" />
+
+            <Menu className="outline-none">
+              <AccountMenuItem onAction={openDialog}>
+                <FiSettings className="size-4" />
+                <span>Settings</span>
+              </AccountMenuItem>
+
+              <AccountMenuItem>
+                <FiLogOut className="size-4" />
+                <span>Logout</span>
+              </AccountMenuItem>
+            </Menu>
+          </div>
+        </Popover>
+      </MenuTrigger>
+
+      <UpdateProfileDialog
+        isDialogOpen={isDialogOpen}
+        onDialogClose={closeDialog}
+      />
+    </>
   )
 }
 
