@@ -24,7 +24,7 @@ export default function UpdateProfileDialog({
       onOpenChange={onDialogClose}
       className="fixed inset-0 z-10 flex min-h-dvh flex-col items-center justify-center overflow-auto bg-neutral-900/70 p-5"
     >
-      <Modal>
+      <Modal className="w-full max-w-152">
         <Dialog className="relative grid gap-8 rounded-2xl bg-white px-5 py-10 outline-none md:px-10 md:py-12">
           <div className="grid gap-2">
             <Button
