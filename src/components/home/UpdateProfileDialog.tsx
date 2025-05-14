@@ -8,6 +8,7 @@ import {
 import { IoClose } from "react-icons/io5"
 
 import UpdateProfileForm from "@/components/home/UpdateProfileForm"
+import useUser from "@/hooks/useUser"
 
 type UpdateProfileDialog = {
   isDialogOpen: boolean
@@ -18,6 +19,8 @@ export default function UpdateProfileDialog({
   isDialogOpen,
   onDialogClose,
 }: UpdateProfileDialog) {
+  const user = useUser()
+
   return (
     <ModalOverlay
       isOpen={isDialogOpen}
@@ -43,7 +46,11 @@ export default function UpdateProfileDialog({
               Personalize your account with your name and photo.
             </p>
           </div>
-          <UpdateProfileForm buttonText="Save Changes" />
+          <UpdateProfileForm
+            buttonText="Save Changes"
+            name={user?.name}
+            avatarUrl={user?.avatarUrl}
+          />
         </Dialog>
       </Modal>
     </ModalOverlay>

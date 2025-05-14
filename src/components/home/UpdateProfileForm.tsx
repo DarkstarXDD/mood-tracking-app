@@ -15,10 +15,14 @@ import type { UserProfileSchemaType } from "@/lib/schema"
 
 type UpdateProfileFormType = {
   buttonText: string
+  name?: string | null
+  avatarUrl?: string | null
 }
 
 export default function UpdateProfileForm({
   buttonText,
+  name,
+  avatarUrl,
 }: UpdateProfileFormType) {
   const {
     register,
@@ -27,6 +31,10 @@ export default function UpdateProfileForm({
     setError,
   } = useForm<UserProfileSchemaType>({
     resolver: zodResolver(userProfileSchema),
+    defaultValues: {
+      name: name ?? undefined,
+      avatarUrl: avatarUrl ?? undefined,
+    },
   })
 
   return (
@@ -48,9 +56,11 @@ export default function UpdateProfileForm({
 
       <div className="grid grid-cols-[auto_1fr] justify-items-start gap-x-5 gap-y-4">
         <Image
-          src={avatarPlaceholder}
+          src={avatarUrl ?? avatarPlaceholder}
           alt=""
-          className="col-start-1 row-span-2 size-16"
+          className="col-start-1 row-span-2 size-16 rounded-full"
+          width={128}
+          height={128}
         ></Image>
         <div className="col-start-2 grid content-start gap-1.5">
           <p className="text-lg leading-normal tracking-tight text-neutral-900">
