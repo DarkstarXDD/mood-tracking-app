@@ -1,6 +1,6 @@
 "use client"
 
-import Button from "@/components/ui/Button"
+import MoodLogDialog from "@/components/home/mood-logging/MoodLogDialog"
 import useUser from "@/hooks/useUser"
 import { getFirstName } from "@/lib/utils"
 
@@ -20,7 +20,7 @@ export default function Hero() {
           Wednesday, April 16th, 2025
         </p>
       </div>
-      <Button size="large">Log today&apos;s mood</Button>
+      <MoodLogDialog />
     </div>
   )
 }
