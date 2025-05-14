@@ -18,6 +18,23 @@ export const verifySession = cache(async () => {
   return session.userId
 })
 
+export async function getUser() {
+  const userId = await verifySession()
+  if (!userId) redirect("/login")
+
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+    select: {
+      name: true,
+      email: true,
+      avatarUrl: true,
+      moodEntries: true,
+    },
+  })
+  return user
+}
+export type GetUserType = Awaited<ReturnType<typeof getUser>>
+
 export async function updateUser({ name, avatarUrl }: UserProfileSchemaType) {
   const userId = await verifySession()
   if (!userId) redirect("/login")
