@@ -1,13 +1,8 @@
-import {
-  Button,
-  Modal,
-  Dialog,
-  Heading,
-  ModalOverlay,
-} from "react-aria-components"
+import { Modal, Dialog, Heading, ModalOverlay } from "react-aria-components"
 import { IoClose } from "react-icons/io5"
 
 import UpdateProfileForm from "@/components/home/UpdateProfileForm"
+import Button from "@/components/ui/Button"
 import useUser from "@/hooks/useUser"
 
 type UpdateProfileDialog = {
@@ -32,7 +27,9 @@ export default function UpdateProfileDialog({
           <div className="grid gap-2">
             <Button
               slot="close"
-              className="rac-hover:bg-blue-50 rac-focus-visible:ring-2 absolute top-4.5 right-4.5 cursor-pointer justify-self-end rounded-md text-neutral-300 ring-blue-600 outline-none md:top-7 md:left-7"
+              variant="close"
+              size="icon"
+              className="absolute top-4.5 right-4.5 justify-self-end md:top-7 md:left-7"
             >
               <IoClose className="size-6 md:size-7" />
             </Button>

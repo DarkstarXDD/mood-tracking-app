@@ -19,7 +19,9 @@ export default function MoodLogDialog() {
           <Dialog className="from-gradient-start to-gradient-end relative grid gap-6 rounded-2xl bg-white bg-linear-to-b from-75% bg-no-repeat px-5 py-10 outline-none md:gap-8 md:px-10 md:py-12">
             <Button
               slot="close"
-              className="rac-hover:bg-blue-50 rac-focus-visible:ring-2 absolute top-4.5 right-4.5 cursor-pointer justify-self-end rounded-md text-neutral-300 ring-blue-600 outline-none md:top-7 md:left-7"
+              variant="close"
+              size="icon"
+              className="rac-hover:bg-blue-100 absolute top-4.5 right-4.5 justify-self-end md:top-7 md:left-7"
             >
               <IoClose className="size-6 md:size-7" />
             </Button>
