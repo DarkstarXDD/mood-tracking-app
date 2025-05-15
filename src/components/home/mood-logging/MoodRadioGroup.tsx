@@ -11,7 +11,7 @@ import type { RadioProps } from "react-aria-components"
 
 export default function MoodRadioGroup() {
   return (
-    <RadioGroup>
+    <RadioGroup label="How was your mood today?" name="mood">
       <MoodRadioOption
         value="veryHappy"
         label="Very Happy"

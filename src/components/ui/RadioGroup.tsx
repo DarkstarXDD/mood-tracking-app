@@ -24,9 +24,11 @@ export function RadioGroup({
   ...props
 }: RadioGroupProps) {
   return (
-    <RACRadioGroup {...props} className={cn("grid gap-3", className)}>
-      <Label>{label}</Label>
-      {children}
+    <RACRadioGroup {...props} className={cn("grid gap-6 md:gap-8", className)}>
+      <Label className="text-3xl leading-snug font-bold tracking-tight text-neutral-900 md:text-4xl md:leading-normal">
+        {label}
+      </Label>
+      <div className="grid gap-3">{children}</div>
     </RACRadioGroup>
   )
 }

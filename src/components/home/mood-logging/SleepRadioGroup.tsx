@@ -4,7 +4,10 @@ import type { RadioProps } from "react-aria-components"
 
 export default function SleepRadioGroup() {
   return (
-    <RadioGroup>
+    <RadioGroup
+      label="How many hours did you sleep last night?"
+      name="hoursOfSleep"
+    >
       <SleepRadioOption value="OverNineHours" label="9+ hours" />
       <SleepRadioOption value="SevenToEightHours" label="7-8 hours" />
       <SleepRadioOption value="FiveToSixHours" label="5-6 hours" />

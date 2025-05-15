@@ -12,6 +12,7 @@ export default function MoodTagCheckboxGroup() {
 
   return (
     <CheckboxGroup
+      name="moodTags"
       className="grid gap-6 md:gap-8"
       onChange={(values) => console.log(values)}
     >
