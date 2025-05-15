@@ -1,10 +1,15 @@
+import { capitalize } from "lodash"
 import { Checkbox, CheckboxGroup, Label, Text } from "react-aria-components"
 import { FaCheck } from "react-icons/fa"
+
+import useMoodFormOptions from "@/hooks/useMoodFormOptions"
 
 import type { ReactNode } from "react"
 import type { CheckboxProps } from "react-aria-components"
 
 export default function MoodTagCheckboxGroup() {
+  const moodFormOptions = useMoodFormOptions()
+
   return (
     <CheckboxGroup
       className="grid gap-6 md:gap-8"
@@ -23,9 +28,11 @@ export default function MoodTagCheckboxGroup() {
       </div>
 
       <div className="flex flex-wrap gap-x-4 gap-y-3">
-        <MoodTagCheckbox value="anxious">Anxious</MoodTagCheckbox>
-        <MoodTagCheckbox value="down">Down</MoodTagCheckbox>
-        <MoodTagCheckbox value="joyful">Joyful</MoodTagCheckbox>
+        {moodFormOptions?.map((item) => (
+          <MoodTagCheckbox key={item.name} value={item.name}>
+            {capitalize(item.name)}
+          </MoodTagCheckbox>
+        ))}
       </div>
     </CheckboxGroup>
   )
@@ -39,7 +46,7 @@ function MoodTagCheckbox({ children, ...props }: MoodTagCheckboxProps) {
   return (
     <Checkbox
       {...props}
-      className="rac-selected:border-blue-600 group rac-hover:bg-blue-50 rac-focus-visible:ring-2 flex cursor-pointer items-center gap-2 rounded-xl border-2 border-blue-100 px-4 py-3 text-lg leading-normal font-normal tracking-tight text-neutral-900 ring-blue-600 transition-[background-color]"
+      className="rac-selected:border-blue-600 group rac-hover:bg-blue-50 rac-focus-visible:ring-2 flex cursor-pointer items-center gap-2 rounded-xl border-2 border-blue-100 bg-white px-4 py-3 text-lg leading-normal font-normal tracking-tight text-neutral-900 ring-blue-600 transition-[background-color]"
     >
       {({ isSelected }) => (
         <>

@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation"
 
 import HomePage from "@/components/home/HomePage"
-import { checkIsOnboarded, getUser } from "@/lib/dal/user"
+import { checkIsOnboarded, getMoodTags, getUser } from "@/lib/dal/user"
 
 export default async function Home() {
   if (!(await checkIsOnboarded())) {
@@ -9,6 +9,7 @@ export default async function Home() {
   }
 
   const user = await getUser()
+  const moodTags = await getMoodTags()
 
-  return <HomePage user={user} />
+  return <HomePage user={user} moodTags={moodTags} />
 }

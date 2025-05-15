@@ -43,7 +43,7 @@ export function RadioOption({
   return (
     <RACRadio
       className={cn(
-        "group rac-selected:ring-1 rac-hover:bg-blue-50 rac-focus-visible:ring-1 rac-focus-visible:border-blue-600 rac-selected:border-blue-600 flex cursor-pointer items-center gap-3 rounded-xl border-2 border-blue-100 px-5 py-3 ring-blue-600 transition-[background-color]",
+        "group rac-selected:ring-1 rac-hover:bg-blue-50 rac-focus-visible:ring-1 rac-focus-visible:border-blue-600 rac-selected:border-blue-600 flex cursor-pointer items-center gap-3 rounded-xl border-2 border-blue-100 bg-white px-5 py-3 ring-blue-600 transition-[background-color]",
         className
       )}
       {...props}

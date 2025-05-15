@@ -35,6 +35,22 @@ export async function getUser() {
 }
 export type GetUserType = Awaited<ReturnType<typeof getUser>>
 
+export async function getMoodTags() {
+  const userId = await verifySession()
+  if (!userId) redirect("/login")
+
+  const moodTags = await prisma.moodTag.findMany({
+    select: {
+      name: true,
+    },
+    orderBy: {
+      name: "asc",
+    },
+  })
+  return moodTags
+}
+export type GetMoodTagsType = Awaited<ReturnType<typeof getMoodTags>>
+
 export async function updateUser({ name, avatarUrl }: UserProfileSchemaType) {
   const userId = await verifySession()
   if (!userId) redirect("/login")
