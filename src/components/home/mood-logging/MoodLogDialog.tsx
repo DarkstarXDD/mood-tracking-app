@@ -13,9 +13,9 @@ export default function MoodLogDialog() {
   return (
     <DialogTrigger>
       <Button size="large">Log today&apos;s mood</Button>
-      <ModalOverlay className="fixed inset-0 z-10 flex min-h-dvh flex-col items-center justify-center overflow-auto bg-neutral-900/70 p-5">
+      <ModalOverlay className="fixed inset-0 z-10 flex min-h-dvh flex-col items-center overflow-auto bg-neutral-900/70 p-5 pt-20">
         <Modal className="w-full max-w-152 overflow-auto">
-          <Dialog className="from-gradient-start to-gradient-end relative grid gap-8 rounded-2xl bg-white bg-linear-to-b from-75% bg-no-repeat px-5 py-10 outline-none md:px-10 md:py-12">
+          <Dialog className="from-gradient-start to-gradient-end relative grid gap-6 rounded-2xl bg-white bg-linear-to-b from-75% bg-no-repeat px-5 py-10 outline-none md:gap-8 md:px-10 md:py-12">
             <Heading className="text-4xl leading-normal font-bold tracking-tight text-neutral-900 md:text-5xl md:leading-tight">
               Log your mood
             </Heading>
