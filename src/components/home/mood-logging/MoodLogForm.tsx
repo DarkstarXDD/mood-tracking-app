@@ -1,5 +1,6 @@
 import { useState } from "react"
 
+import DailyNote from "@/components/home/mood-logging/DailyNote"
 import MoodRadioGroup from "@/components/home/mood-logging/MoodRadioGroup"
 import MoodTagCheckboxGroup from "@/components/home/mood-logging/MoodTagCheckboxGroup"
 import SleepRadioGroup from "@/components/home/mood-logging/SleepRadioGroup"
@@ -21,7 +22,8 @@ export default function MoodLogForm() {
 
       {step === 1 && <MoodRadioGroup />}
       {step === 2 && <MoodTagCheckboxGroup />}
-      {step === 3 && <SleepRadioGroup />}
+      {step === 3 && <DailyNote />}
+      {step === 4 && <SleepRadioGroup />}
 
       <Button size="large" onPress={handleNext}>
         Continue
