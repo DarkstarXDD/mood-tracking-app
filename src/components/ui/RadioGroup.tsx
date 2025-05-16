@@ -4,6 +4,7 @@ import {
   RadioGroup as RACRadioGroup,
 } from "react-aria-components"
 
+import RACFieldError from "@/components/ui/RACFieldError"
 import { cn } from "@/lib/utils"
 
 import type { ReactNode } from "react"
@@ -15,12 +16,14 @@ import type {
 type RadioGroupProps = Omit<RACRadioGroupProps, "children"> & {
   label?: string
   children: ReactNode
+  errorMessage?: string
 }
 
 export function RadioGroup({
   label,
   children,
   className,
+  errorMessage = "Test",
   ...props
 }: RadioGroupProps) {
   return (
@@ -29,6 +32,7 @@ export function RadioGroup({
         {label}
       </Label>
       <div className="grid gap-3">{children}</div>
+      <RACFieldError>{errorMessage}</RACFieldError>
     </RACRadioGroup>
   )
 }
