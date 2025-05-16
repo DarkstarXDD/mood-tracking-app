@@ -22,6 +22,7 @@ export default function DailyNote() {
     handleSubmit,
     register,
     formState: { errors },
+    watch,
   } = useForm<FormSchemaType>({ resolver: zodResolver(formSchema) })
   const inputId = useId()
   const errorId = `${inputId}-error`
@@ -53,7 +54,7 @@ export default function DailyNote() {
             aria-describedby={isInvalid ? errorId : undefined}
           />
           <span className="justify-self-end text-xs leading-none font-semibold tracking-normal text-neutral-600">
-            0/150
+            {`${watch("dailyNote")?.length}/150`}
           </span>
         </div>
 
