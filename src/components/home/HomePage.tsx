@@ -6,6 +6,9 @@ import AverageMood from "@/components/home/AverageMood"
 import AverageSleep from "@/components/home/AverageSleep"
 import Header from "@/components/home/Header"
 import Hero from "@/components/home/Hero"
+import MoodCard from "@/components/home/MoodCard"
+import ReflectionCard from "@/components/home/ReflectionCard"
+import SleepCard from "@/components/home/SleepCard"
 
 import type { GetUserType, GetMoodTagsType } from "@/lib/dal/user"
 
@@ -27,6 +30,13 @@ export default function HomePage({ user, moodTags }: HomePageProps) {
           <Header />
           <main className="grid gap-16">
             <Hero />
+
+            <div className="grid gap-x-8 gap-y-5 lg:grid-cols-[minmax(0,_41.875rem)_1fr] lg:grid-rows-[auto_1fr]">
+              <MoodCard />
+              <SleepCard />
+              <ReflectionCard />
+            </div>
+
             <div className="grid gap-6 rounded-2xl border border-blue-100 bg-white px-4 py-5 md:px-5 md:py-6 lg:px-6">
               <AverageMood />
               <AverageSleep />
