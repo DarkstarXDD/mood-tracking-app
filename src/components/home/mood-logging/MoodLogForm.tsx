@@ -10,6 +10,7 @@ import { MoodFormSchemaType } from "@/lib/schema"
 type MoodFormContextType = {
   handleNext: () => void
   updateFormData: (data: Partial<MoodFormSchemaType>) => void
+  moodFormData: Partial<MoodFormSchemaType> | undefined
 }
 
 export const MoodFormContext = createContext<MoodFormContextType | undefined>(
@@ -30,7 +31,9 @@ export default function MoodLogForm() {
   console.log(moodFormData)
 
   return (
-    <MoodFormContext.Provider value={{ handleNext, updateFormData }}>
+    <MoodFormContext.Provider
+      value={{ handleNext, updateFormData, moodFormData }}
+    >
       <div className="grid gap-6 md:gap-8">
         <SteppedProgressBar
           totalSteps={4}

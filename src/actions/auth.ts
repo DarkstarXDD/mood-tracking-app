@@ -2,15 +2,20 @@
 
 import { Prisma } from "@prisma/client"
 import { hash, compare } from "bcryptjs"
+import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
 
 import * as user from "@/lib/dal/user"
 import { messages } from "@/lib/messages"
 import { prisma } from "@/lib/prisma"
-import { authSchema } from "@/lib/schema"
+import { authSchema, moodFormSchema } from "@/lib/schema"
 import { createSession } from "@/lib/session"
 
-import type { AuthSchemaType, UserProfileSchemaType } from "@/lib/schema"
+import type {
+  AuthSchemaType,
+  MoodFormSchemaType,
+  UserProfileSchemaType,
+} from "@/lib/schema"
 
 export async function registerUser(userData: AuthSchemaType) {
   const validationResult = authSchema.safeParse(userData)
@@ -58,4 +63,17 @@ export async function updateUser({ name, avatarUrl }: UserProfileSchemaType) {
     return response
   }
   redirect("/")
+}
+
+export async function createMoodEntry(moodData: MoodFormSchemaType) {
+  const validationResult = moodFormSchema.safeParse(moodData)
+  if (!validationResult.success) {
+    return messages.errors.validation
+  }
+
+  const response = await user.createMoodEntry(validationResult.data)
+  if (response) {
+    return response
+  }
+  revalidatePath("/")
 }

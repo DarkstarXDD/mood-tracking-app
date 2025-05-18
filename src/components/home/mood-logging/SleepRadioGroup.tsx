@@ -1,6 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm, Controller } from "react-hook-form"
 
+import { createMoodEntry } from "@/actions/auth"
 import Button from "@/components/ui/Button"
 import { RadioGroup, RadioOption } from "@/components/ui/RadioGroup"
 import useMoodForm from "@/hooks/useMoodForm"
@@ -13,18 +14,28 @@ const formSchema = moodFormSchema.pick({ hoursOfSleep: true })
 type FormSchemaType = Pick<MoodFormSchemaType, "hoursOfSleep">
 
 export default function SleepRadioGroup() {
-  const moodForm = useMoodForm()
+  const { moodFormData } = useMoodForm()
 
-  const { handleSubmit, control } = useForm<FormSchemaType>({
+  const { handleSubmit, control, setError } = useForm<FormSchemaType>({
     resolver: zodResolver(formSchema),
   })
 
   return (
     <form
       className="grid gap-6 md:gap-8"
-      onSubmit={handleSubmit((data) => {
-        moodForm?.updateFormData(data)
-        moodForm?.handleNext()
+      onSubmit={handleSubmit(async (data) => {
+        const allFormData = { ...moodFormData, ...data }
+        const validationResult = moodFormSchema.safeParse(allFormData)
+        if (!validationResult.success) {
+          setError("hoursOfSleep", { message: "Invalid mood data values." })
+          return
+        }
+        const response = await createMoodEntry(validationResult.data)
+        if (response) {
+          setError("hoursOfSleep", response)
+          return
+        }
+        console.log("Successfull")
       })}
     >
       <Controller

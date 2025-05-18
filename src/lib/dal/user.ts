@@ -8,7 +8,7 @@ import { messages } from "@/lib/messages"
 import { prisma } from "@/lib/prisma"
 import { verifyToken } from "@/lib/session"
 
-import type { UserProfileSchemaType } from "@/lib/schema"
+import type { MoodFormSchemaType, UserProfileSchemaType } from "@/lib/schema"
 
 export const verifySession = cache(async () => {
   const token = (await cookies()).get("token")?.value
@@ -76,4 +76,34 @@ export async function checkIsOnboarded() {
   })
 
   return !!user
+}
+
+const moodMap = {
+  veryHappy: "VeryHappy",
+  happy: "Happy",
+  neutral: "Neutral",
+  sad: "Sad",
+  verySad: "VerySad",
+} as const
+
+export async function createMoodEntry(moodData: MoodFormSchemaType) {
+  const userId = await verifySession()
+  if (!userId) redirect("/login")
+
+  try {
+    await prisma.moodEntry.create({
+      data: {
+        mood: moodMap[moodData.mood],
+        tags: {
+          connect: moodData.moodTags.map((tag) => ({ name: tag })),
+        },
+        note: moodData.dailyNote,
+        sleep: moodData.hoursOfSleep,
+        user: { connect: { id: userId } },
+      },
+    })
+  } catch (e) {
+    console.error(e)
+    return messages.errors.generic
+  }
 }
