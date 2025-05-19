@@ -11,7 +11,5 @@ export default async function Home() {
   const user = await getUser()
   const moodTags = await getMoodTags()
 
-  console.log(user)
-
   return <HomePage user={user} moodTags={moodTags} />
 }

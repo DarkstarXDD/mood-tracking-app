@@ -1,7 +1,12 @@
 import AverageMood from "@/components/home/average-data/AverageMood"
 import NotEnoughData from "@/components/home/average-data/NotEnoughData"
+import useUser from "@/hooks/useUser"
+import { getAverageMood } from "@/lib/utils"
 
 export default function AverageMoodCard() {
+  const { moodEntries } = useUser()
+  const averageMood = getAverageMood(moodEntries)
+
   const isEnoughData = true
   return (
     <div className="grid gap-3">
@@ -15,7 +20,7 @@ export default function AverageMoodCard() {
       </h2>
 
       {isEnoughData ? (
-        <AverageMood mood="Neutral" />
+        <AverageMood mood={averageMood} />
       ) : (
         <NotEnoughData type="mood" />
       )}

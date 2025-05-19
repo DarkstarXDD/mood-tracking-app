@@ -1,3 +1,4 @@
+import { startCase } from "lodash"
 import Image from "next/image"
 import { FiArrowRight } from "react-icons/fi"
 import { tv } from "tailwind-variants"
@@ -31,7 +32,7 @@ const moodStyles = tv({
   },
 })
 
-type AverageMoodProps = Required<VariantProps<typeof moodStyles>>
+export type AverageMoodProps = Required<VariantProps<typeof moodStyles>>
 
 export default function AverageMood({ mood }: AverageMoodProps) {
   return (
@@ -39,7 +40,7 @@ export default function AverageMood({ mood }: AverageMoodProps) {
       <div className="flex items-center gap-3 lg:gap-4">
         <Image src={moodIcons[mood]} alt="" />
         <p className="text-2xl leading-normal font-semibold tracking-normal text-neutral-900">
-          {mood}
+          {startCase(mood)}
         </p>
       </div>
 
