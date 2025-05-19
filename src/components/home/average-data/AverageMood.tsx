@@ -32,9 +32,23 @@ const moodStyles = tv({
   },
 })
 
-export type AverageMoodProps = Required<VariantProps<typeof moodStyles>>
+export type AverageMoodProps = Required<VariantProps<typeof moodStyles>> & {
+  averageMoodComparison: -1 | 0 | 1
+}
 
-export default function AverageMood({ mood }: AverageMoodProps) {
+export default function AverageMood({
+  mood,
+  averageMoodComparison,
+}: AverageMoodProps) {
+  let comparisonText: string
+  if (averageMoodComparison === 0) {
+    comparisonText = "Same as the previous 5 check-ins"
+  } else if (averageMoodComparison === -1) {
+    comparisonText = "Decrease from the previous 5 check-ins"
+  } else {
+    comparisonText = "Increase from the previous 5 check-ins"
+  }
+
   return (
     <div className={moodStyles({ mood })}>
       <div className="flex items-center gap-3 lg:gap-4">
@@ -47,7 +61,7 @@ export default function AverageMood({ mood }: AverageMoodProps) {
       <div className="flex items-center gap-2">
         <FiArrowRight className="size-4" />
         <p className="text-base leading-normal font-normal tracking-tight text-neutral-900">
-          Same as the previous 5 check-ins
+          {comparisonText}
         </p>
       </div>
     </div>

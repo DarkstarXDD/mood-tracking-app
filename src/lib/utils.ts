@@ -1,10 +1,6 @@
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
 
-import { GetUserType } from "@/lib/dal/user"
-
-import type { AverageMoodProps } from "@/components/home/average-data/AverageMood"
-
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
@@ -30,32 +26,4 @@ export const range = (start: number, end?: number, step = 1) => {
   }
 
   return output
-}
-
-const moodWeight: Record<string, number> = {
-  VerySad: 1,
-  Sad: 2,
-  Neutral: 3,
-  Happy: 4,
-  VeryHappy: 5,
-}
-
-const moodLabels: Record<number, string> = {
-  1: "VerySad",
-  2: "Sad",
-  3: "Neutral",
-  4: "Happy",
-  5: "VeryHappy",
-}
-
-export function getAverageMood(
-  moodEntries: Exclude<GetUserType, null>["moodEntries"]
-): AverageMoodProps["mood"] {
-  const sum = moodEntries.reduce(
-    (sum, current) => sum + moodWeight[current.mood],
-    0
-  )
-
-  const averageMoodLabel = moodLabels[Math.round(sum / 5)]
-  return averageMoodLabel as AverageMoodProps["mood"]
 }
