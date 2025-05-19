@@ -1,6 +1,9 @@
+import AverageSleep from "@/components/home/average-data/AverageSleep"
 import NotEnoughData from "@/components/home/average-data/NotEnoughData"
 
 export default function AverageSleepCard() {
+  const isEnoughData = true
+
   return (
     <div className="grid gap-3">
       <h2>
@@ -12,7 +15,11 @@ export default function AverageSleepCard() {
         </span>
       </h2>
 
-      <NotEnoughData type="sleep" />
+      {isEnoughData ? (
+        <AverageSleep hoursOfSleep="5-6 Hours" />
+      ) : (
+        <NotEnoughData type="sleep" />
+      )}
     </div>
   )
 }

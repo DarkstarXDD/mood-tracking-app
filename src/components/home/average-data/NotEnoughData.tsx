@@ -15,7 +15,7 @@ export default function NotEnoughData({ type }: { type: "mood" | "sleep" }) {
   }
 
   return (
-    <div className="custom-bg flex min-h-[9.375rem] flex-col items-start justify-center gap-3 rounded-2xl bg-blue-100 px-4 py-5 md:px-5">
+    <div className="custom-bg flex min-h-38 flex-col items-start justify-center gap-3 rounded-2xl bg-blue-100 px-4 py-5 md:px-5">
       <p className="text-2xl leading-normal font-semibold tracking-normal text-neutral-900">
         {contentHeading}
       </p>
