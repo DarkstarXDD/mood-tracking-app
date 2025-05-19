@@ -54,3 +54,12 @@
 
   --shadow-main: 0 8px 16px hsla(207, 12%, 14%, 0.08);
 }
+
+/* Custom class because tailwind variants has a bug where arbitrary bg-postion values are ignored */
+@layer components {
+  .custom-bg {
+    background-position: top -2rem right -11rem;
+    background-image: url("/images/bg-pattern-averages.svg");
+    background-repeat: no-repeat;
+  }
+}

@@ -2,8 +2,8 @@
 
 import { createContext } from "react"
 
-import AverageMood from "@/components/home/AverageMood"
-import AverageSleep from "@/components/home/AverageSleep"
+import AverageMoodCard from "@/components/home/average-data/AverageMoodCard"
+import AverageSleepCard from "@/components/home/average-data/AverageSleepCard"
 import Header from "@/components/home/Header"
 import Hero from "@/components/home/Hero"
 import MoodCard from "@/components/home/MoodCard"
@@ -38,8 +38,8 @@ export default function HomePage({ user, moodTags }: HomePageProps) {
             </div>
 
             <div className="grid gap-6 rounded-2xl border border-blue-100 bg-white px-4 py-5 md:px-5 md:py-6 lg:px-6">
-              <AverageMood />
-              <AverageSleep />
+              <AverageMoodCard />
+              <AverageSleepCard />
             </div>
           </main>
         </div>

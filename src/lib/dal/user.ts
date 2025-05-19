@@ -28,7 +28,9 @@ export async function getUser() {
       name: true,
       email: true,
       avatarUrl: true,
-      moodEntries: true,
+      moodEntries: {
+        orderBy: { createdAt: "desc" },
+      },
     },
   })
   return user
