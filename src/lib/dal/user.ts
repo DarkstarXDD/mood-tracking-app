@@ -29,7 +29,7 @@ export async function getUser() {
       email: true,
       avatarUrl: true,
       moodEntries: {
-        take: 5,
+        take: 10,
         orderBy: { createdAt: "desc" },
         omit: {
           updatedAt: true,

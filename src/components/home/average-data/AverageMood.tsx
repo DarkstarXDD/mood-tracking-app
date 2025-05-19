@@ -1,6 +1,7 @@
 import { startCase } from "lodash"
 import Image from "next/image"
-import { FiArrowRight } from "react-icons/fi"
+import { ElementType } from "react"
+import { FiArrowRight, FiArrowUpRight, FiArrowDownRight } from "react-icons/fi"
 import { tv } from "tailwind-variants"
 
 import happyEmojiSmall from "@/assets/icon-happy-white.svg"
@@ -36,18 +37,23 @@ export type AverageMoodProps = Required<VariantProps<typeof moodStyles>> & {
   averageMoodComparison: -1 | 0 | 1
 }
 
+const comparisonTextMap: Record<string, string> = {
+  "0": "Same as the previous 5 check-ins",
+  "-1": "Decrease from the previous 5 check-ins",
+  "1": "Increase from the previous 5 check-ins",
+}
+
+const comparisonIconMap: Record<string, ElementType> = {
+  "0": FiArrowRight,
+  "-1": FiArrowDownRight,
+  "1": FiArrowUpRight,
+}
+
 export default function AverageMood({
   mood,
   averageMoodComparison,
 }: AverageMoodProps) {
-  let comparisonText: string
-  if (averageMoodComparison === 0) {
-    comparisonText = "Same as the previous 5 check-ins"
-  } else if (averageMoodComparison === -1) {
-    comparisonText = "Decrease from the previous 5 check-ins"
-  } else {
-    comparisonText = "Increase from the previous 5 check-ins"
-  }
+  const Icon = comparisonIconMap[String(averageMoodComparison)]
 
   return (
     <div className={moodStyles({ mood })}>
@@ -59,9 +65,9 @@ export default function AverageMood({
       </div>
 
       <div className="flex items-center gap-2">
-        <FiArrowRight className="size-4" />
+        <Icon className="size-4 text-neutral-900" />
         <p className="text-base leading-normal font-normal tracking-tight text-neutral-900">
-          {comparisonText}
+          {comparisonTextMap[String(averageMoodComparison)]}
         </p>
       </div>
     </div>
