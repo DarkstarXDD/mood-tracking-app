@@ -1,5 +1,6 @@
 "use client"
 
+import { isSameDay } from "date-fns"
 import { createContext } from "react"
 
 import AverageMoodCard from "@/components/home/average-data/AverageMoodCard"
@@ -12,7 +13,13 @@ import SleepCard from "@/components/home/SleepCard"
 
 import type { GetUserType, GetMoodTagsType } from "@/lib/data-access/user"
 
-export const UserContext = createContext<GetUserType | null>(null)
+type UserContextType = {
+  user: GetUserType
+  hasMoodLoggedToday: boolean
+  hasFiveEntries: boolean
+} | null
+
+export const UserContext = createContext<UserContextType>(null)
 export const MoodFormOptionsContext = createContext<GetMoodTagsType | null>(
   null
 )
@@ -23,19 +30,27 @@ type HomePageProps = {
 }
 
 export default function HomePage({ user, moodTags }: HomePageProps) {
+  const hasMoodLoggedToday =
+    user.moodEntries.length > 0 &&
+    isSameDay(new Date(), new Date(user.moodEntries[0].createdAt))
+
+  const hasFiveEntries = user.moodEntries.length >= 5
+
   return (
-    <UserContext.Provider value={user}>
+    <UserContext.Provider value={{ user, hasMoodLoggedToday, hasFiveEntries }}>
       <MoodFormOptionsContext.Provider value={moodTags}>
         <div className="grid w-full max-w-[73.125rem] gap-12 lg:gap-16">
           <Header />
           <main className="grid gap-16">
             <Hero />
 
-            <div className="grid gap-x-8 gap-y-5 lg:grid-cols-[minmax(0,_41.875rem)_1fr] lg:grid-rows-[auto_1fr]">
-              <MoodCard />
-              <SleepCard />
-              <ReflectionCard />
-            </div>
+            {hasMoodLoggedToday && (
+              <div className="grid gap-x-8 gap-y-5 lg:grid-cols-[minmax(0,_41.875rem)_1fr] lg:grid-rows-[auto_1fr]">
+                <MoodCard />
+                <SleepCard />
+                <ReflectionCard />
+              </div>
+            )}
 
             <div className="grid gap-6 rounded-2xl border border-blue-100 bg-white px-4 py-5 md:px-5 md:py-6 lg:px-6">
               <AverageMoodCard />
