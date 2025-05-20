@@ -1,24 +1,42 @@
+import { startCase } from "lodash"
 import Image from "next/image"
 import { ImQuotesLeft } from "react-icons/im"
 
-// import happyEmoji from "@/assets/icon-happy-color.svg"
-// import neutralEmoji from "@/assets/icon-neutral-color.svg"
-// import sadEmoji from "@/assets/icon-sad-color.svg"
+import happyEmoji from "@/assets/icon-happy-color.svg"
+import neutralEmoji from "@/assets/icon-neutral-color.svg"
+import sadEmoji from "@/assets/icon-sad-color.svg"
 import veryHappyEmoji from "@/assets/icon-very-happy-color.svg"
-// import verySadEmoji from "@/assets/icon-very-sad-color.svg"
+import verySadEmoji from "@/assets/icon-very-sad-color.svg"
+import useUser from "@/hooks/useUser"
+
+const moodToEmojiMap = {
+  VeryHappy: veryHappyEmoji,
+  Happy: happyEmoji,
+  Neutral: neutralEmoji,
+  Sad: sadEmoji,
+  VerySad: verySadEmoji,
+}
 
 export default function MoodCard() {
+  const {
+    user: { moodEntries },
+  } = useUser()
+
+  const todayMood = moodEntries[0]
+
   return (
     <div className="grid justify-items-center gap-8 overflow-hidden rounded-2xl border border-blue-100 bg-white px-4 py-8 md:grid-cols-[1fr_auto] md:justify-items-start md:px-8 lg:row-span-2">
       <h2 className="flex flex-col justify-start text-center font-bold tracking-tight text-neutral-900 md:text-start">
         <span className="text-4xl leading-normal opacity-70">
           I&apos;m feeling
         </span>
-        <span className="text-5xl leading-tight">Very Happy</span>
+        <span className="text-5xl leading-tight">
+          {startCase(todayMood.mood)}
+        </span>
       </h2>
 
       <Image
-        src={veryHappyEmoji}
+        src={moodToEmojiMap[todayMood.mood]}
         alt=""
         className="row-span-2 h-50 w-50 md:h-80 md:w-80 md:translate-y-12 md:justify-self-end"
       />
