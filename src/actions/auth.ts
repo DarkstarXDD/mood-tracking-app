@@ -5,7 +5,7 @@ import { hash, compare } from "bcryptjs"
 import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
 
-import * as user from "@/lib/dal/user"
+import * as user from "@/lib/data-access/user"
 import { messages } from "@/lib/messages"
 import { prisma } from "@/lib/prisma"
 import { authSchema, moodFormSchema } from "@/lib/schema"

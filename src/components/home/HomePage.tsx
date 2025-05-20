@@ -10,7 +10,7 @@ import MoodCard from "@/components/home/MoodCard"
 import ReflectionCard from "@/components/home/ReflectionCard"
 import SleepCard from "@/components/home/SleepCard"
 
-import type { GetUserType, GetMoodTagsType } from "@/lib/dal/user"
+import type { GetUserType, GetMoodTagsType } from "@/lib/data-access/user"
 
 export const UserContext = createContext<GetUserType | null>(null)
 export const MoodFormOptionsContext = createContext<GetMoodTagsType | null>(

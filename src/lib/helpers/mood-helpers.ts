@@ -1,4 +1,4 @@
-import { GetUserType } from "@/lib/dal/user"
+import { GetUserType } from "@/lib/data-access/user"
 
 import type { AverageMoodProps } from "@/components/home/average-data/AverageMood"
 
