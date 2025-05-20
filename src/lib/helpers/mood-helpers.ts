@@ -2,7 +2,12 @@ import type { AverageMoodProps } from "@/components/home/average-data/AverageMoo
 import type { AverageSleepProps } from "@/components/home/average-data/AverageSleep"
 import type { GetUserType } from "@/lib/data-access/user"
 
-const moodWeight: Record<string, number> = {
+function getComparison(a: number, b?: number): -1 | 0 | 1 {
+  if (!b || a === b) return 0
+  return a < b ? -1 : 1
+}
+
+const moodWeight: Record<AverageMoodProps["mood"], number> = {
   VerySad: 1,
   Sad: 2,
   Neutral: 3,
@@ -10,7 +15,7 @@ const moodWeight: Record<string, number> = {
   VeryHappy: 5,
 }
 
-const moodLabels: Record<number, string> = {
+const moodLabels: Record<number, AverageMoodProps["mood"]> = {
   1: "VerySad",
   2: "Sad",
   3: "Neutral",
@@ -18,7 +23,7 @@ const moodLabels: Record<number, string> = {
   5: "VeryHappy",
 }
 
-const sleepWeight: Record<string, number> = {
+const sleepWeight: Record<AverageSleepProps["hoursOfSleep"], number> = {
   ZeroToTwoHours: 1,
   ThreeToFourHours: 2,
   FiveToSixHours: 3,
@@ -26,7 +31,7 @@ const sleepWeight: Record<string, number> = {
   OverNineHours: 5,
 }
 
-const sleepLabels: Record<number, string> = {
+const sleepLabels: Record<number, AverageSleepProps["hoursOfSleep"]> = {
   1: "ZeroToTwoHours",
   2: "ThreeToFourHours",
   3: "FiveToSixHours",
@@ -36,84 +41,38 @@ const sleepLabels: Record<number, string> = {
 
 type GetAverageMoodDataReturnType = {
   averageMood: AverageMoodProps["mood"]
-  averageMoodComparison: -1 | 0 | 1
   averageSleep: AverageSleepProps["hoursOfSleep"]
+  averageMoodComparison: -1 | 0 | 1
   averageSleepComparison: -1 | 0 | 1
 }
 
 export function getAverageMoodData(
   moodEntries: Exclude<GetUserType, null>["moodEntries"]
 ): GetAverageMoodDataReturnType {
-  let averageMoodComparison: -1 | 0 | 1 = 0
-  let averageSleepComparison: -1 | 0 | 1 = 0
+  const current = moodEntries.slice(0, 5)
+  const previous = moodEntries.slice(5, 10)
 
-  let prevAverageMoodWeight: number | undefined
-  let prevAverageSleepWeight: number | undefined
-
-  const currentEntries = moodEntries.slice(0, 5)
-  const previousEntries = moodEntries.slice(5, 10)
-
-  // Current average mood
-  const currentMoodSum = currentEntries.reduce(
-    (sum, current) => sum + moodWeight[current.mood],
-    0
+  const currentMoodAvg = Math.round(
+    current.reduce((s, e) => s + moodWeight[e.mood], 0) / current.length
   )
-  const currentAverageMoodWeight = Math.round(currentMoodSum / 5)
-  const currentAverageMood = moodLabels[currentAverageMoodWeight]
-
-  // Current average sleep
-  const currentSleepSum = currentEntries.reduce(
-    (sum, current) => sum + sleepWeight[current.sleep],
-    0
+  const currentSleepAvg = Math.round(
+    current.reduce((s, e) => s + sleepWeight[e.sleep], 0) / current.length
   )
-  const currentAverageSleepWeight = Math.round(currentSleepSum / 5)
-  const currentAverageSleep = sleepLabels[currentAverageSleepWeight]
 
-  // Previous averages
-  if (previousEntries.length === 5) {
-    // Previous average mood
-    const previousMoodSum = previousEntries.reduce(
-      (sum, current) => sum + moodWeight[current.mood],
-      0
-    )
+  const previousMoodAvg =
+    previous.length === 5
+      ? Math.round(previous.reduce((s, e) => s + moodWeight[e.mood], 0) / 5)
+      : undefined
 
-    const previousSleepSum = previousEntries.reduce(
-      (sum, current) => sum + sleepWeight[current.sleep],
-      0
-    )
-    prevAverageMoodWeight = Math.round(previousMoodSum / 5)
-    prevAverageSleepWeight = Math.round(previousSleepSum / 5)
-  }
-
-  // Comparison between mood averages
-  if (
-    !prevAverageMoodWeight ||
-    prevAverageMoodWeight === currentAverageMoodWeight
-  ) {
-    averageMoodComparison = 0
-  } else if (currentAverageMoodWeight < prevAverageMoodWeight) {
-    averageMoodComparison = -1
-  } else {
-    averageMoodComparison = 1
-  }
-
-  // Comparison between sleep averages
-  if (
-    !prevAverageSleepWeight ||
-    prevAverageSleepWeight === currentAverageSleepWeight
-  ) {
-    averageSleepComparison = 0
-  } else if (currentAverageSleepWeight < prevAverageSleepWeight) {
-    averageSleepComparison = -1
-  } else {
-    averageSleepComparison = 1
-  }
+  const previousSleepAvg =
+    previous.length === 5
+      ? Math.round(previous.reduce((s, e) => s + sleepWeight[e.sleep], 0) / 5)
+      : undefined
 
   return {
-    averageMood: currentAverageMood as AverageMoodProps["mood"],
-    averageSleep:
-      currentAverageSleep as unknown as AverageSleepProps["hoursOfSleep"],
-    averageMoodComparison,
-    averageSleepComparison,
+    averageMood: moodLabels[currentMoodAvg],
+    averageSleep: sleepLabels[currentSleepAvg],
+    averageMoodComparison: getComparison(currentMoodAvg, previousMoodAvg),
+    averageSleepComparison: getComparison(currentSleepAvg, previousSleepAvg),
   }
 }
