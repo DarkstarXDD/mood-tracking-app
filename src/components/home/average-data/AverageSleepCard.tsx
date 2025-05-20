@@ -1,8 +1,18 @@
 import AverageSleep from "@/components/home/average-data/AverageSleep"
 import NotEnoughData from "@/components/home/average-data/NotEnoughData"
+import useUser from "@/hooks/useUser"
+import { getAverageMoodData } from "@/lib/helpers/mood-helpers"
 
 export default function AverageSleepCard() {
-  const isEnoughData = true
+  let isEnoughData = true
+  const { moodEntries } = useUser()
+
+  if (moodEntries.length < 5) {
+    isEnoughData = false
+  }
+
+  const { averageSleep, averageSleepComparison } =
+    getAverageMoodData(moodEntries)
 
   return (
     <div className="grid gap-3">
@@ -16,7 +26,10 @@ export default function AverageSleepCard() {
       </h2>
 
       {isEnoughData ? (
-        <AverageSleep hoursOfSleep="5-6 Hours" />
+        <AverageSleep
+          hoursOfSleep={averageSleep}
+          averageSleepComparison={averageSleepComparison}
+        />
       ) : (
         <NotEnoughData type="sleep" />
       )}
