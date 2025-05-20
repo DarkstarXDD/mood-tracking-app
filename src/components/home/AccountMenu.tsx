@@ -17,7 +17,7 @@ import UpdateProfileDialog from "@/components/home/UpdateProfileDialog"
 import useUser from "@/hooks/useUser"
 
 export default function AccountMenu() {
-  const user = useUser()
+  const { user } = useUser()
   const [isDialogOpen, setIsDialogOpen] = useState(false)
 
   const openDialog = () => setIsDialogOpen(true)

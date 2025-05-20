@@ -22,7 +22,7 @@ export async function getUser() {
   const userId = await verifySession()
   if (!userId) redirect("/login")
 
-  const user = await prisma.user.findUnique({
+  const user = await prisma.user.findUniqueOrThrow({
     where: { id: userId },
     select: {
       name: true,

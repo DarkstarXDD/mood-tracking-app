@@ -4,12 +4,10 @@ import useUser from "@/hooks/useUser"
 import { getAverageMoodData } from "@/lib/helpers/mood-helpers"
 
 export default function AverageSleepCard() {
-  let isEnoughData = true
-  const { moodEntries } = useUser()
-
-  if (moodEntries.length < 5) {
-    isEnoughData = false
-  }
+  const {
+    user: { moodEntries },
+    hasFiveEntries,
+  } = useUser()
 
   const { averageSleep, averageSleepComparison } =
     getAverageMoodData(moodEntries)
@@ -25,7 +23,7 @@ export default function AverageSleepCard() {
         </span>
       </h2>
 
-      {isEnoughData ? (
+      {hasFiveEntries ? (
         <AverageSleep
           hoursOfSleep={averageSleep}
           averageSleepComparison={averageSleepComparison}

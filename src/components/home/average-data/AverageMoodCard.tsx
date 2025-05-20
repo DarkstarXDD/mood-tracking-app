@@ -4,12 +4,10 @@ import useUser from "@/hooks/useUser"
 import { getAverageMoodData } from "@/lib/helpers/mood-helpers"
 
 export default function AverageMoodCard() {
-  let isEnoughData = true
-  const { moodEntries } = useUser()
-
-  if (moodEntries.length < 5) {
-    isEnoughData = false
-  }
+  const {
+    user: { moodEntries },
+    hasFiveEntries,
+  } = useUser()
 
   const { averageMood, averageMoodComparison } = getAverageMoodData(moodEntries)
 
@@ -24,7 +22,7 @@ export default function AverageMoodCard() {
         </span>
       </h2>
 
-      {isEnoughData ? (
+      {hasFiveEntries ? (
         <AverageMood
           mood={averageMood}
           averageMoodComparison={averageMoodComparison}
