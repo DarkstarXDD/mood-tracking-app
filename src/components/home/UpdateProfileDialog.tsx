@@ -14,7 +14,7 @@ export default function UpdateProfileDialog({
   isDialogOpen,
   onDialogClose,
 }: UpdateProfileDialog) {
-  const user = useUser()
+  const { user } = useUser()
 
   return (
     <ModalOverlay
@@ -45,8 +45,8 @@ export default function UpdateProfileDialog({
           </div>
           <UpdateProfileForm
             buttonText="Save Changes"
-            name={user?.name}
-            avatarUrl={user?.avatarUrl}
+            name={user.name}
+            avatarUrl={user.avatarUrl}
           />
         </Dialog>
       </Modal>
