@@ -70,7 +70,7 @@ export default function MoodRadioGroup() {
         )}
       />
 
-      <Button type="submit" size="large">
+      <Button type="submit" size="lg">
         Continue
       </Button>
     </form>

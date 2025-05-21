@@ -13,7 +13,7 @@ import Button from "@/components/ui/Button"
 export default function MoodLogDialog() {
   return (
     <DialogTrigger>
-      <Button size="large">Log today&apos;s mood</Button>
+      <Button size="lg">Log today&apos;s mood</Button>
       <ModalOverlay className="fixed inset-0 z-10 flex min-h-dvh flex-col items-center overflow-auto bg-neutral-900/70 p-5 py-16">
         <Modal className="w-full max-w-152 overflow-auto">
           <Dialog className="from-gradient-start to-gradient-end relative grid gap-6 rounded-2xl bg-white bg-linear-to-b from-75% bg-no-repeat px-5 py-10 outline-none md:gap-8 md:px-10 md:py-12">

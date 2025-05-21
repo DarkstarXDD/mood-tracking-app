@@ -72,7 +72,7 @@ export default function MoodTagCheckboxGroup() {
         )}
       />
 
-      <Button type="submit" size="large">
+      <Button type="submit" size="lg">
         Continue
       </Button>
     </form>

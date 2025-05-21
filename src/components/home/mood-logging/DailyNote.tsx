@@ -63,7 +63,7 @@ export default function DailyNote() {
         )}
       </div>
 
-      <Button type="submit" size="large">
+      <Button type="submit" size="lg">
         Continue
       </Button>
     </form>
