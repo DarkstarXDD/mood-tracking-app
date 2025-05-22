@@ -5,6 +5,7 @@ import { createContext } from "react"
 
 import AverageMoodCard from "@/components/home/average-data/AverageMoodCard"
 import AverageSleepCard from "@/components/home/average-data/AverageSleepCard"
+import ChartWrapper from "@/components/home/chart/ChartWrapper"
 import Header from "@/components/home/Header"
 import Hero from "@/components/home/Hero"
 import MoodCard from "@/components/home/MoodCard"
@@ -41,20 +42,25 @@ export default function HomePage({ user, moodTags }: HomePageProps) {
       <MoodFormOptionsContext.Provider value={moodTags}>
         <div className="grid w-full max-w-[73.125rem] gap-12 lg:gap-16">
           <Header />
-          <main className="grid gap-16">
+          <main className="grid gap-12 lg:gap-16">
             <Hero />
 
-            {hasMoodLoggedToday && (
-              <div className="grid gap-x-8 gap-y-5 lg:grid-cols-[minmax(0,_41.875rem)_1fr] lg:grid-rows-[auto_1fr]">
-                <MoodCard />
-                <SleepCard />
-                <ReflectionCard />
-              </div>
-            )}
+            <div className="grid gap-8">
+              {hasMoodLoggedToday && (
+                <div className="grid gap-y-5 lg:grid-cols-[minmax(0,_41.875rem)_1fr] lg:grid-rows-[auto_1fr] lg:gap-x-8">
+                  <MoodCard />
+                  <SleepCard />
+                  <ReflectionCard />
+                </div>
+              )}
 
-            <div className="grid gap-6 rounded-2xl border border-blue-100 bg-white px-4 py-5 md:px-5 md:py-6 lg:px-6">
-              <AverageMoodCard />
-              <AverageSleepCard />
+              <div className="grid gap-8 lg:grid-cols-[auto_1fr]">
+                <div className="grid gap-6 rounded-2xl border border-blue-100 bg-white px-4 py-5 md:px-5 md:py-6 lg:px-6">
+                  <AverageMoodCard />
+                  <AverageSleepCard />
+                </div>
+                <ChartWrapper />
+              </div>
             </div>
           </main>
         </div>
