@@ -1,7 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm, Controller } from "react-hook-form"
 
-import { createMoodEntry } from "@/actions/auth"
+import { createMoodEntry } from "@/actions/user"
 import Button from "@/components/ui/Button"
 import { RadioGroup, RadioOption } from "@/components/ui/RadioGroup"
 import useMoodForm from "@/hooks/useMoodForm"

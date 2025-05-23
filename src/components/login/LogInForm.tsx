@@ -7,9 +7,9 @@ import { useForm } from "react-hook-form"
 import { loginUser } from "@/actions/auth"
 import Button from "@/components/ui/Button"
 import TextField from "@/components/ui/TextField"
-import { authSchema } from "@/lib/schema"
+import { logInSchema } from "@/lib/schema"
 
-import type { AuthSchemaType } from "@/lib/schema"
+import type { LogInSchemaType } from "@/lib/schema"
 
 export default function LogInForm() {
   const {
@@ -17,16 +17,15 @@ export default function LogInForm() {
     handleSubmit,
     formState: { errors },
     setError,
-  } = useForm<AuthSchemaType>({
-    resolver: zodResolver(authSchema),
+  } = useForm<LogInSchemaType>({
+    resolver: zodResolver(logInSchema),
   })
 
   return (
     <form
       className="shadow-main grid w-full max-w-lg gap-8 rounded-2xl bg-white px-4 py-10 md:px-8"
-      onSubmit={handleSubmit(async (data) => {
-        const response = await loginUser(data)
-
+      onSubmit={handleSubmit(async (formData) => {
+        const response = await loginUser(formData)
         if (response) {
           setError("email", response)
         }
@@ -44,12 +43,14 @@ export default function LogInForm() {
       <div className="grid gap-5">
         <TextField
           label="Email address"
+          autoComplete="email"
           {...register("email")}
           errorMessage={errors.email?.message}
         />
         <TextField
           label="Password"
           type="password"
+          autoComplete="current-password"
           {...register("password")}
           errorMessage={errors.password?.message}
         />
