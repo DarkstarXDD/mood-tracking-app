@@ -10,6 +10,14 @@ const sleepToNumericValue: Record<string, number> = {
   OverNineHours: 5,
 }
 
+const sleepToSleepLabelMap: Record<string, string> = {
+  1: "0-2 hours",
+  2: "3-4 hours",
+  3: "5-6 hours",
+  4: "7-8 hours",
+  5: "9+ hours",
+}
+
 const moodToColorMap: Record<string, string> = {
   VeryHappy: "#ffc97c",
   Happy: "#89e780",
@@ -32,6 +40,7 @@ type MoodEntry = {
   moodColor: string
   formattedDate: string
   moodIcon: string
+  sleepLabel: string
 }
 
 type CustomBarShapeProps = {
@@ -58,6 +67,8 @@ export default function Chart() {
     moodIcon: moodToIconMap[entry.mood],
   }))
 
+  moodEntries.map((entry) => console.log(sleepToSleepLabelMap[entry.sleep]))
+
   const barWidth = 40
   const gap = 16
   const numberOfBars = data.length
@@ -67,7 +78,7 @@ export default function Chart() {
     <div className="min-h-75 overflow-auto">
       <BarChart
         data={data.reverse()}
-        width={chartWidth}
+        width={chartWidth + 40}
         height={300}
         margin={{ bottom: 20 }}
       >
@@ -87,6 +98,14 @@ export default function Chart() {
           tick={<CustomXAxisTick />}
           tickLine={false}
           axisLine={false}
+          interval={0}
+        />
+        <YAxis
+          domain={[0, 5]}
+          ticks={[1, 2, 3, 4, 5]}
+          tickLine={false}
+          axisLine={false}
+          tick={<CustomYAxisTick />}
         />
       </BarChart>
     </div>
@@ -118,20 +137,14 @@ function CustomBarShape({ x, y, width, height, payload }: CustomBarShapeProps) {
   )
 }
 
-function CustomXAxisTick({
-  x,
-  y,
-  payload,
-}: {
-  x?: number
-  y?: number
-  payload?: { value: string }
-}) {
+type XAxisTickType = { x?: number; y?: number; payload?: { value: string } }
+
+function CustomXAxisTick({ x, y, payload }: XAxisTickType) {
   const [month, day] = (payload?.value ?? "").split(" ")
 
   return (
     <text x={x} y={y! + 10} textAnchor="middle">
-      <tspan x={x} dy="0" fontSize={12} fill="var(--color-neutral-600)">
+      <tspan fontSize={12} fill="var(--color-neutral-600)">
         {month}
       </tspan>
       <tspan
@@ -147,34 +160,19 @@ function CustomXAxisTick({
   )
 }
 
-function CustomYAxisTick({
-  x,
-  y,
-  payload,
-}: {
-  x?: number
-  y?: number
-  payload?: { value: string }
-}) {
+type YAxisTickType = { x?: number; y?: number; payload?: { value: number } }
+
+function CustomYAxisTick({ x, y, payload }: YAxisTickType) {
   return (
-    <g transform={`translate(${x}, ${y})`}>
-      <foreignObject x={-50} y={-10} width={100} height={20}>
-        <div style={{ display: "flex", alignItems: "center", fontSize: 12 }}>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            fill="none"
-            viewBox="0 0 16 16"
-          >
-            <path
-              fill="#ccc"
-              d="M10 .906c-.031.219-.125.531-.25.688L7.156 4.5H9c.25 0 .5.25.5.5v.5c0 .281-.25.5-.5.5H5.5a.494.494 0 0 1-.5-.5v-.406c0-.188.094-.5.219-.657L7.812 1.5H6a.494.494 0 0 1-.5-.5V.5c0-.25.219-.5.5-.5h3.5c.25 0 .5.25.5.5v.406ZM7.25 8a.76.76 0 0 1 .75.75v.813c-.031.218-.156.53-.313.687L3.876 14H7.5c.25 0 .5.25.5.5v1c0 .281-.25.5-.5.5H1.75a.722.722 0 0 1-.75-.75v-.781c0-.219.125-.531.281-.688L5.094 10H2a.494.494 0 0 1-.5-.5v-1c0-.25.219-.5.5-.5h5.25Zm7.25-1c.25 0 .5.25.5.5v.406c-.031.219-.125.532-.25.688L12.156 11.5H14c.25 0 .5.25.5.5v.5c0 .281-.25.5-.5.5h-3.5a.494.494 0 0 1-.5-.5v-.406c0-.188.094-.5.219-.656L12.813 8.5H11a.494.494 0 0 1-.5-.5v-.5c0-.25.219-.5.5-.5h3.5Z"
-            />
-          </svg>
-          <span style={{ marginLeft: 6 }}>{payload?.value}</span>
-        </div>
-      </foreignObject>
-    </g>
+    <text
+      x={x}
+      y={y}
+      fontSize={12}
+      textAnchor="end"
+      fill="var(--color-neutral-600)"
+      dominantBaseline="middle"
+    >
+      {sleepToSleepLabelMap[payload?.value ?? ""]}
+    </text>
   )
 }
