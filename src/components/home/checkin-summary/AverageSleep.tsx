@@ -2,6 +2,7 @@ import { ElementType } from "react"
 import { FiArrowDownRight, FiArrowRight, FiArrowUpRight } from "react-icons/fi"
 
 import SleepIcon from "@/components/icons/SleepIcon"
+import { sleepToSleepLabelMap } from "@/lib/data-maps"
 
 export type AverageSleepProps = {
   hoursOfSleep:
@@ -11,14 +12,6 @@ export type AverageSleepProps = {
     | "SevenToEightHours"
     | "OverNineHours"
   averageSleepComparison: -1 | 0 | 1
-}
-
-const sleepToSleepLabelMap: Record<string, string> = {
-  ZeroToTwoHours: "0-2 hours",
-  ThreeToFourHours: "3-4 hours",
-  FiveToSixHours: "5-6 hours",
-  SevenToEightHours: "7-8 hours",
-  OverNineHours: "9+ hours",
 }
 
 const comparisonTextMap: Record<string, string> = {

@@ -2,20 +2,8 @@ import { startCase } from "lodash"
 import Image from "next/image"
 import { ImQuotesLeft } from "react-icons/im"
 
-import happyEmoji from "@/assets/icon-happy-color.svg"
-import neutralEmoji from "@/assets/icon-neutral-color.svg"
-import sadEmoji from "@/assets/icon-sad-color.svg"
-import veryHappyEmoji from "@/assets/icon-very-happy-color.svg"
-import verySadEmoji from "@/assets/icon-very-sad-color.svg"
 import useUser from "@/hooks/useUser"
-
-const moodToEmojiMap = {
-  VeryHappy: veryHappyEmoji,
-  Happy: happyEmoji,
-  Neutral: neutralEmoji,
-  Sad: sadEmoji,
-  VerySad: verySadEmoji,
-}
+import { moodToBigEmojiMap } from "@/lib/data-maps"
 
 export default function MoodCard() {
   const {
@@ -36,7 +24,9 @@ export default function MoodCard() {
       </h2>
 
       <Image
-        src={moodToEmojiMap[todayMood.mood]}
+        src={moodToBigEmojiMap[todayMood.mood]}
+        width={154}
+        height={154}
         alt=""
         className="row-span-2 h-50 w-50 md:h-80 md:w-80 md:translate-y-12 md:justify-self-end"
       />

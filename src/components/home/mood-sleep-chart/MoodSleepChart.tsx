@@ -1,6 +1,7 @@
 import { Bar, BarChart, XAxis, YAxis, CartesianGrid } from "recharts"
 
 import useUser from "@/hooks/useUser"
+import { moodToSmallEmojiMap, moodToColorMap } from "@/lib/data-maps"
 
 const sleepToNumericValue: Record<string, number> = {
   ZeroToTwoHours: 1,
@@ -16,22 +17,6 @@ const sleepToSleepLabelMap: Record<string, string> = {
   3: "5-6 hours",
   4: "7-8 hours",
   5: "9+ hours",
-}
-
-const moodToColorMap: Record<string, string> = {
-  VeryHappy: "#ffc97c",
-  Happy: "#89e780",
-  Neutral: "#89caff",
-  Sad: "#b8b1ff",
-  VerySad: "#ff9b99",
-}
-
-const moodToIconMap: Record<string, string> = {
-  VeryHappy: "/images/icon-very-happy-white.svg",
-  Happy: "/images/icon-happy-white.svg",
-  Neutral: "/images/icon-neutral-white.svg",
-  Sad: "/images/icon-sad-white.svg",
-  VerySad: "/images/icon-very-sad-white.svg",
 }
 
 type MoodEntry = {
@@ -64,10 +49,8 @@ export default function MoodSleepChart() {
       month: "short",
       day: "numeric",
     }),
-    moodIcon: moodToIconMap[entry.mood],
+    moodIcon: moodToSmallEmojiMap[entry.mood],
   }))
-
-  moodEntries.map((entry) => console.log(sleepToSleepLabelMap[entry.sleep]))
 
   const barWidth = 40
   const gap = 16
