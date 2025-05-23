@@ -3,14 +3,11 @@
 import { isSameDay } from "date-fns"
 import { createContext } from "react"
 
-import AverageMoodCard from "@/components/home/average-data/AverageMoodCard"
-import AverageSleepCard from "@/components/home/average-data/AverageSleepCard"
-import ChartWrapper from "@/components/home/chart/ChartWrapper"
+import CheckinSummary from "@/components/home/checkin-summary/CheckinSummary"
+import DailySummary from "@/components/home/daily-summary/DailySummary"
 import Header from "@/components/home/Header"
 import Hero from "@/components/home/Hero"
-import MoodCard from "@/components/home/MoodCard"
-import ReflectionCard from "@/components/home/ReflectionCard"
-import SleepCard from "@/components/home/SleepCard"
+import MoodSleepChartWrapper from "@/components/home/mood-sleep-chart/MoodSleepChartWrapper"
 
 import type { GetUserType, GetMoodTagsType } from "@/lib/data-access/user"
 
@@ -46,20 +43,11 @@ export default function HomePage({ user, moodTags }: HomePageProps) {
             <Hero />
 
             <div className="grid gap-8">
-              {hasMoodLoggedToday && (
-                <div className="grid gap-y-5 lg:grid-cols-[minmax(0,_41.875rem)_1fr] lg:grid-rows-[auto_1fr] lg:gap-x-8">
-                  <MoodCard />
-                  <SleepCard />
-                  <ReflectionCard />
-                </div>
-              )}
+              {hasMoodLoggedToday && <DailySummary />}
 
               <div className="grid gap-8 lg:grid-cols-[auto_1fr]">
-                <div className="grid gap-6 rounded-2xl border border-blue-100 bg-white px-4 py-5 md:px-5 md:py-6 lg:px-6">
-                  <AverageMoodCard />
-                  <AverageSleepCard />
-                </div>
-                <ChartWrapper />
+                <CheckinSummary />
+                <MoodSleepChartWrapper />
               </div>
             </div>
           </main>

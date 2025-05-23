@@ -1,5 +1,5 @@
-import type { AverageMoodProps } from "@/components/home/average-data/AverageMood"
-import type { AverageSleepProps } from "@/components/home/average-data/AverageSleep"
+import type { AverageMoodProps } from "@/components/home/checkin-summary/AverageMood"
+import type { AverageSleepProps } from "@/components/home/checkin-summary/AverageSleep"
 import type { GetUserType } from "@/lib/data-access/user"
 
 function getComparison(a: number, b?: number): -1 | 0 | 1 {

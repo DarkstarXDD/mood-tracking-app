@@ -51,7 +51,7 @@ type CustomBarShapeProps = {
   payload?: MoodEntry
 }
 
-export default function Chart() {
+export default function MoodSleepChart() {
   const {
     user: { moodEntries },
   } = useUser()
