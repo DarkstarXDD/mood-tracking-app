@@ -2,9 +2,9 @@ import SleepIcon from "@/components/icons/SleepIcon"
 import useUser from "@/hooks/useUser"
 
 const sleepToSleepLabelMap: Record<string, string> = {
-  ZeroToTwoHours: "1 hour",
+  ZeroToTwoHours: "0-2 hours",
   ThreeToFourHours: "3-4 hours",
-  FiveToSixHours: "4-6 hours",
+  FiveToSixHours: "5-6 hours",
   SevenToEightHours: "7-8 hours",
   OverNineHours: "9+ hours",
 }
