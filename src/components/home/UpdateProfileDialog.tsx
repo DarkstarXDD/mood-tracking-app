@@ -45,8 +45,8 @@ export default function UpdateProfileDialog({
           </div>
           <UpdateProfileForm
             buttonText="Save Changes"
-            name={user.name}
-            avatarUrl={user.avatarUrl}
+            name={user.name ?? undefined}
+            avatarUrl={user.avatarUrl ?? undefined}
           />
         </Dialog>
       </Modal>

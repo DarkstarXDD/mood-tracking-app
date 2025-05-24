@@ -13,17 +13,17 @@ import { userProfileSchema } from "@/lib/schema"
 
 import type { UserProfileSchemaType } from "@/lib/schema"
 
-type UpdateProfileFormType = {
+type UpdateProfileFormProps = {
   buttonText: string
-  name?: string | null
-  avatarUrl?: string | null
+  name?: string
+  avatarUrl?: string
 }
 
 export default function UpdateProfileForm({
   buttonText,
   name,
   avatarUrl,
-}: UpdateProfileFormType) {
+}: UpdateProfileFormProps) {
   const {
     register,
     handleSubmit,
@@ -32,8 +32,8 @@ export default function UpdateProfileForm({
   } = useForm<UserProfileSchemaType>({
     resolver: zodResolver(userProfileSchema),
     defaultValues: {
-      name: name ?? undefined,
-      avatarUrl: avatarUrl ?? undefined,
+      name: name,
+      avatarUrl: avatarUrl,
     },
   })
 
@@ -49,7 +49,6 @@ export default function UpdateProfileForm({
     >
       <TextField
         label="Name"
-        placeholder="Jane Appleseed"
         {...register("name")}
         errorMessage={errors.name?.message}
       />
@@ -61,7 +60,7 @@ export default function UpdateProfileForm({
           className="col-start-1 row-span-2 size-16 rounded-full"
           width={128}
           height={128}
-        ></Image>
+        />
         <div className="col-start-2 grid content-start gap-1.5">
           <p className="text-lg leading-normal tracking-tight text-neutral-900">
             Upload Image
