@@ -5,7 +5,7 @@ import UpdateProfileForm from "@/components/home/UpdateProfileForm"
 import Button from "@/components/ui/Button"
 import useUser from "@/hooks/useUser"
 
-type UpdateProfileDialog = {
+type UpdateProfileDialogProps = {
   isDialogOpen: boolean
   onDialogClose: () => void
 }
@@ -13,7 +13,7 @@ type UpdateProfileDialog = {
 export default function UpdateProfileDialog({
   isDialogOpen,
   onDialogClose,
-}: UpdateProfileDialog) {
+}: UpdateProfileDialogProps) {
   const { user } = useUser()
 
   return (

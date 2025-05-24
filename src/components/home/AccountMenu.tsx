@@ -1,4 +1,5 @@
 "use client"
+
 import Image from "next/image"
 import { useState } from "react"
 import {
@@ -31,7 +32,7 @@ export default function AccountMenu() {
           className="rac-focus-visible:ring-3 cursor-pointer rounded-full ring-blue-600 outline-none"
         >
           <Image
-            src={user?.avatarUrl ?? avatarPlaceholder}
+            src={user.avatarUrl ?? avatarPlaceholder}
             alt=""
             className="h-10 w-10 rounded-full"
             width={128}
@@ -40,15 +41,15 @@ export default function AccountMenu() {
         </Button>
         <Popover
           placement="bottom end"
-          className="overflow-auto rounded-lg bg-white px-1 py-1"
+          className="w-full max-w-50 overflow-auto rounded-lg bg-white px-1 py-1"
         >
           <div className="grid gap-1">
             <div className="grid gap-0.25 px-3 py-2">
               <p className="text-lg leading-snug font-medium tracking-normal text-neutral-900">
-                {user?.name}
+                {user.name}
               </p>
               <p className="text-base leading-normal font-normal tracking-tight text-neutral-300">
-                {user?.email}
+                {user.email}
               </p>
             </div>
             <Separator className="h-0.25 border-none bg-blue-100" />
