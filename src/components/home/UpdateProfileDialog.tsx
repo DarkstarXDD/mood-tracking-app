@@ -1,3 +1,4 @@
+import { useRouter } from "next/navigation"
 import { Modal, Dialog, Heading, ModalOverlay } from "react-aria-components"
 import { IoClose } from "react-icons/io5"
 
@@ -15,6 +16,7 @@ export default function UpdateProfileDialog({
   onDialogClose,
 }: UpdateProfileDialogProps) {
   const { user } = useUser()
+  const router = useRouter()
 
   return (
     <ModalOverlay
@@ -47,6 +49,10 @@ export default function UpdateProfileDialog({
             buttonText="Save Changes"
             name={user.name ?? undefined}
             avatarUrl={user.avatarUrl ?? undefined}
+            onSuccess={() => {
+              router.refresh()
+              onDialogClose()
+            }}
           />
         </Dialog>
       </Modal>

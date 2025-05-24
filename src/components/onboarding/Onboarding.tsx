@@ -1,6 +1,12 @@
+"use client"
+
+import { useRouter } from "next/navigation"
+
 import UpdateProfileForm from "@/components/home/UpdateProfileForm"
 
 export default function Onboarding() {
+  const router = useRouter()
+
   return (
     <div className="shadow-main grid w-full max-w-lg gap-8 rounded-2xl bg-white px-4 py-10 md:px-8">
       <div className="grid gap-2">
@@ -12,7 +18,10 @@ export default function Onboarding() {
         </p>
       </div>
 
-      <UpdateProfileForm buttonText="Start Tracking" />
+      <UpdateProfileForm
+        buttonText="Start Tracking"
+        onSuccess={() => router.replace("/")}
+      />
     </div>
   )
 }

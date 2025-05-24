@@ -9,6 +9,7 @@ import { prisma } from "@/lib/prisma"
 import { verifyToken } from "@/lib/session"
 
 import type { MoodFormSchemaType, UserProfileSchemaType } from "@/lib/schema"
+import type { ActionResultType } from "@/lib/types"
 
 export const verifySession = cache(async () => {
   const token = (await cookies()).get("token")?.value
@@ -59,7 +60,10 @@ export async function getMoodTags() {
 }
 export type GetMoodTagsType = Awaited<ReturnType<typeof getMoodTags>>
 
-export async function updateUser({ name, avatarUrl }: UserProfileSchemaType) {
+export async function updateUser({
+  name,
+  avatarUrl,
+}: UserProfileSchemaType): Promise<ActionResultType> {
   const userId = await verifySession()
   if (!userId) redirect("/login")
 
@@ -69,8 +73,9 @@ export async function updateUser({ name, avatarUrl }: UserProfileSchemaType) {
       data: { name: name, avatarUrl: avatarUrl },
       select: { id: true },
     })
+    return { success: true }
   } catch {
-    return messages.errors.generic
+    return { success: false, error: messages.errors.generic }
   }
 }
 

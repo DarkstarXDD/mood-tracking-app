@@ -17,12 +17,14 @@ type UpdateProfileFormProps = {
   buttonText: string
   name?: string
   avatarUrl?: string
+  onSuccess: () => void
 }
 
 export default function UpdateProfileForm({
   buttonText,
   name,
   avatarUrl,
+  onSuccess,
 }: UpdateProfileFormProps) {
   const {
     register,
@@ -42,9 +44,9 @@ export default function UpdateProfileForm({
       className="grid gap-6"
       onSubmit={handleSubmit(async (data) => {
         const response = await updateUser(data)
-        if (response) {
-          setError("name", response)
-        }
+        if (!response.success) {
+          setError("name", response.error)
+        } else onSuccess()
       })}
     >
       <TextField
