@@ -13,6 +13,7 @@ import {
 } from "react-aria-components"
 import { FiSettings, FiLogOut } from "react-icons/fi"
 
+import { logoutUser } from "@/actions/auth"
 import avatarPlaceholder from "@/assets/avatar-placeholder.svg"
 import UpdateProfileDialog from "@/components/home/UpdateProfileDialog"
 import useUser from "@/hooks/useUser"
@@ -60,7 +61,7 @@ export default function AccountMenu() {
                 <span>Settings</span>
               </AccountMenuItem>
 
-              <AccountMenuItem>
+              <AccountMenuItem onAction={logoutUser}>
                 <FiLogOut className="size-4" />
                 <span>Logout</span>
               </AccountMenuItem>

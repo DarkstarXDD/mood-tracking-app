@@ -2,6 +2,7 @@
 
 import { Prisma } from "@prisma/client"
 import { hash, compare } from "bcryptjs"
+import { cookies } from "next/headers"
 import { redirect } from "next/navigation"
 
 import { messages } from "@/lib/messages"
@@ -49,4 +50,9 @@ export async function loginUser(formData: LogInSchemaType) {
     return messages.errors.generic
   }
   redirect("/")
+}
+
+export async function logoutUser() {
+  const cookieStore = await cookies()
+  cookieStore.delete("token")
 }
