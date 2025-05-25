@@ -1,10 +1,14 @@
 import { redirect } from "next/navigation"
 
 import HomePage from "@/components/home/HomePage"
-import { checkIsOnboarded, getMoodTags, getUser } from "@/lib/data-access/user"
+import {
+  hasCompletedOnboarding,
+  getMoodTags,
+  getUser,
+} from "@/lib/data-access/user"
 
 export default async function Home() {
-  if (!(await checkIsOnboarded())) {
+  if (!(await hasCompletedOnboarding())) {
     redirect("/onboarding")
   }
 

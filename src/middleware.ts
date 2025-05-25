@@ -4,7 +4,7 @@ import { verifyToken } from "@/lib/session"
 
 import type { NextRequest } from "next/server"
 
-const protectedRoutes = ["/"]
+const protectedRoutes = ["/", "/onboarding"]
 const publicRoutes = ["/login", "/signup"]
 
 export async function middleware(request: NextRequest) {
@@ -21,7 +21,7 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(loginPageURL)
   }
 
-  // Redirect to /, if authenticated
+  // Redirect to /, if authenticated and tried to access auth routes
   if (session?.userId && publicRoutes.includes(pathName)) {
     return NextResponse.redirect(homePageURL)
   }

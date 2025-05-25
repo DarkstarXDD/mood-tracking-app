@@ -79,7 +79,7 @@ export async function updateUser({
   }
 }
 
-export async function checkIsOnboarded() {
+export async function hasCompletedOnboarding() {
   const userId = await verifySession()
   if (!userId) redirect("/login")
 
