@@ -42,9 +42,15 @@ export type UserProfileSchemaType = z.infer<typeof userProfileSchema>
 -------------------
 */
 export const moodFormSchema = z.object({
-  mood: z.enum(["veryHappy", "happy", "neutral", "sad", "verySad"], {
-    required_error: "Please select a mood before continuing.",
-  }),
+  mood: z.coerce
+    .number({
+      required_error: "Please select a mood before continuing.",
+      invalid_type_error: "Please select a mood before continuing.",
+    })
+    .int()
+    .min(1)
+    .max(5),
+
   moodTags: z
     .array(z.string(), {
       required_error: "Please select at least one tag.",
@@ -52,16 +58,17 @@ export const moodFormSchema = z.object({
     })
     .nonempty("Please select at least one tag.")
     .max(3, "You can only select a maximum of 3 tags."),
+
   dailyNote: z.string().trim().max(150),
-  hoursOfSleep: z.enum(
-    [
-      "OverNineHours",
-      "SevenToEightHours",
-      "FiveToSixHours",
-      "ThreeToFourHours",
-      "ZeroToTwoHours",
-    ],
-    { required_error: "Please select the number of hours before continuing." }
-  ),
+
+  hoursOfSleep: z.coerce
+    .number({
+      required_error: "Please select the number of hours before continuing.",
+      invalid_type_error:
+        "Please select the number of hours before continuing.",
+    })
+    .int()
+    .min(1)
+    .max(5),
 })
 export type MoodFormSchemaType = z.infer<typeof moodFormSchema>

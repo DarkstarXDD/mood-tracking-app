@@ -28,8 +28,6 @@ export default function MoodLogForm() {
 
   const handleNext = () => setStep(step + 1)
 
-  console.log(moodFormData)
-
   return (
     <MoodFormContext.Provider
       value={{ handleNext, updateFormData, moodFormData }}

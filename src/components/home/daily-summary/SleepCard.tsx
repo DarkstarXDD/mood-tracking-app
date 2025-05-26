@@ -1,6 +1,5 @@
 import SleepIcon from "@/components/icons/SleepIcon"
 import useUser from "@/hooks/useUser"
-import { sleepToSleepLabelMap } from "@/lib/data-maps"
 
 export default function SleepCard() {
   const {
@@ -16,7 +15,7 @@ export default function SleepCard() {
         <span>Sleep</span>
       </h2>
       <p className="text-4xl leading-normal font-bold tracking-tight text-neutral-900">
-        {sleepToSleepLabelMap[todayMood.sleep]}
+        {todayMood.hoursOfSleep.label}
       </p>
     </div>
   )

@@ -5,6 +5,7 @@ import { createMoodEntry } from "@/actions/user"
 import Button from "@/components/ui/Button"
 import { RadioGroup, RadioOption } from "@/components/ui/RadioGroup"
 import useMoodForm from "@/hooks/useMoodForm"
+import useMoodFormOptions from "@/hooks/useMoodFormOptions"
 import { moodFormSchema } from "@/lib/schema"
 
 import type { MoodFormSchemaType } from "@/lib/schema"
@@ -15,6 +16,7 @@ type FormSchemaType = Pick<MoodFormSchemaType, "hoursOfSleep">
 
 export default function SleepRadioGroup() {
   const { moodFormData } = useMoodForm()
+  const { hoursOfSleep } = useMoodFormOptions()
 
   const { handleSubmit, control, setError } = useForm<FormSchemaType>({
     resolver: zodResolver(formSchema),
@@ -48,17 +50,19 @@ export default function SleepRadioGroup() {
           <RadioGroup
             label="How many hours did you sleep last night?"
             name={name}
-            value={value ?? null}
+            value={value?.toString() ?? null}
             onChange={onChange}
             onBlur={onBlur}
             isInvalid={invalid}
             errorMessage={error?.message}
           >
-            <SleepRadioOption value="OverNineHours" label="9+ hours" />
-            <SleepRadioOption value="SevenToEightHours" label="7-8 hours" />
-            <SleepRadioOption value="FiveToSixHours" label="5-6 hours" />
-            <SleepRadioOption value="ThreeToFourHours" label="3-4 hours" />
-            <SleepRadioOption value="ZeroToTwoHours" label="0-2 hours" />
+            {hoursOfSleep.map((item) => (
+              <SleepRadioOption
+                key={item.id}
+                value={item.id.toString()}
+                label={item.label}
+              />
+            ))}
           </RadioGroup>
         )}
       />

@@ -1,15 +1,7 @@
 import { Bar, BarChart, XAxis, YAxis, CartesianGrid } from "recharts"
 
 import useUser from "@/hooks/useUser"
-import { moodToSmallEmojiMap, moodToColorMap } from "@/lib/data-maps"
-
-const sleepToNumericValue: Record<string, number> = {
-  ZeroToTwoHours: 1,
-  ThreeToFourHours: 2,
-  FiveToSixHours: 3,
-  SevenToEightHours: 4,
-  OverNineHours: 5,
-}
+import { moodToColorMap } from "@/lib/data-maps"
 
 const sleepToSleepLabelMap: Record<string, string> = {
   1: "0-2 hours",
@@ -19,21 +11,15 @@ const sleepToSleepLabelMap: Record<string, string> = {
   5: "9+ hours",
 }
 
-type MoodEntry = {
-  sleep: string
-  sleepScore: number
-  moodColor: string
-  formattedDate: string
-  moodIcon: string
-  sleepLabel: string
-}
-
 type CustomBarShapeProps = {
   x?: number
   y?: number
   width?: number
   height?: number
-  payload?: MoodEntry
+  payload?: {
+    moodColor: string
+    moodIcon: string
+  }
 }
 
 export default function MoodSleepChart() {
@@ -42,14 +28,13 @@ export default function MoodSleepChart() {
   } = useUser()
 
   const data = moodEntries.map((entry) => ({
-    ...entry,
-    sleepScore: sleepToNumericValue[entry.sleep],
-    moodColor: moodToColorMap[entry.mood],
-    formattedDate: new Date(entry.createdAt).toLocaleDateString("en-US", {
+    sleepWeight: entry.hoursOfSleep.id,
+    moodColor: moodToColorMap[entry.mood.id],
+    moodIcon: entry.mood.emojiSmallUrl,
+    formattedDate: new Date(entry.createdAt).toLocaleDateString(undefined, {
       month: "short",
       day: "numeric",
     }),
-    moodIcon: moodToSmallEmojiMap[entry.mood],
   }))
 
   const barWidth = 40
@@ -72,7 +57,7 @@ export default function MoodSleepChart() {
           strokeOpacity={0.5}
         />
         <Bar
-          dataKey="sleepScore"
+          dataKey="sleepWeight"
           barSize={barWidth}
           shape={<CustomBarShape />}
         />

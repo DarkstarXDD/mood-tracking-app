@@ -2,14 +2,10 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import Image from "next/image"
 import { useForm, Controller } from "react-hook-form"
 
-import happyEmoji from "@/assets/icon-happy-color.svg"
-import neutralEmoji from "@/assets/icon-neutral-color.svg"
-import sadEmoji from "@/assets/icon-sad-color.svg"
-import veryHappyEmoji from "@/assets/icon-very-happy-color.svg"
-import verySadEmoji from "@/assets/icon-very-sad-color.svg"
 import Button from "@/components/ui/Button"
 import { RadioGroup, RadioOption } from "@/components/ui/RadioGroup"
 import useMoodForm from "@/hooks/useMoodForm"
+import useMoodFormOptions from "@/hooks/useMoodFormOptions"
 import { moodFormSchema } from "@/lib/schema"
 
 import type { MoodFormSchemaType } from "@/lib/schema"
@@ -20,6 +16,7 @@ type FormSchemaType = Pick<MoodFormSchemaType, "mood">
 
 export default function MoodRadioGroup() {
   const moodForm = useMoodForm()
+  const { moods } = useMoodFormOptions()
 
   const { handleSubmit, control } = useForm<FormSchemaType>({
     resolver: zodResolver(formSchema),
@@ -43,29 +40,20 @@ export default function MoodRadioGroup() {
           <RadioGroup
             label="How was your mood today?"
             name={name}
-            value={value ?? null}
+            value={value?.toString() ?? null}
             onChange={onChange}
             onBlur={onBlur}
             isInvalid={invalid}
             errorMessage={error?.message}
           >
-            <MoodRadioOption
-              value="veryHappy"
-              label="Very Happy"
-              emoji={veryHappyEmoji}
-            />
-            <MoodRadioOption value="happy" label="Happy" emoji={happyEmoji} />
-            <MoodRadioOption
-              value="neutral"
-              label="Neutral"
-              emoji={neutralEmoji}
-            />
-            <MoodRadioOption value="sad" label="Sad" emoji={sadEmoji} />
-            <MoodRadioOption
-              value="verySad"
-              label="Very Sad"
-              emoji={verySadEmoji}
-            />
+            {moods.map((item) => (
+              <MoodRadioOption
+                key={item.id}
+                value={item.id.toString()}
+                label={item.label}
+                emoji={item.emojiBigUrl}
+              />
+            ))}
           </RadioGroup>
         )}
       />
@@ -84,12 +72,18 @@ type MoodRadioOptionProps = RadioProps & {
 
 function MoodRadioOption({ label, emoji, ...props }: MoodRadioOptionProps) {
   return (
-    <RadioOption {...props}>
+    <RadioOption {...props} className="py-3">
       <span className="flex w-full items-center justify-between gap-3">
         <span className="text-xl leading-normal font-semibold tracking-normal text-neutral-900">
           {label}
         </span>
-        <Image src={emoji} alt="" className="h-[2.375rem] w-[2.375rem]" />
+        <Image
+          src={emoji}
+          alt=""
+          className="h-[2.375rem] w-[2.375rem]"
+          width={154}
+          height={154}
+        />
       </span>
     </RadioOption>
   )

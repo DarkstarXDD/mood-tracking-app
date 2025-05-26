@@ -1,9 +1,7 @@
-import { startCase } from "lodash"
 import Image from "next/image"
 import { ImQuotesLeft } from "react-icons/im"
 
 import useUser from "@/hooks/useUser"
-import { moodToBigEmojiMap } from "@/lib/data-maps"
 
 export default function MoodCard() {
   const {
@@ -18,13 +16,11 @@ export default function MoodCard() {
         <span className="text-4xl leading-normal opacity-70">
           I&apos;m feeling
         </span>
-        <span className="text-5xl leading-tight">
-          {startCase(todayMood.mood)}
-        </span>
+        <span className="text-5xl leading-tight">{todayMood.mood.label}</span>
       </h2>
 
       <Image
-        src={moodToBigEmojiMap[todayMood.mood]}
+        src={todayMood.mood.emojiBigUrl}
         width={154}
         height={154}
         alt=""

@@ -7,28 +7,12 @@ function getComparison(a: number, b?: number): -1 | 0 | 1 {
   return a < b ? -1 : 1
 }
 
-const moodWeight: Record<AverageMoodProps["mood"], number> = {
-  VerySad: 1,
-  Sad: 2,
-  Neutral: 3,
-  Happy: 4,
-  VeryHappy: 5,
-}
-
 const moodLabels: Record<number, AverageMoodProps["mood"]> = {
   1: "VerySad",
   2: "Sad",
   3: "Neutral",
   4: "Happy",
   5: "VeryHappy",
-}
-
-const sleepWeight: Record<AverageSleepProps["hoursOfSleep"], number> = {
-  ZeroToTwoHours: 1,
-  ThreeToFourHours: 2,
-  FiveToSixHours: 3,
-  SevenToEightHours: 4,
-  OverNineHours: 5,
 }
 
 const sleepLabels: Record<number, AverageSleepProps["hoursOfSleep"]> = {
@@ -47,26 +31,32 @@ type GetAverageMoodDataReturnType = {
 }
 
 export function getAverageMoodData(
-  moodEntries: Exclude<GetUserType, null>["moodEntries"]
+  moodEntries: GetUserType["moodEntries"]
 ): GetAverageMoodDataReturnType {
   const current = moodEntries.slice(0, 5)
   const previous = moodEntries.slice(5, 10)
 
   const currentMoodAvg = Math.round(
-    current.reduce((s, e) => s + moodWeight[e.mood], 0) / current.length
+    current.reduce((sum, current) => sum + current.mood.id, 0) / current.length
   )
   const currentSleepAvg = Math.round(
-    current.reduce((s, e) => s + sleepWeight[e.sleep], 0) / current.length
+    current.reduce((sum, current) => sum + current.hoursOfSleep.id, 0) /
+      current.length
   )
 
   const previousMoodAvg =
     previous.length === 5
-      ? Math.round(previous.reduce((s, e) => s + moodWeight[e.mood], 0) / 5)
+      ? Math.round(
+          previous.reduce((sum, current) => sum + current.mood.id, 0) / 5
+        )
       : undefined
 
   const previousSleepAvg =
     previous.length === 5
-      ? Math.round(previous.reduce((s, e) => s + sleepWeight[e.sleep], 0) / 5)
+      ? Math.round(
+          previous.reduce((sum, current) => sum + current.hoursOfSleep.id, 0) /
+            5
+        )
       : undefined
 
   return {

@@ -22,12 +22,12 @@ export async function updateUser(
 }
 
 export async function createMoodEntry(moodData: MoodFormSchemaType) {
-  const validationResult = moodFormSchema.safeParse(moodData)
-  if (!validationResult.success) {
+  const parsed = moodFormSchema.safeParse(moodData)
+  if (!parsed.success) {
     return messages.errors.validation
   }
 
-  const response = await user.createMoodEntry(validationResult.data)
+  const response = await user.createMoodEntry(parsed.data)
   if (response) {
     return response
   }

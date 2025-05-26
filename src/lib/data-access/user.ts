@@ -1,23 +1,13 @@
 import "server-only"
 
-import { cookies } from "next/headers"
 import { redirect } from "next/navigation"
-import { cache } from "react"
 
+import { verifySession } from "@/lib/data-access/auth"
 import { messages } from "@/lib/messages"
 import { prisma } from "@/lib/prisma"
-import { verifyToken } from "@/lib/session"
 
 import type { MoodFormSchemaType, UserProfileSchemaType } from "@/lib/schema"
 import type { ActionResultType } from "@/lib/types"
-
-export const verifySession = cache(async () => {
-  const token = (await cookies()).get("token")?.value
-  const session = await verifyToken(token)
-
-  if (!session?.userId) return undefined
-  return session.userId
-})
 
 export async function getUser() {
   const userId = await verifySession()
@@ -36,29 +26,13 @@ export async function getUser() {
           updatedAt: true,
           userId: true,
         },
-        include: { tags: true },
+        include: { tags: true, hoursOfSleep: true, mood: true },
       },
     },
   })
   return user
 }
 export type GetUserType = Awaited<ReturnType<typeof getUser>>
-
-export async function getMoodTags() {
-  const userId = await verifySession()
-  if (!userId) redirect("/login")
-
-  const moodTags = await prisma.moodTag.findMany({
-    select: {
-      name: true,
-    },
-    orderBy: {
-      name: "asc",
-    },
-  })
-  return moodTags
-}
-export type GetMoodTagsType = Awaited<ReturnType<typeof getMoodTags>>
 
 export async function updateUser({
   name,
@@ -91,14 +65,6 @@ export async function hasCompletedOnboarding() {
   return !!user
 }
 
-const moodMap = {
-  veryHappy: "VeryHappy",
-  happy: "Happy",
-  neutral: "Neutral",
-  sad: "Sad",
-  verySad: "VerySad",
-} as const
-
 export async function createMoodEntry(moodData: MoodFormSchemaType) {
   const userId = await verifySession()
   if (!userId) redirect("/login")
@@ -106,12 +72,12 @@ export async function createMoodEntry(moodData: MoodFormSchemaType) {
   try {
     await prisma.moodEntry.create({
       data: {
-        mood: moodMap[moodData.mood],
+        mood: { connect: { id: moodData.mood } },
         tags: {
           connect: moodData.moodTags.map((tag) => ({ name: tag })),
         },
         note: moodData.dailyNote,
-        sleep: moodData.hoursOfSleep,
+        hoursOfSleep: { connect: { id: moodData.hoursOfSleep } },
         user: { connect: { id: userId } },
       },
     })

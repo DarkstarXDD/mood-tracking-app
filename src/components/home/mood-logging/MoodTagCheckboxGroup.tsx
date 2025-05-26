@@ -19,7 +19,7 @@ type FormSchemaType = Pick<MoodFormSchemaType, "moodTags">
 
 export default function MoodTagCheckboxGroup() {
   const moodForm = useMoodForm()
-  const moodFormOptions = useMoodFormOptions()
+  const { moodTags } = useMoodFormOptions()
 
   const { handleSubmit, control } = useForm<FormSchemaType>({
     resolver: zodResolver(formSchema),
@@ -61,7 +61,7 @@ export default function MoodTagCheckboxGroup() {
             </div>
 
             <div className="flex flex-wrap gap-x-4 gap-y-3">
-              {moodFormOptions?.map((item) => (
+              {moodTags?.map((item) => (
                 <MoodTagCheckbox key={item.name} value={item.name}>
                   {capitalize(item.name)}
                 </MoodTagCheckbox>

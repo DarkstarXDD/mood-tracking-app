@@ -9,7 +9,8 @@ import Header from "@/components/home/Header"
 import Hero from "@/components/home/Hero"
 import MoodSleepChartWrapper from "@/components/home/mood-sleep-chart/MoodSleepChartWrapper"
 
-import type { GetUserType, GetMoodTagsType } from "@/lib/data-access/user"
+import type { GetMoodFormOptionsType } from "@/lib/data-access/mood"
+import type { GetUserType } from "@/lib/data-access/user"
 
 type UserContextType = {
   user: GetUserType
@@ -18,16 +19,15 @@ type UserContextType = {
 } | null
 
 export const UserContext = createContext<UserContextType>(null)
-export const MoodFormOptionsContext = createContext<GetMoodTagsType | null>(
-  null
-)
+export const MoodFormOptionsContext =
+  createContext<GetMoodFormOptionsType | null>(null)
 
 type HomePageProps = {
   user: GetUserType
-  moodTags: GetMoodTagsType
+  moodFormOptions: GetMoodFormOptionsType
 }
 
-export default function HomePage({ user, moodTags }: HomePageProps) {
+export default function HomePage({ user, moodFormOptions }: HomePageProps) {
   const hasMoodLoggedToday =
     user.moodEntries.length > 0 &&
     isSameDay(new Date(), new Date(user.moodEntries[0].createdAt))
@@ -36,7 +36,7 @@ export default function HomePage({ user, moodTags }: HomePageProps) {
 
   return (
     <UserContext.Provider value={{ user, hasMoodLoggedToday, hasFiveEntries }}>
-      <MoodFormOptionsContext.Provider value={moodTags}>
+      <MoodFormOptionsContext.Provider value={moodFormOptions}>
         <div className="grid w-full max-w-[73.125rem] gap-12 lg:gap-16">
           <Header />
           <main className="grid gap-12 lg:gap-16">

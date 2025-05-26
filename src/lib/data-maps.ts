@@ -1,11 +1,3 @@
-export const moodToBigEmojiMap: Record<string, string> = {
-  VeryHappy: "/assets/images/icon-very-happy-color.svg",
-  Happy: "/assets/images/icon-happy-color.svg",
-  Neutral: "/assets/images/icon-neutral-color.svg",
-  Sad: "/assets/images/icon-sad-color.svg",
-  VerySad: "/assets/images/icon-very-sad-color.svg",
-}
-
 export const moodToSmallEmojiMap: Record<string, string> = {
   VeryHappy: "/assets/images/icon-very-happy-white.svg",
   Happy: "/assets/images/icon-happy-white.svg",
@@ -23,9 +15,9 @@ export const sleepToSleepLabelMap: Record<string, string> = {
 }
 
 export const moodToColorMap: Record<string, string> = {
-  VerySad: "#ff9b99",
-  Sad: "#b8b1ff",
-  Neutral: "#89caff",
-  Happy: "#89e780",
-  VeryHappy: "#ffc97c",
+  1: "#ff9b99",
+  2: "#b8b1ff",
+  3: "#89caff",
+  4: "#89e780",
+  5: "#ffc97c",
 }

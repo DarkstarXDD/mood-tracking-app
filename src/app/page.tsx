@@ -1,11 +1,8 @@
 import { redirect } from "next/navigation"
 
 import HomePage from "@/components/home/HomePage"
-import {
-  hasCompletedOnboarding,
-  getMoodTags,
-  getUser,
-} from "@/lib/data-access/user"
+import { getMoodFormOptions } from "@/lib/data-access/mood"
+import { hasCompletedOnboarding, getUser } from "@/lib/data-access/user"
 
 export default async function Home() {
   if (!(await hasCompletedOnboarding())) {
@@ -13,7 +10,7 @@ export default async function Home() {
   }
 
   const user = await getUser()
-  const moodTags = await getMoodTags()
+  const moodFormOptions = await getMoodFormOptions()
 
-  return <HomePage user={user} moodTags={moodTags} />
+  return <HomePage user={user} moodFormOptions={moodFormOptions} />
 }
