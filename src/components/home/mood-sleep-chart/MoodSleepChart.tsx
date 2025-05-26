@@ -1,7 +1,10 @@
-import { Bar, BarChart, XAxis, YAxis, CartesianGrid } from "recharts"
+import { Bar, BarChart, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts"
 
+import ChartTooltip from "@/components/home/mood-sleep-chart/ChartTooltip"
 import useUser from "@/hooks/useUser"
 import { moodToColorMap } from "@/lib/data-maps"
+
+import type { GetUserType } from "@/lib/data-access/user"
 
 const sleepToSleepLabelMap: Record<string, string> = {
   1: "0-2 hours",
@@ -11,15 +14,21 @@ const sleepToSleepLabelMap: Record<string, string> = {
   5: "9+ hours",
 }
 
+export type BarChartPayload = Pick<
+  GetUserType,
+  "moodEntries"
+>["moodEntries"][number] & {
+  sleepLabel: string
+  moodColor: string
+  formattedDate: string
+}
+
 type CustomBarShapeProps = {
   x?: number
   y?: number
   width?: number
   height?: number
-  payload?: {
-    moodColor: string
-    moodIcon: string
-  }
+  payload?: BarChartPayload
 }
 
 export default function MoodSleepChart() {
@@ -28,9 +37,9 @@ export default function MoodSleepChart() {
   } = useUser()
 
   const data = moodEntries.map((entry) => ({
-    sleepWeight: entry.hoursOfSleep.id,
+    ...entry,
+    sleepLabel: entry.hoursOfSleep.label,
     moodColor: moodToColorMap[entry.mood.id],
-    moodIcon: entry.mood.emojiSmallUrl,
     formattedDate: new Date(entry.createdAt).toLocaleDateString(undefined, {
       month: "short",
       day: "numeric",
@@ -57,10 +66,11 @@ export default function MoodSleepChart() {
           strokeOpacity={0.5}
         />
         <Bar
-          dataKey="sleepWeight"
+          dataKey="hoursOfSleep.id"
           barSize={barWidth}
           shape={<CustomBarShape />}
         />
+        <Tooltip content={<ChartTooltip />} cursor={false} />
         <XAxis
           dataKey="formattedDate"
           tick={<CustomXAxisTick />}
@@ -94,7 +104,7 @@ function CustomBarShape({ x, y, width, height, payload }: CustomBarShapeProps) {
         rx={20}
       />
       <image
-        href={payload?.moodIcon}
+        href={payload?.mood.emojiSmallUrl}
         x={x! + width! / 2 - imgSize / 2}
         y={y! + 5}
         width={imgSize}
