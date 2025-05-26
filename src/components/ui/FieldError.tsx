@@ -10,7 +10,7 @@ export default function FieldError({
   return (
     <p
       {...props}
-      className={cn("text-sm leading-none text-red-700", className)}
+      className={cn("text-base leading-none text-red-700", className)}
     >
       {children}
     </p>

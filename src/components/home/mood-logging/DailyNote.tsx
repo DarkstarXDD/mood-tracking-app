@@ -42,6 +42,10 @@ export default function DailyNote() {
           className="text-3xl leading-snug font-bold tracking-tight text-neutral-900 md:text-4xl md:leading-normal"
         >
           Write about your day...
+          <span className="text-lg font-medium text-neutral-600">
+            {" "}
+            (Optional)
+          </span>
         </Label>
 
         <div className="grid gap-2">

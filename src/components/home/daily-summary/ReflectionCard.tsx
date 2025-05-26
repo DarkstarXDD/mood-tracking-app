@@ -17,9 +17,15 @@ export default function ReflectionCard() {
           <ReflectionIcon className="shrink-0" />
           <span>Reflection of the day</span>
         </h2>
-        <p className="leading-tight text-neutral-900">
-          Woke up early and finally tackled a big project!
-        </p>
+        {todayMood.note ? (
+          <p className="leading-tight break-all text-neutral-900">
+            {todayMood.note}
+          </p>
+        ) : (
+          <p className="leading-tight text-neutral-600">
+            No reflection added for today.
+          </p>
+        )}
       </div>
 
       <p className="flex flex-wrap items-center gap-3 leading-snug text-neutral-600 italic">
