@@ -65,7 +65,7 @@
 @layer components {
   .custom-bg {
     background-position: top -2rem right -11rem;
-    background-image: url("/assets/images/bg-pattern-averages.svg");
+    background-image: url("/background/bg-pattern-averages.svg");
     background-repeat: no-repeat;
   }
 }

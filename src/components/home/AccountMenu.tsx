@@ -14,7 +14,6 @@ import {
 import { FiSettings, FiLogOut } from "react-icons/fi"
 
 import { logoutUser } from "@/actions/auth"
-import avatarPlaceholder from "@/assets/avatar-placeholder.svg"
 import UpdateProfileDialog from "@/components/home/UpdateProfileDialog"
 import useUser from "@/hooks/useUser"
 
@@ -33,7 +32,7 @@ export default function AccountMenu() {
           className="rac-focus-visible:ring-3 cursor-pointer rounded-full ring-blue-600 outline-none"
         >
           <Image
-            src={user.avatarUrl ?? avatarPlaceholder}
+            src={user.avatarUrl ?? "/avatar/avatar-placeholder.svg"}
             alt=""
             className="h-10 w-10 rounded-full"
             width={128}
