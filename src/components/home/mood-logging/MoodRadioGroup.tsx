@@ -1,14 +1,15 @@
 import { zodResolver } from "@hookform/resolvers/zod"
-import Image from "next/image"
 import { useForm, Controller } from "react-hook-form"
 
 import Button from "@/components/ui/Button"
 import { RadioGroup, RadioOption } from "@/components/ui/RadioGroup"
+import SVGIcon from "@/components/ui/SVGIcon"
 import useMoodForm from "@/hooks/useMoodForm"
 import useMoodFormOptions from "@/hooks/useMoodFormOptions"
 import { moodFormSchema } from "@/lib/schema"
 
 import type { MoodFormSchemaType } from "@/lib/schema"
+import type { SVGIconNameType } from "@/lib/types"
 import type { RadioProps } from "react-aria-components"
 
 const formSchema = moodFormSchema.pick({ mood: true })
@@ -51,7 +52,7 @@ export default function MoodRadioGroup() {
                 key={item.id}
                 value={item.id.toString()}
                 label={item.label}
-                emoji={item.emojiBigUrl}
+                icon={item.iconColor as SVGIconNameType}
               />
             ))}
           </RadioGroup>
@@ -67,23 +68,17 @@ export default function MoodRadioGroup() {
 
 type MoodRadioOptionProps = RadioProps & {
   label: string
-  emoji: string
+  icon: SVGIconNameType
 }
 
-function MoodRadioOption({ label, emoji, ...props }: MoodRadioOptionProps) {
+function MoodRadioOption({ label, icon, ...props }: MoodRadioOptionProps) {
   return (
     <RadioOption {...props} className="py-3">
       <span className="flex w-full items-center justify-between gap-3">
         <span className="text-xl leading-normal font-semibold tracking-normal text-neutral-900">
           {label}
         </span>
-        <Image
-          src={emoji}
-          alt=""
-          className="h-[2.375rem] w-[2.375rem]"
-          width={154}
-          height={154}
-        />
+        <SVGIcon name={icon} className="h-[2.375rem] w-[2.375rem]" />
       </span>
     </RadioOption>
   )

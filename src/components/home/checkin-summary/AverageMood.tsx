@@ -1,9 +1,9 @@
 import { startCase } from "lodash"
-import Image from "next/image"
 import { ElementType } from "react"
 import { FiArrowRight, FiArrowUpRight, FiArrowDownRight } from "react-icons/fi"
 import { tv } from "tailwind-variants"
 
+import SVGIcon from "@/components/ui/SVGIcon"
 import { moodToSmallEmojiMap } from "@/lib/data-maps"
 
 import type { VariantProps } from "tailwind-variants"
@@ -46,7 +46,7 @@ export default function AverageMood({
   return (
     <div className={moodStyles({ mood })}>
       <div className="flex items-center gap-3 lg:gap-4">
-        <Image src={moodToSmallEmojiMap[mood]} width={30} height={30} alt="" />
+        <SVGIcon name={moodToSmallEmojiMap[mood]} className="size-7.5" />
         <p className="text-2xl leading-normal font-semibold tracking-normal text-neutral-900">
           {startCase(mood)}
         </p>

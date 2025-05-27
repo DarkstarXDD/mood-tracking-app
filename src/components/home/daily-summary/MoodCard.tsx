@@ -1,7 +1,9 @@
-import Image from "next/image"
 import { ImQuotesLeft } from "react-icons/im"
 
+import SVGIcon from "@/components/ui/SVGIcon"
 import useUser from "@/hooks/useUser"
+
+import type { SVGIconNameType } from "@/lib/types"
 
 export default function MoodCard() {
   const {
@@ -19,11 +21,8 @@ export default function MoodCard() {
         <span className="text-5xl leading-tight">{todayMood.mood.label}</span>
       </h2>
 
-      <Image
-        src={todayMood.mood.emojiBigUrl}
-        width={154}
-        height={154}
-        alt=""
+      <SVGIcon
+        name={todayMood.mood.iconColor as SVGIconNameType}
         className="row-span-2 h-50 w-50 md:h-80 md:w-80 md:translate-y-12 md:justify-self-end"
       />
 

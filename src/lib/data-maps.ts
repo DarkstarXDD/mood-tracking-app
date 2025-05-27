@@ -1,9 +1,11 @@
-export const moodToSmallEmojiMap: Record<string, string> = {
-  VeryHappy: "/assets/images/icon-very-happy-white.svg",
-  Happy: "/assets/images/icon-happy-white.svg",
-  Neutral: "/assets/images/icon-neutral-white.svg",
-  Sad: "/assets/images/icon-sad-white.svg",
-  VerySad: "/assets/images/icon-very-sad-white.svg",
+import type { SVGIconNameType } from "@/lib/types"
+
+export const moodToSmallEmojiMap: Record<string, SVGIconNameType> = {
+  VeryHappy: "icon-very-happy-white",
+  Happy: "icon-happy-white",
+  Neutral: "icon-neutral-white",
+  Sad: "icon-sad-white",
+  VerySad: "icon-very-sad-white",
 }
 
 export const sleepToSleepLabelMap: Record<string, string> = {

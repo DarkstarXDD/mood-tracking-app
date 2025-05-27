@@ -37,11 +37,11 @@ model MoodEntry {
 }
 
 model Mood {
-  id            Int    @id
-  name          String @unique
-  label         String
-  emojiSmallUrl String
-  emojiBigUrl   String
+  id        Int    @id
+  name      String @unique
+  label     String
+  iconWhite String
+  iconColor String
 
   entries MoodEntry[]
 }

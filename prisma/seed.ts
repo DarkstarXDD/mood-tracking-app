@@ -16,8 +16,8 @@ async function main() {
       id: item.id,
       name: item.name,
       label: item.label,
-      emojiSmallUrl: item.emojiSmallUrl,
-      emojiBigUrl: item.emojiBigUrl,
+      iconWhite: item.iconWhite,
+      iconColor: item.iconColor,
     })),
   })
 

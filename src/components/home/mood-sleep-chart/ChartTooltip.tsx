@@ -1,10 +1,11 @@
 import { startCase } from "lodash"
-import Image from "next/image"
 import { ReactNode } from "react"
 
+import SVGIcon from "@/components/ui/SVGIcon"
 import { cn } from "@/lib/utils"
 
 import type { BarChartPayload } from "@/components/home/mood-sleep-chart/MoodSleepChart"
+import type { SVGIconNameType } from "@/lib/types"
 import type { TooltipProps } from "recharts"
 
 export default function ChartTooltip({
@@ -17,17 +18,10 @@ export default function ChartTooltip({
       <div className="grid w-full max-w-44 gap-3 rounded-xl border border-blue-100 bg-white p-3">
         <div className="grid gap-1.5">
           <DescriptionTerm>Mood</DescriptionTerm>
-          <DescriptionDetails className="flex items-center gap-1.5">
-            <Image
-              src={data.mood.emojiBigUrl}
-              alt="Mood"
-              width={20}
-              height={20}
-              style={{
-                display: "inline",
-                verticalAlign: "middle",
-                marginRight: 4,
-              }}
+          <DescriptionDetails className="flex items-center gap-2">
+            <SVGIcon
+              name={data.mood.iconColor as SVGIconNameType}
+              className="size-5"
             />
             <span>{data.mood.label}</span>
           </DescriptionDetails>

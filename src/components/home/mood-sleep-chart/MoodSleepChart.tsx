@@ -1,10 +1,12 @@
 import { Bar, BarChart, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts"
 
 import ChartTooltip from "@/components/home/mood-sleep-chart/ChartTooltip"
+import SVGIcon from "@/components/ui/SVGIcon"
 import useUser from "@/hooks/useUser"
 import { moodToColorMap } from "@/lib/data-maps"
 
 import type { GetUserType } from "@/lib/data-access/user"
+import type { SVGIconNameType } from "@/lib/types"
 
 const sleepToSleepLabelMap: Record<string, string> = {
   1: "0-2 hours",
@@ -103,13 +105,12 @@ function CustomBarShape({ x, y, width, height, payload }: CustomBarShapeProps) {
         fill={payload?.moodColor}
         rx={20}
       />
-      <image
-        href={payload?.mood.emojiSmallUrl}
-        x={x! + width! / 2 - imgSize / 2}
-        y={y! + 5}
+      <SVGIcon
+        name={payload?.mood.iconWhite as SVGIconNameType}
         width={imgSize}
         height={imgSize}
-        aria-hidden={true}
+        x={x! + width! / 2 - imgSize / 2}
+        y={y! + 5}
       />
     </g>
   )
