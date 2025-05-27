@@ -9,7 +9,8 @@ export default function AverageMoodCard() {
     hasFiveEntries,
   } = useUser()
 
-  const { averageMood, averageMoodComparison } = getAverageMoodData(moodEntries)
+  const { averageMoodId, averageMoodWeightDiff } =
+    getAverageMoodData(moodEntries)
 
   return (
     <div className="grid gap-3">
@@ -24,8 +25,8 @@ export default function AverageMoodCard() {
 
       {hasFiveEntries ? (
         <AverageMood
-          mood={averageMood}
-          averageMoodComparison={averageMoodComparison}
+          averageMoodId={averageMoodId}
+          averageMoodWeightDiff={averageMoodWeightDiff}
         />
       ) : (
         <NotEnoughData type="mood" />

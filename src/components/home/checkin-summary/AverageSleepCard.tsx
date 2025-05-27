@@ -9,7 +9,7 @@ export default function AverageSleepCard() {
     hasFiveEntries,
   } = useUser()
 
-  const { averageSleep, averageSleepComparison } =
+  const { averageSleepId, averageSleepWeightDiff } =
     getAverageMoodData(moodEntries)
 
   return (
@@ -25,8 +25,8 @@ export default function AverageSleepCard() {
 
       {hasFiveEntries ? (
         <AverageSleep
-          hoursOfSleep={averageSleep}
-          averageSleepComparison={averageSleepComparison}
+          averageSleepId={averageSleepId}
+          averageSleepWeightDiff={averageSleepWeightDiff}
         />
       ) : (
         <NotEnoughData type="sleep" />

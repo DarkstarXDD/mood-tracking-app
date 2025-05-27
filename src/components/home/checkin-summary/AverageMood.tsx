@@ -1,61 +1,52 @@
-import { startCase } from "lodash"
-import { ElementType } from "react"
-import { FiArrowRight, FiArrowUpRight, FiArrowDownRight } from "react-icons/fi"
-import { tv } from "tailwind-variants"
-
 import SVGIcon from "@/components/ui/SVGIcon"
-import { moodToSmallEmojiMap } from "@/lib/data-maps"
+import {
+  averageDiffToTextMap,
+  averageDiffToIconMap,
+  moodIdToIconWhiteMap,
+  moodIdToLabelMap,
+} from "@/lib/data-maps"
+import { cn } from "@/lib/utils"
 
-import type { VariantProps } from "tailwind-variants"
-
-const moodStyles = tv({
-  base: "custom-bg flex min-h-38 flex-col items-start justify-center gap-3 rounded-2xl px-4 py-5 md:px-5",
-  variants: {
-    mood: {
-      VerySad: "bg-red-300",
-      Sad: "bg-indigo-200",
-      Neutral: "bg-blue-300",
-      Happy: "bg-green-300",
-      VeryHappy: "bg-amber-300",
-    },
-  },
-})
-
-export type AverageMoodProps = Required<VariantProps<typeof moodStyles>> & {
-  averageMoodComparison: -1 | 0 | 1
+export type AverageMoodProps = {
+  averageMoodId: number
+  averageMoodWeightDiff: -1 | 0 | 1
 }
 
-const comparisonTextMap: Record<string, string> = {
-  "0": "Same as the previous 5 check-ins",
-  "-1": "Decrease from the previous 5 check-ins",
-  "1": "Increase from the previous 5 check-ins",
-}
-
-const comparisonIconMap: Record<string, ElementType> = {
-  "0": FiArrowRight,
-  "-1": FiArrowDownRight,
-  "1": FiArrowUpRight,
+const moodIdToColorMap: Record<number, string> = {
+  1: "bg-red-300",
+  2: "bg-indigo-200",
+  3: "bg-blue-300",
+  4: "bg-green-300",
+  5: "bg-amber-300",
 }
 
 export default function AverageMood({
-  mood,
-  averageMoodComparison,
+  averageMoodId,
+  averageMoodWeightDiff,
 }: AverageMoodProps) {
-  const Icon = comparisonIconMap[String(averageMoodComparison)]
+  const Icon = averageDiffToIconMap[String(averageMoodWeightDiff)]
 
   return (
-    <div className={moodStyles({ mood })}>
+    <div
+      className={cn(
+        "custom-bg flex min-h-38 flex-col items-start justify-center gap-3 rounded-2xl px-4 py-5 md:px-5",
+        moodIdToColorMap[averageMoodId]
+      )}
+    >
       <div className="flex items-center gap-3 lg:gap-4">
-        <SVGIcon name={moodToSmallEmojiMap[mood]} className="size-7.5" />
+        <SVGIcon
+          name={moodIdToIconWhiteMap[averageMoodId]}
+          className="size-7.5"
+        />
         <p className="text-2xl leading-normal font-semibold tracking-normal text-neutral-900">
-          {startCase(mood)}
+          {moodIdToLabelMap[averageMoodId]}
         </p>
       </div>
 
       <div className="flex items-center gap-2">
         <Icon className="size-4 text-neutral-900" />
         <p className="text-base leading-normal font-normal tracking-tight text-neutral-900">
-          {comparisonTextMap[String(averageMoodComparison)]}
+          {averageDiffToTextMap[String(averageMoodWeightDiff)]}
         </p>
       </div>
     </div>

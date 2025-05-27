@@ -1,5 +1,3 @@
-import type { AverageMoodProps } from "@/components/home/checkin-summary/AverageMood"
-import type { AverageSleepProps } from "@/components/home/checkin-summary/AverageSleep"
 import type { GetUserType } from "@/lib/data-access/user"
 
 function getComparison(a: number, b?: number): -1 | 0 | 1 {
@@ -7,27 +5,11 @@ function getComparison(a: number, b?: number): -1 | 0 | 1 {
   return a < b ? -1 : 1
 }
 
-const moodLabels: Record<number, AverageMoodProps["mood"]> = {
-  1: "VerySad",
-  2: "Sad",
-  3: "Neutral",
-  4: "Happy",
-  5: "VeryHappy",
-}
-
-const sleepLabels: Record<number, AverageSleepProps["hoursOfSleep"]> = {
-  1: "ZeroToTwoHours",
-  2: "ThreeToFourHours",
-  3: "FiveToSixHours",
-  4: "SevenToEightHours",
-  5: "OverNineHours",
-}
-
 type GetAverageMoodDataReturnType = {
-  averageMood: AverageMoodProps["mood"]
-  averageSleep: AverageSleepProps["hoursOfSleep"]
-  averageMoodComparison: -1 | 0 | 1
-  averageSleepComparison: -1 | 0 | 1
+  averageMoodId: number
+  averageSleepId: number
+  averageMoodWeightDiff: -1 | 0 | 1
+  averageSleepWeightDiff: -1 | 0 | 1
 }
 
 export function getAverageMoodData(
@@ -60,9 +42,9 @@ export function getAverageMoodData(
       : undefined
 
   return {
-    averageMood: moodLabels[currentMoodAvg],
-    averageSleep: sleepLabels[currentSleepAvg],
-    averageMoodComparison: getComparison(currentMoodAvg, previousMoodAvg),
-    averageSleepComparison: getComparison(currentSleepAvg, previousSleepAvg),
+    averageMoodId: currentMoodAvg,
+    averageSleepId: currentSleepAvg,
+    averageMoodWeightDiff: getComparison(currentMoodAvg, previousMoodAvg),
+    averageSleepWeightDiff: getComparison(currentSleepAvg, previousSleepAvg),
   }
 }
