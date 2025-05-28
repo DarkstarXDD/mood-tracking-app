@@ -1,3 +1,4 @@
+import { motion } from "motion/react"
 import {
   Label,
   Radio as RACRadio,
@@ -47,15 +48,36 @@ export function RadioOption({
   ...props
 }: RadioOptionProps) {
   return (
-    <RACRadio
-      className={cn(
-        "group rac-selected:ring-1 rac-hover:bg-blue-50 rac-focus-visible:ring-1 rac-focus-visible:border-blue-600 rac-selected:border-blue-600 flex cursor-pointer items-center gap-3 rounded-xl border-2 border-blue-100 bg-white px-5 py-4 ring-blue-600 transition-[background-color]",
-        className
+    <RACRadio {...props} className="group">
+      {({ isSelected }) => (
+        <div
+          className={cn(
+            "group-rac-hover:bg-blue-50 group-rac-selected:ring-1 group-rac-focus-visible:ring-1 group-rac-focus-visible:border-blue-600 group-rac-selected:border-blue-600 relative flex cursor-pointer items-center gap-3 rounded-xl border-2 border-blue-100 bg-white px-5 py-4 ring-blue-600 transition-[background-color]",
+            className
+          )}
+        >
+          <motion.span
+            className="relative h-5 w-5 shrink-0 rounded-full border-2 border-blue-100 bg-white"
+            animate={isSelected ? "selected" : "unSelected"}
+            variants={{
+              selected: { borderColor: "var(--color-blue-600)" },
+              unSelected: { borderColor: "var(--color-blue-100)" },
+            }}
+          >
+            <motion.span
+              className="absolute inset-0 rounded-full bg-blue-600"
+              initial={{ scale: 0 }}
+              animate={isSelected ? "selected" : "unSelected"}
+              variants={{
+                selected: { scale: 0.7, opacity: 1 },
+                unSelected: { scale: 0, opacity: 0 },
+              }}
+              transition={{ type: "spring", stiffness: 350, damping: 30 }}
+            />
+          </motion.span>
+          {children}
+        </div>
       )}
-      {...props}
-    >
-      <span className="group-rac-selected:border-blue-600 group-rac-selected:border-5 h-5 w-5 shrink-0 rounded-full border-2 border-blue-100"></span>
-      {children}
     </RACRadio>
   )
 }
