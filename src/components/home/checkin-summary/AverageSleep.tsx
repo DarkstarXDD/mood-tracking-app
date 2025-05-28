@@ -1,9 +1,6 @@
 import SleepIcon from "@/components/icons/SleepIcon"
-import {
-  sleepIdToLabelMap,
-  averageDiffToTextMap,
-  averageDiffToIconMap,
-} from "@/lib/data-maps"
+import useMoodFormOptions from "@/hooks/useMoodFormOptions"
+import { averageDiffToTextMap, averageDiffToIconMap } from "@/lib/data-maps"
 
 export type AverageSleepProps = {
   averageSleepId: number
@@ -14,6 +11,7 @@ export default function AverageSleep({
   averageSleepId,
   averageSleepWeightDiff,
 }: AverageSleepProps) {
+  const { hoursOfSleep } = useMoodFormOptions()
   const Icon = averageDiffToIconMap[String(averageSleepWeightDiff)]
 
   return (
@@ -21,7 +19,7 @@ export default function AverageSleep({
       <div className="flex items-center gap-3 lg:gap-4">
         <SleepIcon className="size-6 text-white opacity-70" />
         <p className="text-2xl leading-normal font-semibold tracking-normal text-white">
-          {sleepIdToLabelMap[averageSleepId]}
+          {hoursOfSleep.find((hour) => hour.id === averageSleepId)?.label}
         </p>
       </div>
 

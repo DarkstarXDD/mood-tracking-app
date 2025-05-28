@@ -1,11 +1,9 @@
 import SVGIcon from "@/components/ui/SVGIcon"
-import {
-  averageDiffToTextMap,
-  averageDiffToIconMap,
-  moodIdToIconWhiteMap,
-  moodIdToLabelMap,
-} from "@/lib/data-maps"
+import useMoodFormOptions from "@/hooks/useMoodFormOptions"
+import { averageDiffToTextMap, averageDiffToIconMap } from "@/lib/data-maps"
 import { cn } from "@/lib/utils"
+
+import type { SVGIconNameType } from "@/lib/types"
 
 export type AverageMoodProps = {
   averageMoodId: number
@@ -24,6 +22,7 @@ export default function AverageMood({
   averageMoodId,
   averageMoodWeightDiff,
 }: AverageMoodProps) {
+  const { moods } = useMoodFormOptions()
   const Icon = averageDiffToIconMap[String(averageMoodWeightDiff)]
 
   return (
@@ -35,11 +34,14 @@ export default function AverageMood({
     >
       <div className="flex items-center gap-3 lg:gap-4">
         <SVGIcon
-          name={moodIdToIconWhiteMap[averageMoodId]}
+          name={
+            moods.find((m) => m.id === averageMoodId)
+              ?.iconWhite as SVGIconNameType
+          }
           className="size-7.5"
         />
         <p className="text-2xl leading-normal font-semibold tracking-normal text-neutral-900">
-          {moodIdToLabelMap[averageMoodId]}
+          {moods.find((m) => m.id === averageMoodId)?.label}
         </p>
       </div>
 
