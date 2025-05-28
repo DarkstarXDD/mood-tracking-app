@@ -1,6 +1,7 @@
+import { motion } from "motion/react"
 import { ProgressBar } from "react-aria-components"
 
-import { range, cn } from "@/lib/utils"
+import { range } from "@/lib/utils"
 
 type SteppedProgressBar = {
   totalSteps: number
@@ -24,13 +25,18 @@ export default function SteppedProgressBar({
       className="grid h-1.5 gap-4 bg-transparent"
     >
       {range(1, totalSteps + 1).map((step) => (
-        <span
-          key={step}
-          className={cn(
-            "rounded-full bg-blue-200",
-            currentStep >= step && "bg-blue-600"
-          )}
-        ></span>
+        <span key={step} className="relative rounded-full bg-blue-200">
+          <motion.span
+            className="absolute inset-0 origin-left rounded bg-blue-600"
+            initial={{ scaleX: step === 1 ? 1 : 0 }}
+            animate={currentStep >= step ? "active" : "inActive"}
+            variants={{
+              inActive: { scaleX: 0 },
+              active: { scaleX: 1 },
+            }}
+            transition={{ type: "spring", stiffness: 600, damping: 50 }}
+          />
+        </span>
       ))}
     </ProgressBar>
   )
