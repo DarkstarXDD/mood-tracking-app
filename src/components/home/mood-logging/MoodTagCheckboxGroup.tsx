@@ -1,8 +1,8 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { capitalize } from "lodash"
+import { motion } from "motion/react"
 import { Checkbox, CheckboxGroup, Label, Text } from "react-aria-components"
 import { useForm, Controller } from "react-hook-form"
-import { FaCheck } from "react-icons/fa"
 
 import Button from "@/components/ui/Button"
 import RACFieldError from "@/components/ui/RACFieldError"
@@ -23,6 +23,7 @@ export default function MoodTagCheckboxGroup() {
 
   const { handleSubmit, control } = useForm<FormSchemaType>({
     resolver: zodResolver(formSchema),
+    mode: "onChange",
   })
 
   return (
@@ -91,12 +92,43 @@ function MoodTagCheckbox({ children, ...props }: MoodTagCheckboxProps) {
     >
       {({ isSelected }) => (
         <>
-          <span className="group-rac-selected:border-blue-600 group-rac-selected:bg-blue-600 flex h-4 w-4 items-center justify-center rounded-sm border-2 border-blue-200 transition-none">
-            {isSelected && <FaCheck className="h-2.5 w-2.5 text-white" />}
-          </span>
+          <div className="relative">
+            <motion.div
+              animate={isSelected ? "selected" : "unSelected"}
+              variants={{
+                unSelected: { scale: 0.95 },
+                selected: { scale: 1.4 },
+              }}
+              className="absolute inset-0 rounded-sm bg-blue-200"
+            />
+            <span className="group-rac-selected:border-blue-600 group-rac-selected:bg-blue-600 relative flex h-4 w-4 items-center justify-center rounded-sm border-2 border-blue-200 bg-white transition-none">
+              {isSelected && <CheckIcon className="h-4 w-4 text-white" />}
+            </span>
+          </div>
           {children}
         </>
       )}
     </Checkbox>
+  )
+}
+
+function CheckIcon({ className }: { className: string }) {
+  return (
+    <svg
+      className={className}
+      stroke="currentColor"
+      strokeWidth={3}
+      fill="none"
+      viewBox="0 0 24 24"
+    >
+      <motion.path
+        initial={{ pathLength: 0 }}
+        animate={{ pathLength: 1 }}
+        transition={{ duration: 0.15 }}
+        d="M5 13l4 4L19 7"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
   )
 }
