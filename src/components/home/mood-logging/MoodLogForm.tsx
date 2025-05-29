@@ -4,6 +4,7 @@ import DailyNote from "@/components/home/mood-logging/DailyNote"
 import MoodRadioGroup from "@/components/home/mood-logging/MoodRadioGroup"
 import MoodTagCheckboxGroup from "@/components/home/mood-logging/MoodTagCheckboxGroup"
 import SleepRadioGroup from "@/components/home/mood-logging/SleepRadioGroup"
+import AnimatedHeightSwitcher from "@/components/ui/AnimatedHeightSwitcher"
 import SteppedProgressBar from "@/components/ui/SteppedProgressBar"
 import { MoodFormSchemaType } from "@/lib/schema"
 
@@ -37,11 +38,12 @@ export default function MoodLogForm() {
           currentStep={step}
           aria-label="Mood entry progress"
         />
-
-        {step === 1 && <MoodRadioGroup />}
-        {step === 2 && <MoodTagCheckboxGroup />}
-        {step === 3 && <DailyNote />}
-        {step === 4 && <SleepRadioGroup />}
+        <AnimatedHeightSwitcher>
+          {step === 1 && <MoodRadioGroup />}
+          {step === 2 && <MoodTagCheckboxGroup />}
+          {step === 3 && <DailyNote />}
+          {step === 4 && <SleepRadioGroup />}
+        </AnimatedHeightSwitcher>
       </div>
     </MoodFormContext.Provider>
   )

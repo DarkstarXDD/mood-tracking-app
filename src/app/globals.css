@@ -32,14 +32,14 @@
 
   --color-neutral-200: hsl(216, 5%, 81%);
   --color-neutral-300: hsl(240, 20%, 65%);
-  --color-neutral-600: hsl(240, 17%, 41%); /* secondary  */
-  --color-neutral-900: hsl(240, 40%, 22%); /* foreground */
+  --color-neutral-600: hsl(240, 17%, 41%);
+  --color-neutral-900: hsl(240, 40%, 22%);
 
   --color-blue-50: hsl(226, 72%, 97%);
   --color-blue-100: hsl(226, 72%, 93%);
   --color-blue-200: hsl(225, 75%, 87%);
   --color-blue-300: hsl(207, 100%, 77%);
-  --color-blue-600: hsl(228, 67%, 57%); /*  primary */
+  --color-blue-600: hsl(228, 67%, 57%);
   --color-blue-700: hsl(228, 67%, 50%);
 
   --color-red-300: hsl(1, 100%, 80%);
@@ -68,4 +68,22 @@
     background-image: url("/background/bg-pattern-averages.svg");
     background-repeat: no-repeat;
   }
+}
+
+@utility no-scrollbar {
+  @apply [scrollbar-width:none] [&::-webkit-scrollbar]:hidden;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-blue-200);
+  border-radius: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
 }
