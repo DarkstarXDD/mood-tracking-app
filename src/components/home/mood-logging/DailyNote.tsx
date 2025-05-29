@@ -17,7 +17,7 @@ const formSchema = moodFormSchema.pick({ dailyNote: true })
 type FormSchemaType = Pick<MoodFormSchemaType, "dailyNote">
 
 export default function DailyNote() {
-  const moodForm = useMoodForm()
+  const { updateFormData, handleNext } = useMoodForm()
   const {
     handleSubmit,
     register,
@@ -32,8 +32,8 @@ export default function DailyNote() {
     <form
       className="grid gap-6 md:gap-8"
       onSubmit={handleSubmit((data) => {
-        moodForm?.updateFormData(data)
-        moodForm?.handleNext()
+        updateFormData(data)
+        handleNext()
       })}
     >
       <div className="grid gap-6 md:gap-8">

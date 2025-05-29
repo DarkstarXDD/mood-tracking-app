@@ -16,7 +16,7 @@ const formSchema = moodFormSchema.pick({ mood: true })
 type FormSchemaType = Pick<MoodFormSchemaType, "mood">
 
 export default function MoodRadioGroup() {
-  const moodForm = useMoodForm()
+  const { updateFormData, handleNext } = useMoodForm()
   const { moods } = useMoodFormOptions()
 
   const { handleSubmit, control } = useForm<FormSchemaType>({
@@ -27,8 +27,8 @@ export default function MoodRadioGroup() {
     <form
       className="grid gap-6 md:gap-8"
       onSubmit={handleSubmit((data) => {
-        moodForm?.updateFormData(data)
-        moodForm?.handleNext()
+        updateFormData(data)
+        handleNext()
       })}
     >
       <Controller
