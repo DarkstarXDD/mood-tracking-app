@@ -25,6 +25,7 @@ export default function SVGIcon({
       x={x}
       y={y}
       aria-hidden="true"
+      fill="none"
     >
       <use href={`/icon-sprite.svg#${name}`} />
     </svg>

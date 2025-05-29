@@ -1,4 +1,4 @@
-import SleepIcon from "@/components/icons/SleepIcon"
+import SVGIcon from "@/components/ui/SVGIcon"
 import useMoodFormOptions from "@/hooks/useMoodFormOptions"
 import { averageDiffToTextMap, averageDiffToIconMap } from "@/lib/data-maps"
 
@@ -17,7 +17,7 @@ export default function AverageSleep({
   return (
     <div className="custom-bg flex min-h-38 flex-col items-start justify-center gap-3 rounded-2xl bg-blue-600 px-4 py-5 md:px-5">
       <div className="flex items-center gap-3 lg:gap-4">
-        <SleepIcon className="size-6 text-white opacity-70" />
+        <SVGIcon name="icon-sleep" className="size-6 text-white opacity-70" />
         <p className="text-2xl leading-normal font-semibold tracking-normal text-white">
           {hoursOfSleep.find((hour) => hour.id === averageSleepId)?.label}
         </p>
