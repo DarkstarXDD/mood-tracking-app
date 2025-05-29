@@ -13,3 +13,4 @@ export type SVGIconNameType =
   | "icon-neutral-color"
   | "icon-happy-white"
   | "icon-happy-color"
+  | "avatar-placeholder"

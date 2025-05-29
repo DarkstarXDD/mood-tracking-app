@@ -15,6 +15,7 @@ import { FiSettings, FiLogOut } from "react-icons/fi"
 
 import { logoutUser } from "@/actions/auth"
 import UpdateProfileDialog from "@/components/home/UpdateProfileDialog"
+import SVGIcon from "@/components/ui/SVGIcon"
 import useUser from "@/hooks/useUser"
 
 export default function AccountMenu() {
@@ -31,13 +32,17 @@ export default function AccountMenu() {
           aria-label="Account Details"
           className="rac-focus-visible:ring-3 cursor-pointer rounded-full ring-blue-600 outline-none"
         >
-          <Image
-            src={user.avatarUrl ?? "/avatar/avatar-placeholder.svg"}
-            alt=""
-            className="h-10 w-10 rounded-full"
-            width={128}
-            height={128}
-          />
+          {user.avatarUrl ? (
+            <Image
+              src={user.avatarUrl}
+              alt=""
+              className="size-10 rounded-full"
+              width={128}
+              height={128}
+            />
+          ) : (
+            <SVGIcon name="avatar-placeholder" className="size-10" />
+          )}
         </Button>
         <Popover
           placement="bottom end"
