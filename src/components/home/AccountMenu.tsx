@@ -46,7 +46,7 @@ export default function AccountMenu() {
         </Button>
         <Popover
           placement="bottom end"
-          className="w-full max-w-50 overflow-auto rounded-lg bg-white px-1 py-1"
+          className="shadow-main w-full max-w-50 overflow-auto rounded-lg bg-white px-1 py-1"
         >
           <div className="grid gap-1">
             <div className="grid gap-0.25 px-3 py-2">
