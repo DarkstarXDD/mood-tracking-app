@@ -10,17 +10,16 @@ import { MoodFormSchemaType } from "@/lib/schema"
 type MoodFormContextType = {
   handleNext: () => void
   updateFormData: (data: Partial<MoodFormSchemaType>) => void
-  moodFormData: Partial<MoodFormSchemaType> | undefined
-}
+  moodFormData: Partial<MoodFormSchemaType>
+} | null
 
-export const MoodFormContext = createContext<MoodFormContextType | undefined>(
-  undefined
-)
+export const MoodFormContext = createContext<MoodFormContextType>(null)
 
 export default function MoodLogForm() {
   const [step, setStep] = useState(1)
-  const [moodFormData, setMoodFormData] =
-    useState<Partial<MoodFormSchemaType>>()
+  const [moodFormData, setMoodFormData] = useState<Partial<MoodFormSchemaType>>(
+    {}
+  )
 
   const updateFormData = (data: Partial<MoodFormSchemaType>) => {
     setMoodFormData({ ...moodFormData, ...data })

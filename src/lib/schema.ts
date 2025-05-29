@@ -59,7 +59,7 @@ export const moodFormSchema = z.object({
     .nonempty("Please select at least one tag.")
     .max(3, "You can only select a maximum of 3 tags."),
 
-  dailyNote: z.string().trim().max(150),
+  dailyNote: z.string().trim().max(150).optional(),
 
   hoursOfSleep: z.coerce
     .number({

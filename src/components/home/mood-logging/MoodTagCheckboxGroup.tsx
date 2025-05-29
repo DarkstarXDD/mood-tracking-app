@@ -18,7 +18,7 @@ const formSchema = moodFormSchema.pick({ moodTags: true })
 type FormSchemaType = Pick<MoodFormSchemaType, "moodTags">
 
 export default function MoodTagCheckboxGroup() {
-  const moodForm = useMoodForm()
+  const { updateFormData, handleNext } = useMoodForm()
   const { moodTags } = useMoodFormOptions()
 
   const { handleSubmit, control } = useForm<FormSchemaType>({
@@ -30,8 +30,8 @@ export default function MoodTagCheckboxGroup() {
     <form
       className="grid gap-6 md:gap-8"
       onSubmit={handleSubmit((data) => {
-        moodForm?.updateFormData(data)
-        moodForm?.handleNext()
+        updateFormData(data)
+        handleNext()
       })}
     >
       <Controller
