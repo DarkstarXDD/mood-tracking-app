@@ -49,8 +49,8 @@ export default function MoodTagCheckboxGroup() {
             onBlur={onBlur}
             isInvalid={invalid}
           >
-            <div className="grid gap-1.5">
-              <Label className="text-3xl leading-snug font-bold tracking-tight text-neutral-900 md:text-4xl md:leading-normal">
+            <div className="grid gap-2">
+              <Label className="text-3xl leading-snug font-bold tracking-tight text-neutral-900">
                 How did you feel?
               </Label>
               <Text

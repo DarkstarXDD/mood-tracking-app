@@ -1,9 +1,7 @@
 import { useRouter } from "next/navigation"
-import { Modal, Dialog, Heading, ModalOverlay } from "react-aria-components"
-import { IoClose } from "react-icons/io5"
 
 import UpdateProfileForm from "@/components/home/UpdateProfileForm"
-import Button from "@/components/ui/Button"
+import { Modal, ModalContent } from "@/components/ui/Modal"
 import useUser from "@/hooks/useUser"
 
 type UpdateProfileDialogProps = {
@@ -19,32 +17,16 @@ export default function UpdateProfileDialog({
   const router = useRouter()
 
   return (
-    <ModalOverlay
+    <Modal
+      title="Update your profile"
       isOpen={isDialogOpen}
       onOpenChange={onDialogClose}
-      className="fixed inset-0 z-10 flex min-h-dvh flex-col items-center justify-center overflow-auto bg-neutral-900/70 p-5"
     >
-      <Modal className="w-full max-w-152">
-        <Dialog className="relative grid gap-8 rounded-2xl bg-white px-5 py-10 outline-none md:px-10 md:py-12">
-          <div className="grid gap-2">
-            <Button
-              slot="close"
-              variant="close"
-              size="icon"
-              className="absolute top-4.5 right-4.5 justify-self-end md:top-7 md:left-7"
-            >
-              <IoClose className="size-6 md:size-7" />
-            </Button>
-            <Heading
-              slot="title"
-              className="text-4xl leading-normal font-bold tracking-tight text-neutral-900"
-            >
-              Update your profile
-            </Heading>
-            <p className="text-lg leading-normal tracking-tight text-neutral-600">
-              Personalize your account with your name and photo.
-            </p>
-          </div>
+      <ModalContent>
+        <div className="mt-2 grid gap-6 md:gap-8">
+          <p className="text-lg leading-normal tracking-tight text-neutral-600">
+            Personalize your account with your name and photo.
+          </p>
           <UpdateProfileForm
             buttonText="Save Changes"
             name={user.name ?? undefined}
@@ -54,8 +36,8 @@ export default function UpdateProfileDialog({
               onDialogClose()
             }}
           />
-        </Dialog>
-      </Modal>
-    </ModalOverlay>
+        </div>
+      </ModalContent>
+    </Modal>
   )
 }

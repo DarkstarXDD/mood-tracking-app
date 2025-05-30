@@ -32,7 +32,7 @@ export default function MoodLogForm() {
     <MoodFormContext.Provider
       value={{ handleNext, updateFormData, moodFormData }}
     >
-      <div className="grid gap-6 md:gap-8">
+      <div className="mt-6 grid gap-6 md:mt-8 md:gap-8">
         <SteppedProgressBar
           totalSteps={4}
           currentStep={step}

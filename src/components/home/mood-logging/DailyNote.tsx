@@ -39,7 +39,7 @@ export default function DailyNote() {
       <div className="grid gap-6 md:gap-8">
         <Label
           htmlFor={inputId}
-          className="text-3xl leading-snug font-bold tracking-tight text-neutral-900 md:text-4xl md:leading-normal"
+          className="text-3xl leading-snug font-bold tracking-tight text-neutral-900"
         >
           Write about your day...
           <span className="text-lg font-medium text-neutral-600">
