@@ -1,8 +1,11 @@
 import { zodResolver } from "@hookform/resolvers/zod"
+import { useState } from "react"
 import { useForm, Controller } from "react-hook-form"
 
-import { createMoodEntry } from "@/actions/user"
+// import { createMoodEntry } from "@/actions/user"
+import AnimatedSuccessMark from "@/components/ui/AnimatedSuccessMark"
 import Button from "@/components/ui/Button"
+import LoadingDots from "@/components/ui/LoadingDots"
 import { RadioGroup, RadioOption } from "@/components/ui/RadioGroup"
 import useMoodForm from "@/hooks/useMoodForm"
 import useMoodFormOptions from "@/hooks/useMoodFormOptions"
@@ -17,60 +20,80 @@ type FormSchemaType = Pick<MoodFormSchemaType, "hoursOfSleep">
 export default function SleepRadioGroup() {
   const { moodFormData } = useMoodForm()
   const { hoursOfSleep } = useMoodFormOptions()
+  const [status, setStatus] = useState<"idle" | "loading" | "success">("idle")
 
   const { handleSubmit, control, setError } = useForm<FormSchemaType>({
     resolver: zodResolver(formSchema),
   })
 
   return (
-    <form
-      className="grid gap-6 md:gap-8"
-      onSubmit={handleSubmit(async (data) => {
-        const allFormData = { ...moodFormData, ...data }
-        const validationResult = moodFormSchema.safeParse(allFormData)
-        if (!validationResult.success) {
-          setError("hoursOfSleep", { message: "Invalid mood data values." })
-          return
-        }
-        const response = await createMoodEntry(validationResult.data)
-        if (response) {
-          setError("hoursOfSleep", response)
-          return
-        }
-        console.log("Successfull")
-      })}
-    >
-      <Controller
-        name="hoursOfSleep"
-        control={control}
-        render={({
-          field: { name, value, onChange, onBlur },
-          fieldState: { invalid, error },
-        }) => (
-          <RadioGroup
-            label="How many hours did you sleep last night?"
-            name={name}
-            value={value?.toString() ?? null}
-            onChange={onChange}
-            onBlur={onBlur}
-            isInvalid={invalid}
-            errorMessage={error?.message}
-          >
-            {hoursOfSleep.map((item) => (
-              <SleepRadioOption
-                key={item.id}
-                value={item.id.toString()}
-                label={item.label}
-              />
-            ))}
-          </RadioGroup>
-        )}
-      />
+    <div>
+      {status !== "success" ? (
+        <form
+          className="grid gap-6 md:gap-8"
+          onSubmit={handleSubmit(async (data) => {
+            setStatus("loading")
+            const allFormData = { ...moodFormData, ...data }
+            const validationResult = moodFormSchema.safeParse(allFormData)
+            if (!validationResult.success) {
+              setError("hoursOfSleep", { message: "Invalid mood data values." })
+              setStatus("idle")
+              return
+            }
 
-      <Button type="submit" size="lg">
-        Continue
-      </Button>
-    </form>
+            await new Promise((resolve) => setTimeout(resolve, 1000))
+            setStatus("success")
+
+            // const response = await createMoodEntry(validationResult.data)
+            // if (response) {
+            //   setError("hoursOfSleep", response)
+            //   return
+            // }
+            // console.log("Successfull")
+          })}
+        >
+          <Controller
+            name="hoursOfSleep"
+            control={control}
+            render={({
+              field: { name, value, onChange, onBlur },
+              fieldState: { invalid, error },
+            }) => (
+              <RadioGroup
+                label="How many hours did you sleep last night?"
+                name={name}
+                value={value?.toString() ?? null}
+                onChange={onChange}
+                onBlur={onBlur}
+                isInvalid={invalid}
+                errorMessage={error?.message}
+              >
+                {hoursOfSleep.map((item) => (
+                  <SleepRadioOption
+                    key={item.id}
+                    value={item.id.toString()}
+                    label={item.label}
+                  />
+                ))}
+              </RadioGroup>
+            )}
+          />
+
+          <Button type="submit" size="lg">
+            {status == "loading" ? (
+              <LoadingDots />
+            ) : //@ts-expect-error For motion animation this is needed.
+            status === "success" ? (
+              <AnimatedSuccessMark />
+            ) : (
+              "Submit"
+            )}
+          </Button>
+        </form>
+      ) : (
+        <p>Mood logged!</p>
+      )}
+    </div>
   )
 }
 
