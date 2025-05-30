@@ -2,16 +2,19 @@
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import Link from "next/link"
+import { useState } from "react"
 import { useForm } from "react-hook-form"
 
 import { loginUser } from "@/actions/auth"
 import Button from "@/components/ui/Button"
+import LoadingDots from "@/components/ui/LoadingDots"
 import TextField from "@/components/ui/TextField"
 import { logInSchema } from "@/lib/schema"
 
 import type { LogInSchemaType } from "@/lib/schema"
 
 export default function LogInForm() {
+  const [status, setStatus] = useState<"idle" | "loading">("idle")
   const {
     register,
     handleSubmit,
@@ -25,9 +28,11 @@ export default function LogInForm() {
     <form
       className="shadow-main grid w-full max-w-lg gap-8 rounded-2xl bg-white px-4 py-10 md:px-8"
       onSubmit={handleSubmit(async (formData) => {
+        setStatus("loading")
         const response = await loginUser(formData)
         if (response) {
           setError("email", response)
+          setStatus("idle")
         }
       })}
     >
@@ -40,7 +45,10 @@ export default function LogInForm() {
         </p>
       </div>
 
-      <div className="grid gap-5">
+      <fieldset
+        className="grid gap-5 disabled:opacity-60"
+        disabled={status === "loading"}
+      >
         <TextField
           label="Email address"
           autoComplete="email"
@@ -54,10 +62,12 @@ export default function LogInForm() {
           {...register("password")}
           errorMessage={errors.password?.message}
         />
-      </div>
+      </fieldset>
 
       <div className="grid gap-5">
-        <Button type="submit">Log In</Button>
+        <Button type="submit" isDisabled={status === "loading"}>
+          {status === "idle" ? "Log In" : <LoadingDots />}
+        </Button>
 
         <p className="text-center text-lg leading-normal tracking-tight">
           <span className="text-neutral-600">

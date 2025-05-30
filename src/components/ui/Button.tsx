@@ -5,7 +5,7 @@ import type { ButtonProps as RACButtonProps } from "react-aria-components"
 import type { VariantProps } from "tailwind-variants"
 
 const buttonStyles = tv({
-  base: "rac-focus-visible:ring-2 cursor-pointer border transition-colors outline-none",
+  base: "rac-focus-visible:ring-2 cursor-pointer border transition-colors outline-none disabled:pointer-events-none",
   variants: {
     variant: {
       primary:
@@ -17,8 +17,8 @@ const buttonStyles = tv({
     },
     size: {
       sm: "rounded-lg px-4 py-2 text-lg leading-tight font-medium",
-      md: "rounded-xl px-8 py-3 text-xl leading-normal font-semibold",
-      lg: "rounded-xl px-8 py-4 text-xl leading-normal font-semibold",
+      md: "min-h-13.5 rounded-xl px-8 py-3 text-xl leading-normal font-semibold",
+      lg: "min-h-15.5 rounded-xl px-8 py-4 text-xl leading-normal font-semibold",
       icon: "rounded-md p-0",
     },
   },
