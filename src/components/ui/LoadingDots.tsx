@@ -2,11 +2,11 @@
 
 import { motion } from "motion/react"
 
-import { range } from "@/lib/utils"
+import { cn, range } from "@/lib/utils"
 
 import type { Variants } from "motion/react"
 
-export default function LoadingDots() {
+export default function LoadingDots({ className }: { className?: string }) {
   const dotVariants = {
     pulse: {
       scale: [1, 1.5, 1],
@@ -19,20 +19,29 @@ export default function LoadingDots() {
   }
 
   return (
-    <motion.div
+    <motion.span
       animate="pulse"
       transition={{ staggerChildren: 0.15, staggerDirection: 1 }}
       className="flex items-center justify-center gap-4"
     >
       {range(4).map((item) => (
-        <LoadingDot key={item} variants={dotVariants} />
+        <LoadingDot key={item} variants={dotVariants} className={className} />
       ))}
-    </motion.div>
+    </motion.span>
   )
 }
 
-function LoadingDot({ variants }: { variants: Variants }) {
+function LoadingDot({
+  variants,
+  className,
+}: {
+  variants: Variants
+  className?: string
+}) {
   return (
-    <motion.div className="size-2 rounded-full bg-white" variants={variants} />
+    <motion.span
+      className={cn("size-2 rounded-full bg-white", className)}
+      variants={variants}
+    />
   )
 }

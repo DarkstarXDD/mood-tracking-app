@@ -1,14 +1,9 @@
 "use client"
 
-import dynamic from "next/dynamic"
-
 import MoodLogDialog from "@/components/home/mood-logging/MoodLogDialog"
+import TodayDate from "@/components/home/TodayDate"
 import useUser from "@/hooks/useUser"
 import { getFirstName } from "@/lib/utils"
-
-const TodayDateNoSSR = dynamic(() => import(`@/components/home/TodayDate`), {
-  ssr: false,
-})
 
 export default function Hero() {
   const { user } = useUser()
@@ -22,7 +17,7 @@ export default function Hero() {
         <h1 className="text-6xl leading-tight font-bold tracking-tighter text-neutral-900 md:text-7xl md:leading-normal">
           How are you feeling today?
         </h1>
-        <TodayDateNoSSR />
+        <TodayDate />
       </div>
 
       {/* {!hasMoodLoggedToday && <MoodLogDialog />} */}
