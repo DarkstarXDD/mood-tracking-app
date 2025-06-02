@@ -2,7 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useState } from "react"
 import { useForm, Controller } from "react-hook-form"
 
-// import { createMoodEntry } from "@/actions/user"
+import { createMoodEntry } from "@/actions/user"
 import AnimatedSuccessMark from "@/components/ui/AnimatedSuccessMark"
 import Button from "@/components/ui/Button"
 import LoadingDots from "@/components/ui/LoadingDots"
@@ -40,16 +40,12 @@ export default function SleepRadioGroup() {
               setStatus("idle")
               return
             }
-
-            await new Promise((resolve) => setTimeout(resolve, 1000))
             setStatus("success")
-
-            // const response = await createMoodEntry(validationResult.data)
-            // if (response) {
-            //   setError("hoursOfSleep", response)
-            //   return
-            // }
-            // console.log("Successfull")
+            const response = await createMoodEntry(validationResult.data)
+            if (response) {
+              setError("hoursOfSleep", response)
+              return
+            }
           })}
         >
           <Controller
@@ -80,18 +76,19 @@ export default function SleepRadioGroup() {
           />
 
           <Button type="submit" size="lg">
-            {status == "loading" ? (
-              <LoadingDots />
-            ) : //@ts-expect-error For motion animation this is needed.
-            status === "success" ? (
-              <AnimatedSuccessMark />
-            ) : (
-              "Submit"
-            )}
+            {status == "loading" ? <LoadingDots /> : "Submit"}
           </Button>
         </form>
       ) : (
-        <p>Mood logged!</p>
+        <div className="grid justify-items-center gap-8 py-8">
+          <div className="flex flex-col items-center justify-center gap-4 md:flex-row">
+            <AnimatedSuccessMark variant="secondary" />
+            <p className="text-center text-2xl leading-tight font-medium tracking-normal text-neutral-600">
+              Logged mood successfully!
+            </p>
+          </div>
+          <Button slot="close">Close</Button>
+        </div>
       )}
     </div>
   )
