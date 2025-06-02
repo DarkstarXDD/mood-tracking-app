@@ -1,32 +1,14 @@
 import type { SVGIconNameType } from "@/lib/types"
+import type { ComponentProps } from "react"
 
-type SVGIconProps = {
-  name: SVGIconNameType
-  width?: number
-  height?: number
-  x?: number
-  y?: number
-  className?: string
-}
+type SVGIconProps = { name: SVGIconNameType } & Pick<
+  ComponentProps<"svg">,
+  "width" | "height" | "x" | "y" | "className" | "aria-hidden" | "aria-label"
+>
 
-export default function SVGIcon({
-  name,
-  width,
-  height,
-  x,
-  y,
-  className,
-}: SVGIconProps) {
+export default function SVGIcon({ name, ...props }: SVGIconProps) {
   return (
-    <svg
-      width={width}
-      height={height}
-      className={className}
-      x={x}
-      y={y}
-      aria-hidden="true"
-      fill="none"
-    >
+    <svg {...props} fill="none" aria-hidden={props["aria-hidden"] ?? "true"}>
       <use href={`/icon-sprite.svg#${name}`} />
     </svg>
   )

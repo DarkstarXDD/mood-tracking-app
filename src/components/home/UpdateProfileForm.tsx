@@ -9,6 +9,7 @@ import { updateUser } from "@/actions/user"
 import Button from "@/components/ui/Button"
 import FileInput from "@/components/ui/FileInput"
 import LoadingDots from "@/components/ui/LoadingDots"
+import SVGIcon from "@/components/ui/SVGIcon"
 import TextField from "@/components/ui/TextField"
 import { userProfileSchema } from "@/lib/schema"
 
@@ -64,13 +65,20 @@ export default function UpdateProfileForm({
         />
 
         <div className="grid grid-cols-[auto_1fr] justify-items-start gap-x-5 gap-y-4">
-          <Image
-            src={avatarUrl ?? "/avatar/avatar-placeholder.svg"}
-            alt=""
-            className="col-start-1 row-span-2 size-16 rounded-full"
-            width={64}
-            height={64}
-          />
+          {avatarUrl ? (
+            <Image
+              src={avatarUrl}
+              alt=""
+              className="col-start-1 row-span-2 size-16 rounded-full"
+              width={64}
+              height={64}
+            />
+          ) : (
+            <SVGIcon
+              name="avatar-placeholder"
+              className="col-start-1 row-span-2 size-16 rounded-full"
+            />
+          )}
           <div className="col-start-2 grid content-start gap-1.5">
             <p className="text-lg leading-normal tracking-tight text-neutral-900">
               Upload Image
