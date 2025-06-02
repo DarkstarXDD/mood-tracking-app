@@ -9,19 +9,19 @@ import { loginUser } from "@/actions/auth"
 import Button from "@/components/ui/Button"
 import LoadingDots from "@/components/ui/LoadingDots"
 import TextField from "@/components/ui/TextField"
-import { logInSchema } from "@/lib/schema"
+import { loginSchema } from "@/lib/schema"
 
-import type { LogInSchemaType } from "@/lib/schema"
+import type { LoginSchemaType } from "@/lib/schema"
 
-export default function LogInForm() {
+export default function LoginForm() {
   const [status, setStatus] = useState<"idle" | "loading">("idle")
   const {
     register,
     handleSubmit,
     formState: { errors },
     setError,
-  } = useForm<LogInSchemaType>({
-    resolver: zodResolver(logInSchema),
+  } = useForm<LoginSchemaType>({
+    resolver: zodResolver(loginSchema),
   })
 
   return (

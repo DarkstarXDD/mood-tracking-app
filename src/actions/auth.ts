@@ -7,13 +7,13 @@ import { redirect } from "next/navigation"
 
 import { messages } from "@/lib/messages"
 import { prisma } from "@/lib/prisma"
-import { signUpSchema } from "@/lib/schema"
+import { signupSchema } from "@/lib/schema"
 import { createSession } from "@/lib/session"
 
-import type { SignUpSchemaType, LogInSchemaType } from "@/lib/schema"
+import type { SignupSchemaType, LoginSchemaType } from "@/lib/schema"
 
-export async function registerUser(formData: SignUpSchemaType) {
-  const parsed = signUpSchema.safeParse(formData)
+export async function registerUser(formData: SignupSchemaType) {
+  const parsed = signupSchema.safeParse(formData)
   if (!parsed.success) return messages.errors.validation
 
   const hashedPassword = await hash(parsed.data.password, 10)
@@ -33,7 +33,7 @@ export async function registerUser(formData: SignUpSchemaType) {
   redirect("/onboarding")
 }
 
-export async function loginUser(formData: LogInSchemaType) {
+export async function loginUser(formData: LoginSchemaType) {
   try {
     const user = await prisma.user.findUnique({
       where: { email: formData.email },

@@ -2,28 +2,28 @@ import { z } from "zod"
 
 /*
 ---------------
-  SignUp Schema
+  Signup Schema
 ---------------
 */
-export const signUpSchema = z.object({
+export const signupSchema = z.object({
   email: z.string().trim().email("Invalid email format."),
   password: z
     .string()
     .trim()
     .min(8, "Password must have at least 8 characters."),
 })
-export type SignUpSchemaType = z.infer<typeof signUpSchema>
+export type SignupSchemaType = z.infer<typeof signupSchema>
 
 /*
 ---------------
-  LogIn Schema
+  Login Schema
 ---------------
 */
-export const logInSchema = z.object({
+export const loginSchema = z.object({
   email: z.string().trim().email("Invalid email format."),
   password: z.string().trim().min(1, "Password is required."),
 })
-export type LogInSchemaType = z.infer<typeof logInSchema>
+export type LoginSchemaType = z.infer<typeof loginSchema>
 
 /*
 ---------------------

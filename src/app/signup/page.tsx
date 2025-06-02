@@ -1,11 +1,11 @@
-import SignUpForm from "@/components/signup/SignUpForm"
+import SignupForm from "@/components/signup/SignupForm"
 import BrandLogo from "@/components/ui/BrandLogo"
 
-export default function SignUpPage() {
+export default function SignupPage() {
   return (
     <main className="grid w-full justify-items-center gap-8 md:gap-12">
       <BrandLogo />
-      <SignUpForm />
+      <SignupForm />
     </main>
   )
 }

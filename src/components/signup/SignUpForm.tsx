@@ -9,19 +9,19 @@ import { registerUser } from "@/actions/auth"
 import Button from "@/components/ui/Button"
 import LoadingDots from "@/components/ui/LoadingDots"
 import TextField from "@/components/ui/TextField"
-import { signUpSchema } from "@/lib/schema"
+import { signupSchema } from "@/lib/schema"
 
-import type { SignUpSchemaType } from "@/lib/schema"
+import type { SignupSchemaType } from "@/lib/schema"
 
-export default function SignUpForm() {
+export default function SignupForm() {
   const [status, setStatus] = useState<"idle" | "loading">("idle")
   const {
     register,
     handleSubmit,
     formState: { errors },
     setError,
-  } = useForm<SignUpSchemaType>({
-    resolver: zodResolver(signUpSchema),
+  } = useForm<SignupSchemaType>({
+    resolver: zodResolver(signupSchema),
   })
 
   return (
