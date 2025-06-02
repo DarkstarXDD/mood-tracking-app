@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client"
 
-import { moods, hoursOfSleep, moodTags } from "@/lib/data/mood-data"
+import { moods, hoursOfSleep, moodTags, quotes } from "@/lib/data/mood-data"
 
 const prisma = new PrismaClient()
 
@@ -27,6 +27,15 @@ async function main() {
       name: item.name,
       label: item.label,
     })),
+  })
+
+  await prisma.quote.createMany({
+    data: quotes.flatMap((item) =>
+      item.quotes.map((q) => ({
+        quote: q,
+        moodId: item.mood,
+      }))
+    ),
   })
 }
 

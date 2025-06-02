@@ -34,6 +34,15 @@ export async function getUser() {
 }
 export type GetUserType = Awaited<ReturnType<typeof getUser>>
 
+export async function getQuote(moodId: number) {
+  const userId = await verifySession()
+  if (!userId) redirect("/login")
+
+  const quotes = await prisma.quote.findMany({ where: { moodId } })
+  const quote = quotes[Math.floor(Math.random() * quotes.length)]
+  return quote.quote
+}
+
 export async function updateUser({
   name,
   avatarUrl,

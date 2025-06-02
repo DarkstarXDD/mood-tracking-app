@@ -19,15 +19,21 @@ type UserContextType = {
 } | null
 
 export const UserContext = createContext<UserContextType>(null)
+export const DailyQuoteContext = createContext<string | undefined>(undefined)
 export const MoodFormOptionsContext =
   createContext<GetMoodFormOptionsType | null>(null)
 
 type HomePageProps = {
   user: GetUserType
+  dailyQuote: string | undefined
   moodFormOptions: GetMoodFormOptionsType
 }
 
-export default function HomePage({ user, moodFormOptions }: HomePageProps) {
+export default function HomePage({
+  user,
+  dailyQuote,
+  moodFormOptions,
+}: HomePageProps) {
   const hasMoodLoggedToday =
     user.moodEntries.length > 0 &&
     isSameDay(new Date(), new Date(user.moodEntries[0].createdAt))
@@ -36,23 +42,25 @@ export default function HomePage({ user, moodFormOptions }: HomePageProps) {
 
   return (
     <UserContext.Provider value={{ user, hasMoodLoggedToday, hasFiveEntries }}>
-      <MoodFormOptionsContext.Provider value={moodFormOptions}>
-        <div className="grid w-full max-w-[73.125rem] gap-12 lg:gap-16">
-          <Header />
-          <main className="grid gap-12 lg:gap-16">
-            <Hero />
+      <DailyQuoteContext.Provider value={dailyQuote}>
+        <MoodFormOptionsContext.Provider value={moodFormOptions}>
+          <div className="grid w-full max-w-[73.125rem] gap-12 lg:gap-16">
+            <Header />
+            <main className="grid gap-12 lg:gap-16">
+              <Hero />
 
-            <div className="grid gap-8">
-              {hasMoodLoggedToday && <DailySummary />}
+              <div className="grid gap-8">
+                {hasMoodLoggedToday && <DailySummary />}
 
-              <div className="grid gap-8 lg:grid-cols-[auto_1fr]">
-                <CheckinSummary />
-                <MoodSleepChartWrapper />
+                <div className="grid gap-8 lg:grid-cols-[auto_1fr]">
+                  <CheckinSummary />
+                  <MoodSleepChartWrapper />
+                </div>
               </div>
-            </div>
-          </main>
-        </div>
-      </MoodFormOptionsContext.Provider>
+            </main>
+          </div>
+        </MoodFormOptionsContext.Provider>
+      </DailyQuoteContext.Provider>
     </UserContext.Provider>
   )
 }

@@ -1,11 +1,13 @@
 import { ImQuotesLeft } from "react-icons/im"
 
 import SVGIcon from "@/components/ui/SVGIcon"
+import useDailyQuote from "@/hooks/useDailyQuote"
 import useUser from "@/hooks/useUser"
 
 import type { SVGIconNameType } from "@/lib/types"
 
 export default function MoodCard() {
+  const dailyQuote = useDailyQuote()
   const {
     user: { moodEntries },
   } = useUser()
@@ -29,7 +31,7 @@ export default function MoodCard() {
       <div className="flex flex-col items-center gap-4 text-center md:items-start md:justify-items-start md:gap-3 md:self-end md:text-start">
         <ImQuotesLeft className="size-6 text-blue-600" />
         <blockquote className="text-lg leading-snug font-medium tracking-normal text-neutral-900 italic">
-          “When your heart is full, share your light with the world.”
+          {dailyQuote}
         </blockquote>
       </div>
     </div>
