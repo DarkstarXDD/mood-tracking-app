@@ -13,6 +13,7 @@ export type SVGIconNameType =
   | "icon-neutral-color"
   | "icon-happy-white"
   | "icon-happy-color"
-  | "avatar-placeholder"
   | "icon-sleep"
   | "icon-reflection"
+  | "avatar-placeholder"
+  | "brand-logo"

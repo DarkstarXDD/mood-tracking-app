@@ -1,16 +1,13 @@
-import Image from "next/image"
-
+import SVGIcon from "@/components/ui/SVGIcon"
 import { cn } from "@/lib/utils"
 
 export default function BrandLogo({ className }: { className?: string }) {
   return (
-    <Image
-      src="/logo/logo.svg"
-      alt="Mood Tracker"
-      priority
+    <SVGIcon
+      name="brand-logo"
       className={cn("h-10 w-45", className)}
-      width={178}
-      height={40}
+      aria-hidden="false"
+      aria-label="Mood Tracker"
     />
   )
 }
