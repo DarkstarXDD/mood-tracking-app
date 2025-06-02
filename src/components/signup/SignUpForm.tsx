@@ -29,7 +29,6 @@ export default function SignupForm() {
       className="shadow-main grid w-full max-w-lg gap-8 rounded-2xl bg-white px-4 py-10 md:px-8"
       onSubmit={handleSubmit(async (formData) => {
         setStatus("loading")
-        await new Promise((response) => setTimeout(response, 3000))
         const response = await registerUser(formData)
         if (response) {
           setError("email", response)

@@ -2,11 +2,13 @@
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import Image from "next/image"
+import { useState } from "react"
 import { useForm } from "react-hook-form"
 
 import { updateUser } from "@/actions/user"
 import Button from "@/components/ui/Button"
 import FileInput from "@/components/ui/FileInput"
+import LoadingDots from "@/components/ui/LoadingDots"
 import TextField from "@/components/ui/TextField"
 import { userProfileSchema } from "@/lib/schema"
 
@@ -25,6 +27,7 @@ export default function UpdateProfileForm({
   avatarUrl,
   onSuccess,
 }: UpdateProfileFormProps) {
+  const [status, setStatus] = useState<"idle" | "loading">("idle")
   const {
     register,
     handleSubmit,
@@ -42,38 +45,47 @@ export default function UpdateProfileForm({
     <form
       className="grid gap-6"
       onSubmit={handleSubmit(async (data) => {
+        setStatus("loading")
         const response = await updateUser(data)
         if (!response.success) {
           setError("name", response.error)
+          setStatus("loading")
         } else onSuccess()
       })}
     >
-      <TextField
-        label="Name"
-        {...register("name")}
-        errorMessage={errors.name?.message}
-      />
-
-      <div className="grid grid-cols-[auto_1fr] justify-items-start gap-x-5 gap-y-4">
-        <Image
-          src={avatarUrl ?? "/avatar/avatar-placeholder.svg"}
-          alt=""
-          className="col-start-1 row-span-2 size-16 rounded-full"
-          width={64}
-          height={64}
+      <fieldset
+        className="grid gap-6 disabled:opacity-60"
+        disabled={status === "loading"}
+      >
+        <TextField
+          label="Name"
+          {...register("name")}
+          errorMessage={errors.name?.message}
         />
-        <div className="col-start-2 grid content-start gap-1.5">
-          <p className="text-lg leading-normal tracking-tight text-neutral-900">
-            Upload Image
-          </p>
-          <p className="text-base leading-normal tracking-tight text-neutral-600">
-            Max 250KB, PNG or JPEG
-          </p>
-        </div>
-        <FileInput className="col-start-2" />
-      </div>
 
-      <Button type="submit">{buttonText}</Button>
+        <div className="grid grid-cols-[auto_1fr] justify-items-start gap-x-5 gap-y-4">
+          <Image
+            src={avatarUrl ?? "/avatar/avatar-placeholder.svg"}
+            alt=""
+            className="col-start-1 row-span-2 size-16 rounded-full"
+            width={64}
+            height={64}
+          />
+          <div className="col-start-2 grid content-start gap-1.5">
+            <p className="text-lg leading-normal tracking-tight text-neutral-900">
+              Upload Image
+            </p>
+            <p className="text-base leading-normal tracking-tight text-neutral-600">
+              Max 250KB, PNG or JPEG
+            </p>
+          </div>
+          <FileInput className="col-start-2" />
+        </div>
+      </fieldset>
+
+      <Button type="submit">
+        {status === "loading" ? <LoadingDots /> : buttonText}
+      </Button>
     </form>
   )
 }
