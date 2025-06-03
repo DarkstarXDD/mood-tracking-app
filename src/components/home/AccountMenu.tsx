@@ -50,10 +50,10 @@ export default function AccountMenu() {
         >
           <div className="grid gap-1">
             <div className="grid gap-0.25 px-3 py-2">
-              <p className="text-lg leading-snug font-medium tracking-normal text-neutral-900">
+              <p className="truncate text-lg leading-snug font-medium tracking-normal text-neutral-900">
                 {user.name}
               </p>
-              <p className="text-base leading-normal font-normal tracking-tight text-neutral-300">
+              <p className="truncate text-base leading-normal font-normal tracking-tight text-neutral-300">
                 {user.email}
               </p>
             </div>
