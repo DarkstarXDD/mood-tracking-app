@@ -1,6 +1,7 @@
-export type ActionResultType =
+export type ActionResultType = Promise<
   | { success: true }
   | { success: false; error: { type: string; message: string } }
+>
 
 export type SVGIconNameType =
   | "icon-very-sad-white"

@@ -41,7 +41,10 @@ export default function AccountMenu() {
               height={128}
             />
           ) : (
-            <SVGIcon name="avatar-placeholder" className="size-10" />
+            <SVGIcon
+              name="avatar-placeholder"
+              className="size-10 rounded-full"
+            />
           )}
         </Button>
         <Popover

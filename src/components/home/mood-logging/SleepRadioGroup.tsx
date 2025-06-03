@@ -1,4 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod"
+import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { useForm, Controller } from "react-hook-form"
 
@@ -21,6 +22,7 @@ export default function SleepRadioGroup() {
   const { moodFormData } = useMoodForm()
   const { hoursOfSleep } = useMoodFormOptions()
   const [status, setStatus] = useState<"idle" | "loading" | "success">("idle")
+  const router = useRouter()
 
   const { handleSubmit, control, setError } = useForm<FormSchemaType>({
     resolver: zodResolver(formSchema),
@@ -40,11 +42,13 @@ export default function SleepRadioGroup() {
               setStatus("idle")
               return
             }
-            setStatus("success")
             const response = await createMoodEntry(validationResult.data)
-            if (response) {
-              setError("hoursOfSleep", response)
+            if (!response.success) {
+              setError("hoursOfSleep", response.error)
               return
+            } else {
+              router.refresh()
+              setStatus("success")
             }
           })}
         >
@@ -74,7 +78,6 @@ export default function SleepRadioGroup() {
               </RadioGroup>
             )}
           />
-
           <Button type="submit" size="lg">
             {status == "loading" ? <LoadingDots /> : "Submit"}
           </Button>

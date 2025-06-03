@@ -46,10 +46,9 @@ export async function getQuote(moodId: number) {
 export async function updateUser({
   name,
   avatarUrl,
-}: UserProfileSchemaType): Promise<ActionResultType> {
+}: UserProfileSchemaType): ActionResultType {
   const userId = await verifySession()
   if (!userId) redirect("/login")
-
   try {
     await prisma.user.update({
       where: { id: userId },
@@ -65,19 +64,18 @@ export async function updateUser({
 export async function hasCompletedOnboarding() {
   const userId = await verifySession()
   if (!userId) redirect("/login")
-
   const user = await prisma.user.findFirst({
     where: { id: userId, name: { not: null } },
     select: { id: true },
   })
-
   return !!user
 }
 
-export async function createMoodEntry(moodData: MoodFormSchemaType) {
+export async function createMoodEntry(
+  moodData: MoodFormSchemaType
+): ActionResultType {
   const userId = await verifySession()
   if (!userId) redirect("/login")
-
   try {
     await prisma.moodEntry.create({
       data: {
@@ -90,8 +88,9 @@ export async function createMoodEntry(moodData: MoodFormSchemaType) {
         user: { connect: { id: userId } },
       },
     })
+    return { success: true }
   } catch (e) {
     console.error(e)
-    return messages.errors.generic
+    return { success: false, error: messages.errors.generic }
   }
 }
