@@ -22,14 +22,11 @@ export default async function Home() {
     dailyQuote = await getQuote(moodId)
   }
 
-  const todayMood = user.moodEntries[0]
-
-  if (todayMood)
-    return (
-      <HomePage
-        user={user}
-        dailyQuote={dailyQuote}
-        moodFormOptions={moodFormOptions}
-      />
-    )
+  return (
+    <HomePage
+      user={user}
+      dailyQuote={dailyQuote}
+      moodFormOptions={moodFormOptions}
+    />
+  )
 }
