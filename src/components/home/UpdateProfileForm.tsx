@@ -6,6 +6,7 @@ import { useState } from "react"
 import { useForm } from "react-hook-form"
 
 import { updateUser } from "@/actions/user"
+import AvatarUploader from "@/components/ui/AvatarUploader"
 import Button from "@/components/ui/Button"
 import FileInput from "@/components/ui/FileInput"
 import LoadingDots from "@/components/ui/LoadingDots"
@@ -87,7 +88,8 @@ export default function UpdateProfileForm({
               Max 250KB, PNG or JPEG
             </p>
           </div>
-          <FileInput className="col-start-2" />
+          {/* <FileInput className="col-start-2" /> */}
+          <AvatarUploader className="col-start-2" />
         </div>
       </fieldset>
 
