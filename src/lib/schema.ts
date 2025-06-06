@@ -42,7 +42,7 @@ export type LoginSchemaType = z.infer<typeof loginSchema>
 ---------------------------------------
 */
 const allowedFileTypes = ["image/png", "image/jpeg", "image/jpg"]
-const maximumFileSize = 1000001
+const maximumFileSize = 251000
 
 const AvatarFileSchema = z
   .instanceof(File)
@@ -50,7 +50,7 @@ const AvatarFileSchema = z
     message: "Invalid image file type.",
   })
   .refine((file) => file.size < maximumFileSize, {
-    message: "File size should not exceed 1MB.",
+    message: "File size should not exceed 250KB.",
   })
   .optional()
 

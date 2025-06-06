@@ -81,7 +81,7 @@ export async function updateUser({
   try {
     await prisma.user.update({
       where: { id: userId },
-      data: { name: name, avatarUrl: cloudinaryResult?.secure_url },
+      data: { name: name, avatarUrl: cloudinaryResult?.public_id },
       select: { id: true },
     })
     return { success: true }
