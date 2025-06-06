@@ -89,7 +89,7 @@ function AccountMenuItem(props: MenuItemProps) {
   return (
     <MenuItem
       {...props}
-      className="rac-focus-visible:ring-2 flex cursor-pointer items-center justify-start gap-2.5 rounded-md px-3 py-2 text-base leading-normal font-normal tracking-tight text-neutral-900 ring-blue-600 outline-none hover:bg-blue-50"
+      className="rac-focus-visible:ring-2 rac-pressed:bg-blue-50 rac-hover:bg-blue-50 flex cursor-pointer items-center justify-start gap-2.5 rounded-md px-3 py-2 text-base leading-normal font-normal tracking-tight text-neutral-900 ring-blue-600 outline-none"
     />
   )
 }

@@ -9,11 +9,11 @@ export const buttonStyles = tv({
   variants: {
     variant: {
       primary:
-        "rac-hover:border-blue-700 rac-hover:bg-blue-700 border-blue-600 bg-blue-600 text-white ring-blue-600 ring-offset-2 ring-offset-white",
+        "rac-hover:border-blue-700 rac-pressed:border-blue-700 rac-pressed:bg-blue-700 rac-hover:bg-blue-700 border-blue-600 bg-blue-600 text-white ring-blue-600 ring-offset-2 ring-offset-white",
       secondary:
-        "rac-hover:bg-blue-50 border-neutral-300 bg-transparent text-neutral-900 ring-neutral-300",
+        "rac-hover:bg-blue-50 rac-pressed:bg-blue-50 border-neutral-300 bg-transparent text-neutral-900 ring-neutral-300",
       close:
-        "rac-hover:bg-blue-50 border-hidden text-neutral-300 ring-blue-600",
+        "rac-hover:bg-blue-50 rac-pressed:bg-blue-50 border-hidden text-neutral-300 ring-blue-600",
     },
     size: {
       sm: "rounded-lg px-4 py-2 text-lg leading-tight font-medium",
