@@ -2,12 +2,17 @@ import "server-only"
 
 import { redirect } from "next/navigation"
 
+import { cloudinary } from "@/lib/cloudinary"
 import { verifySession } from "@/lib/data-access/auth"
 import { messages } from "@/lib/messages"
 import { prisma } from "@/lib/prisma"
 
-import type { MoodFormSchemaType, UserProfileSchemaType } from "@/lib/schema"
+import type {
+  MoodFormSchemaType,
+  UserProfileSchemaServerType,
+} from "@/lib/schema"
 import type { ActionResultType } from "@/lib/types"
+import type { UploadApiResponse } from "cloudinary"
 
 export async function getUser() {
   const userId = await verifySession()
@@ -45,14 +50,38 @@ export async function getQuote(moodId: number) {
 
 export async function updateUser({
   name,
-  avatarUrl,
-}: UserProfileSchemaType): ActionResultType {
+  avatarFile,
+}: UserProfileSchemaServerType): ActionResultType {
   const userId = await verifySession()
   if (!userId) redirect("/login")
+
+  let cloudinaryResult: UploadApiResponse | undefined = undefined
+
+  if (avatarFile && avatarFile.size > 0) {
+    const arrayBuffer = await avatarFile.arrayBuffer()
+    const buffer = Buffer.from(arrayBuffer)
+    try {
+      cloudinaryResult = await new Promise((resolve, reject) => {
+        cloudinary.uploader
+          .upload_stream(
+            { resource_type: "image", folder: "mood-tracker/avatars" },
+            (error, result) => {
+              if (error || !result) return reject(error)
+              resolve(result)
+            }
+          )
+          .end(buffer)
+      })
+    } catch (e) {
+      console.error(e)
+      return { success: false, error: messages.errors.generic }
+    }
+  }
+
   try {
     await prisma.user.update({
       where: { id: userId },
-      data: { name: name, avatarUrl: avatarUrl },
+      data: { name: name, avatarUrl: cloudinaryResult?.secure_url },
       select: { id: true },
     })
     return { success: true }

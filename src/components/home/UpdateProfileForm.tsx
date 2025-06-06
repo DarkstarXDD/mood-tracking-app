@@ -4,17 +4,15 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import Image from "next/image"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
+import { z } from "zod"
 
 import { updateUser } from "@/actions/user"
-import AvatarUploader from "@/components/ui/AvatarUploader"
-import Button from "@/components/ui/Button"
-import FileInput from "@/components/ui/FileInput"
+import Button, { buttonStyles } from "@/components/ui/Button"
+import FieldError from "@/components/ui/FieldError"
 import LoadingDots from "@/components/ui/LoadingDots"
 import SVGIcon from "@/components/ui/SVGIcon"
 import TextField from "@/components/ui/TextField"
-import { userProfileSchema } from "@/lib/schema"
-
-import type { UserProfileSchemaType } from "@/lib/schema"
+import { userProfileSchemaClient } from "@/lib/schema"
 
 type UpdateProfileFormProps = {
   buttonText: string
@@ -35,11 +33,11 @@ export default function UpdateProfileForm({
     handleSubmit,
     formState: { errors },
     setError,
-  } = useForm<UserProfileSchemaType>({
-    resolver: zodResolver(userProfileSchema),
+  } = useForm<z.input<typeof userProfileSchemaClient>>({
+    resolver: zodResolver(userProfileSchemaClient),
     defaultValues: {
       name: name,
-      avatarUrl: avatarUrl,
+      avatarFile: undefined,
     },
   })
 
@@ -51,7 +49,7 @@ export default function UpdateProfileForm({
         const response = await updateUser(data)
         if (!response.success) {
           setError("name", response.error)
-          setStatus("loading")
+          setStatus("idle")
         } else onSuccess()
       })}
     >
@@ -65,19 +63,19 @@ export default function UpdateProfileForm({
           errorMessage={errors.name?.message}
         />
 
-        <div className="grid grid-cols-[auto_1fr] justify-items-start gap-x-5 gap-y-4">
+        <div className="grid grid-cols-[auto_1fr] items-center justify-items-start gap-x-5 gap-y-4">
           {avatarUrl ? (
             <Image
               src={avatarUrl}
               alt=""
-              className="col-start-1 row-span-2 size-16 rounded-full"
+              className="col-start-1 size-16 rounded-full"
               width={64}
               height={64}
             />
           ) : (
             <SVGIcon
               name="avatar-placeholder"
-              className="col-start-1 row-span-2 size-16 rounded-full"
+              className="col-start-1 size-16 rounded-full"
             />
           )}
           <div className="col-start-2 grid content-start gap-1.5">
@@ -88,8 +86,21 @@ export default function UpdateProfileForm({
               Max 250KB, PNG or JPEG
             </p>
           </div>
-          {/* <FileInput className="col-start-2" /> */}
-          <AvatarUploader className="col-start-2" />
+          <div className="col-start-1 col-end-3 grid gap-2">
+            <input
+              type="file"
+              accept="image/png, image/jpg, image/jpeg,"
+              {...register("avatarFile")}
+              className={buttonStyles({
+                variant: "secondary",
+                size: "sm",
+                className: "max-w-50 min-w-0 text-xs",
+              })}
+            />
+            {errors.avatarFile?.message && (
+              <FieldError>{errors.avatarFile.message.toString()}</FieldError>
+            )}
+          </div>
         </div>
       </fieldset>
 

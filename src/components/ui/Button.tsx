@@ -4,8 +4,8 @@ import { tv } from "tailwind-variants"
 import type { ButtonProps as RACButtonProps } from "react-aria-components"
 import type { VariantProps } from "tailwind-variants"
 
-const buttonStyles = tv({
-  base: "rac-focus-visible:ring-2 cursor-pointer border transition-colors outline-none disabled:pointer-events-none",
+export const buttonStyles = tv({
+  base: "cursor-pointer border transition-colors outline-none file:cursor-pointer focus-visible:ring-2 disabled:pointer-events-none",
   variants: {
     variant: {
       primary:

@@ -1,16 +1,22 @@
 "use server"
 
+import { z } from "zod"
+
 import * as user from "@/lib/data-access/user"
 import { messages } from "@/lib/messages"
-import { userProfileSchema, moodFormSchema } from "@/lib/schema"
+import {
+  userProfileSchemaClient,
+  moodFormSchema,
+  userProfileSchemaServer,
+} from "@/lib/schema"
 
-import type { UserProfileSchemaType, MoodFormSchemaType } from "@/lib/schema"
+import type { MoodFormSchemaType } from "@/lib/schema"
 import type { ActionResultType } from "@/lib/types"
 
-export async function updateUser(
-  formData: UserProfileSchemaType
-): ActionResultType {
-  const parsed = userProfileSchema.safeParse(formData)
+type UpdateUserData = z.input<typeof userProfileSchemaClient>
+
+export async function updateUser(formData: UpdateUserData): ActionResultType {
+  const parsed = userProfileSchemaServer.safeParse(formData)
   if (!parsed.success)
     return { success: false, error: messages.errors.validation }
   const response = await user.updateUser(parsed.data)
