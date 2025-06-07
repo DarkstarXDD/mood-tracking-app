@@ -4,7 +4,7 @@ import { redirect } from "next/navigation"
 
 import { cloudinary } from "@/lib/cloudinary"
 import { verifySession } from "@/lib/data-access/auth"
-import { messages } from "@/lib/messages"
+import { errorMessages } from "@/lib/error-messages"
 import { prisma } from "@/lib/prisma"
 
 import type {
@@ -74,7 +74,7 @@ export async function updateUser({
       })
     } catch (e) {
       console.error(e)
-      return { success: false, error: messages.errors.generic }
+      return { success: false, error: errorMessages.generic }
     }
   }
 
@@ -86,7 +86,7 @@ export async function updateUser({
     })
     return { success: true }
   } catch {
-    return { success: false, error: messages.errors.generic }
+    return { success: false, error: errorMessages.generic }
   }
 }
 
@@ -120,6 +120,6 @@ export async function createMoodEntry(
     return { success: true }
   } catch (e) {
     console.error(e)
-    return { success: false, error: messages.errors.generic }
+    return { success: false, error: errorMessages.generic }
   }
 }

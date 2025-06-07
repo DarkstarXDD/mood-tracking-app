@@ -12,7 +12,6 @@ async function createToken(payload: { userId: string }) {
     .setIssuedAt()
     .setExpirationTime("7d")
     .sign(encodedSecretKey)
-
   return token
 }
 
@@ -20,7 +19,6 @@ export async function createSession(userId: string) {
   const expiresAt = new Date(Date.now() + 1000 * 60 * 60 * 24 * 7)
   const token = await createToken({ userId: userId })
   const cookieStore = await cookies()
-
   cookieStore.set("token", token, {
     httpOnly: true,
     secure: true,

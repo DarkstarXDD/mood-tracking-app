@@ -1,10 +1,7 @@
-import { NextResponse } from "next/server"
+import { NextResponse, type NextRequest } from "next/server"
 
 import { verifyToken } from "@/lib/session"
 
-import type { NextRequest } from "next/server"
-
-const protectedRoutes = ["/", "/onboarding"]
 const publicRoutes = ["/login", "/signup"]
 
 export async function middleware(request: NextRequest) {
@@ -17,7 +14,7 @@ export async function middleware(request: NextRequest) {
   const homePageURL = new URL("/", request.url)
 
   // Redirect to /login, if not authenticated
-  if (!session?.userId && protectedRoutes.includes(pathName)) {
+  if (!session?.userId && !publicRoutes.includes(pathName)) {
     return NextResponse.redirect(loginPageURL)
   }
 
@@ -30,5 +27,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!api|_next/static|_next/image|.*\\.png$).*)"],
+  matcher: ["/((?!api|_next/static|_next/image|.*\\.(?:png|svg)$).*)"],
 }
