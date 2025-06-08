@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation"
 
-import UpdateProfileForm from "@/components/home/UpdateProfileForm"
+import UpdateProfileForm from "@/components/home/account-menu/UpdateProfileForm"
 
 export default function Onboarding() {
   const router = useRouter()

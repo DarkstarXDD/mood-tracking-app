@@ -14,7 +14,7 @@ import {
 import { FiSettings, FiLogOut } from "react-icons/fi"
 
 import { logoutUser } from "@/actions/auth"
-import UpdateProfileDialog from "@/components/home/UpdateProfileDialog"
+import UpdateProfileDialog from "@/components/home/account-menu/UpdateProfileDialog"
 import SVGIcon from "@/components/ui/SVGIcon"
 import useUser from "@/hooks/useUser"
 
@@ -61,13 +61,11 @@ export default function AccountMenu() {
               </p>
             </div>
             <Separator className="h-0.25 border-none bg-blue-100" />
-
             <Menu className="outline-none">
               <AccountMenuItem onAction={openDialog}>
                 <FiSettings className="size-4" />
                 <span>Settings</span>
               </AccountMenuItem>
-
               <AccountMenuItem onAction={logoutUser}>
                 <FiLogOut className="size-4" />
                 <span>Logout</span>
@@ -76,7 +74,6 @@ export default function AccountMenu() {
           </div>
         </Popover>
       </MenuTrigger>
-
       <UpdateProfileDialog
         isDialogOpen={isDialogOpen}
         onDialogClose={closeDialog}

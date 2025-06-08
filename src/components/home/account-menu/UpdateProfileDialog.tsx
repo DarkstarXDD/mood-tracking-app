@@ -1,6 +1,6 @@
 import { useRouter } from "next/navigation"
 
-import UpdateProfileForm from "@/components/home/UpdateProfileForm"
+import UpdateProfileForm from "@/components/home/account-menu/UpdateProfileForm"
 import { Modal, ModalContent } from "@/components/ui/Modal"
 import useUser from "@/hooks/useUser"
 

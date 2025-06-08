@@ -103,7 +103,6 @@ export default function UpdateProfileForm({
           </div>
         </div>
       </fieldset>
-
       <Button type="submit">
         {status === "loading" ? <LoadingDots /> : buttonText}
       </Button>

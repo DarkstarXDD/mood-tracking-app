@@ -1,6 +1,6 @@
 "use client"
 
-import AccountMenu from "@/components/home/AccountMenu"
+import AccountMenu from "@/components/home/account-menu/AccountMenu"
 import BrandLogo from "@/components/ui/BrandLogo"
 
 export default function Header() {
