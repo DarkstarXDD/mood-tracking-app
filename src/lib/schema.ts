@@ -61,7 +61,6 @@ export const userProfileSchemaClient = z.object({
       const files = Array.from(val as File[])
       return files.length > 0 ? files[0] : undefined
     } catch {
-      console.log("It is undefined")
       return undefined
     }
   }, AvatarFileSchema),
