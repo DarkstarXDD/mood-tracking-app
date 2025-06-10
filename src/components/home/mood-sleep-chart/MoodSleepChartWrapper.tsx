@@ -8,8 +8,8 @@ import useUser from "@/hooks/useUser"
 //   { ssr: false }
 // )
 
-const ChartNoSSR = dynamic(
-  () => import("@/components/home/mood-sleep-chart/Chart"),
+const MoodChartNoSSR = dynamic(
+  () => import("@/components/home/mood-sleep-chart/MoodChart"),
   { ssr: false }
 )
 
@@ -31,7 +31,7 @@ export default function MoodSleepChartWrapper() {
         </p>
       ) : (
         // <MoodSleepChartNoSSR />
-        <ChartNoSSR />
+        <MoodChartNoSSR />
       )}
     </div>
   )
