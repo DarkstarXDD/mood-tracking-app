@@ -68,11 +68,9 @@ export default function Chart() {
 
         <g>
           {xTicks.map((tick) => {
-            const xPosTemp = xScale(tick)
+            const rawXPos = xScale(tick)
             const tickXPos =
-              xPosTemp !== undefined
-                ? xPosTemp + xScale.bandwidth() / 2
-                : undefined
+              rawXPos !== undefined ? rawXPos + xScale.bandwidth() / 2 : 0
             return (
               <g key={tick} transform={`translate(${tickXPos} 0)`}>
                 <text
