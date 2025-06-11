@@ -20,7 +20,7 @@ type RadioGroupProps = Omit<RACRadioGroupProps, "children"> & {
   errorMessage?: string
 }
 
-export function RadioGroup({
+function RadioGroup({
   label,
   children,
   className,
@@ -38,15 +38,15 @@ export function RadioGroup({
   )
 }
 
-type RadioOptionProps = Omit<RACRadioProps, "children"> & {
+type RadioGroupItemProps = Omit<RACRadioProps, "children"> & {
   children: ReactNode
 }
 
-export function RadioOption({
+function RadioGroupItem({
   children,
   className,
   ...props
-}: RadioOptionProps) {
+}: RadioGroupItemProps) {
   return (
     <RACRadio {...props} className="group">
       {({ isSelected }) => (
@@ -81,3 +81,5 @@ export function RadioOption({
     </RACRadio>
   )
 }
+
+export { RadioGroup, RadioGroupItem }

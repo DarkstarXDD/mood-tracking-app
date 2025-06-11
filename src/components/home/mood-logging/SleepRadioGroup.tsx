@@ -7,13 +7,12 @@ import { createMoodEntry } from "@/actions/user"
 import AnimatedSuccessMark from "@/components/ui/AnimatedSuccessMark"
 import Button from "@/components/ui/Button"
 import LoadingDots from "@/components/ui/LoadingDots"
-import { RadioGroup, RadioOption } from "@/components/ui/RadioGroup"
+import { RadioGroup, RadioGroupItem } from "@/components/ui/RadioGroup"
 import useMoodForm from "@/hooks/useMoodForm"
 import useMoodFormOptions from "@/hooks/useMoodFormOptions"
 import { moodFormSchema } from "@/lib/schema"
 
 import type { MoodFormSchemaType } from "@/lib/schema"
-import type { RadioProps } from "react-aria-components"
 
 const formSchema = moodFormSchema.pick({ hoursOfSleep: true })
 type FormSchemaType = Pick<MoodFormSchemaType, "hoursOfSleep">
@@ -69,11 +68,11 @@ export default function SleepRadioGroup() {
                 errorMessage={error?.message}
               >
                 {hoursOfSleep.map((item) => (
-                  <SleepRadioOption
-                    key={item.id}
-                    value={item.id.toString()}
-                    label={item.label}
-                  />
+                  <RadioGroupItem key={item.id} value={item.id.toString()}>
+                    <span className="text-xl leading-normal font-semibold tracking-normal text-neutral-900">
+                      {item.label}
+                    </span>
+                  </RadioGroupItem>
                 ))}
               </RadioGroup>
             )}
@@ -94,19 +93,5 @@ export default function SleepRadioGroup() {
         </div>
       )}
     </div>
-  )
-}
-
-type SleepRadioOptionProps = RadioProps & {
-  label: string
-}
-
-function SleepRadioOption({ label, ...props }: SleepRadioOptionProps) {
-  return (
-    <RadioOption {...props}>
-      <span className="text-xl leading-normal font-semibold tracking-normal text-neutral-900">
-        {label}
-      </span>
-    </RadioOption>
   )
 }

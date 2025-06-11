@@ -24,7 +24,7 @@ type ModalProps = {
 
 const ModalContext = createContext<ModalProps>({ title: "" })
 
-export function Modal({
+function Modal({
   title,
   isOpen,
   onOpenChange,
@@ -43,7 +43,7 @@ export function Modal({
     )
   }
 
-  // No ModalTrigger - no DialogTrigger wrapper
+  // If No ModalTrigger passed in, then no DialogTrigger wrapper
   return (
     <ModalContext.Provider value={{ title, isOpen, onOpenChange }}>
       {children}
@@ -51,20 +51,20 @@ export function Modal({
   )
 }
 
-export function ModalTrigger({ children }: { children: ReactNode }) {
+function ModalTrigger({ children }: { children: ReactNode }) {
   return <>{children}</>
 }
 
-export function ModalContent({ children }: { children: ReactNode }) {
+function ModalContent({ children }: { children: ReactNode }) {
   const { title, isOpen, onOpenChange } = useContext(ModalContext)
 
   return (
     <ModalOverlay
       isOpen={isOpen}
       onOpenChange={onOpenChange}
-      className="rac-entering:animate-in rac-exiting:animate-out rac-entering:fade-in-0 rac-exiting:fade-out-0 fixed inset-0 z-10 flex min-h-dvh flex-col items-center overflow-auto bg-neutral-900/70 p-5 py-6 backdrop-blur duration-100 ease-out md:py-10 lg:py-16"
+      className="rac-entering:animate-in rac-exiting:animate-out no-scrollbar rac-entering:fade-in-0 rac-exiting:fade-out-0 fixed inset-0 z-10 flex min-h-dvh flex-col items-center overflow-auto bg-neutral-900/70 p-5 py-6 backdrop-blur duration-100 ease-out md:py-10 lg:py-16"
     >
-      <RACModal className="no-scrollbar w-full max-w-152 overflow-auto">
+      <RACModal className="w-full max-w-152">
         <Dialog className="from-gradient-start to-gradient-end relative rounded-2xl bg-linear-to-b from-75% bg-no-repeat px-5 py-10 outline-none md:px-10 md:py-12">
           <Button
             slot="close"
@@ -86,3 +86,5 @@ export function ModalContent({ children }: { children: ReactNode }) {
     </ModalOverlay>
   )
 }
+
+export { Modal, ModalTrigger, ModalContent }
