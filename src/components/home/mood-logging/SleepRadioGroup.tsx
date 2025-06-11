@@ -78,7 +78,7 @@ export default function SleepRadioGroup() {
               </RadioGroup>
             )}
           />
-          <Button type="submit" size="lg">
+          <Button type="submit" size="lg" isDisabled={status === "loading"}>
             {status == "loading" ? <LoadingDots /> : "Submit"}
           </Button>
         </form>
