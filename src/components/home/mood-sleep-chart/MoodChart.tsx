@@ -10,10 +10,12 @@ import { SVGIconNameType } from "@/lib/types"
 
 const margin = {
   top: 20,
-  bottom: 40,
+  bottom: 60,
   left: 70,
   right: 10,
 }
+
+const barMinWidth = 40
 
 function tickFormatter(id: number) {
   const match = hoursOfSleep.find((item) => item.id === id)
@@ -28,10 +30,15 @@ export default function Chart() {
   const [ref, { width, height }] = useMeasure()
   const data = moodEntries.toReversed()
 
+  // 50 is an arbitrary value added to consider for the gaps between bars.
+  const minChartWidth =
+    data.length * barMinWidth + margin.left + margin.right + 50
+  const chartWidth = width < minChartWidth ? minChartWidth : width
+
   const xScale = d3
     .scaleBand()
     .domain(data.map((d) => d.createdAt.toISOString()))
-    .range([margin.left, width - margin.right])
+    .range([0, chartWidth - margin.right])
     .paddingInner(0.2)
   const xTicks = xScale.domain()
 
@@ -42,18 +49,13 @@ export default function Chart() {
   const yTicks = yScale.ticks(6)
 
   return (
-    <div ref={ref} className="min-h-75">
-      <svg className="h-full w-full">
+    <div className="flex min-h-75 w-full overflow-hidden">
+      <svg className="shrink-0" style={{ width: margin.left, height }}>
         <g>
           {yTicks.map((tick) => {
             if (tick === 0) return null
             return (
               <g key={tick} transform={`translate(0, ${yScale(tick)})`}>
-                <line
-                  x1={margin.left}
-                  x2={width - margin.right}
-                  className="stroke-blue-100"
-                />
                 <text
                   x={4}
                   alignmentBaseline="middle"
@@ -65,67 +67,88 @@ export default function Chart() {
             )
           })}
         </g>
-
-        <g>
-          {xTicks.map((tick) => {
-            const rawXPos = xScale(tick)
-            const tickXPos =
-              rawXPos !== undefined ? rawXPos + xScale.bandwidth() / 2 : 0
-            return (
-              <g key={tick} transform={`translate(${tickXPos} 0)`}>
-                <text
-                  y={height - 20}
-                  textAnchor="middle"
-                  className="fill-neutral-600 text-xs"
-                >
-                  {format(tick, "MMM")}
-                </text>
-                <text
-                  y={height - 2}
-                  textAnchor="middle"
-                  className="fill-neutral-900 text-xs"
-                >
-                  {format(tick, "d")}
-                </text>
-              </g>
-            )
-          })}
-        </g>
-
-        <g>
-          {data.map((entry) => {
-            const rawXPos = xScale(entry.createdAt.toISOString()) ?? 0
-            const fullBandwidth = xScale.bandwidth()
-            const bandwidth = Math.min(fullBandwidth, 40)
-            const moodIconSize = bandwidth * 0.75
-
-            const barXPos = rawXPos + (fullBandwidth - bandwidth) / 2
-            const barYPos = yScale(entry.hoursOfSleep.id)
-            const iconXPos = barXPos + (bandwidth - moodIconSize) / 2
-            const iconYPos = barYPos + 5
-
-            return (
-              <g key={entry.id}>
-                <rect
-                  x={barXPos}
-                  y={barYPos}
-                  width={bandwidth}
-                  height={height - (barYPos + margin.bottom)}
-                  fill={moodToColorMap[entry.mood.id]}
-                  rx={bandwidth / 2}
-                />
-                <SVGIcon
-                  name={entry.mood.iconWhite as SVGIconNameType}
-                  x={iconXPos}
-                  y={iconYPos}
-                  width={moodIconSize}
-                  height={moodIconSize}
-                />
-              </g>
-            )
-          })}
-        </g>
       </svg>
+
+      <div ref={ref} dir="rtl" className="w-full overflow-x-auto">
+        <svg className="h-full" style={{ width: chartWidth }}>
+          <g>
+            {yTicks.map((tick) => {
+              if (tick === 0) return null
+              return (
+                <line
+                  key={tick}
+                  x1={0}
+                  x2={chartWidth}
+                  y1={yScale(tick)}
+                  y2={yScale(tick)}
+                  className="stroke-blue-100"
+                />
+              )
+            })}
+          </g>
+
+          <g>
+            {xTicks.map((tick) => {
+              const rawXPos = xScale(tick)
+              const tickXPos =
+                rawXPos !== undefined ? rawXPos + xScale.bandwidth() / 2 : 0
+              return (
+                <g key={tick} transform={`translate(${tickXPos} 0)`}>
+                  <text
+                    y={height - 38}
+                    textAnchor="middle"
+                    className="fill-neutral-600 text-xs"
+                  >
+                    {format(tick, "MMM")}
+                  </text>
+                  <text
+                    y={height - 18}
+                    textAnchor="middle"
+                    className="fill-neutral-900 text-xs"
+                  >
+                    {format(tick, "d")}
+                  </text>
+                </g>
+              )
+            })}
+          </g>
+
+          <g>
+            {data.map((entry) => {
+              const rawXPos = xScale(entry.createdAt.toISOString()) ?? 0
+              const fullBandwidth = xScale.bandwidth()
+              const bandwidth = Math.min(fullBandwidth, barMinWidth)
+              const moodIconSize = bandwidth * 0.75
+
+              const barXPos = rawXPos + (fullBandwidth - bandwidth) / 2
+              const barYPos = yScale(entry.hoursOfSleep.id)
+              const barHeight = height - (barYPos + margin.bottom)
+              const iconXPos = barXPos + (bandwidth - moodIconSize) / 2
+              const iconYPos = barYPos + 5
+
+              return (
+                <g key={entry.id}>
+                  <rect
+                    x={barXPos}
+                    y={barYPos}
+                    width={bandwidth}
+                    height={barHeight < 0 ? 0 : barHeight}
+                    fill={moodToColorMap[entry.mood.id]}
+                    rx={bandwidth / 2}
+                  />
+                  <SVGIcon
+                    name={entry.mood.iconWhite as SVGIconNameType}
+                    x={iconXPos}
+                    y={iconYPos}
+                    width={moodIconSize}
+                    height={moodIconSize}
+                  />
+                </g>
+              )
+            })}
+          </g>
+        </svg>
+      </div>
     </div>
   )
 }
