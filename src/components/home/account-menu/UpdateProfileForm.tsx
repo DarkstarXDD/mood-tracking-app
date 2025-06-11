@@ -103,7 +103,7 @@ export default function UpdateProfileForm({
           </div>
         </div>
       </fieldset>
-      <Button type="submit">
+      <Button type="submit" isDisabled={status === "loading"}>
         {status === "loading" ? <LoadingDots /> : buttonText}
       </Button>
     </form>
