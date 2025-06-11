@@ -7,7 +7,7 @@ import CheckinSummary from "@/components/home/checkin-summary/CheckinSummary"
 import DailySummary from "@/components/home/daily-summary/DailySummary"
 import Header from "@/components/home/Header"
 import Hero from "@/components/home/Hero"
-import MoodSleepChartWrapper from "@/components/home/mood-sleep-chart/MoodSleepChartWrapper"
+import MoodChartWrapper from "@/components/home/mood-chart/MoodChartWrapper"
 
 import type { GetMoodFormOptionsType } from "@/lib/data-access/mood"
 import type { GetUserType } from "@/lib/data-access/user"
@@ -54,7 +54,7 @@ export default function HomePage({
 
                 <div className="grid gap-8 lg:grid-cols-[auto_1fr]">
                   <CheckinSummary />
-                  <MoodSleepChartWrapper />
+                  <MoodChartWrapper />
                 </div>
               </div>
             </main>

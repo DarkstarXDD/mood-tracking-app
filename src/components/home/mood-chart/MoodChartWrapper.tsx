@@ -1,15 +1,9 @@
 "use client"
-// import dynamic from "next/dynamic"
 
-import MoodChart from "@/components/home/mood-sleep-chart/MoodChart"
+import MoodChart from "@/components/home/mood-chart/MoodChart"
 import useUser from "@/hooks/useUser"
 
-// const MoodChartNoSSR = dynamic(
-//   () => import("@/components/home/mood-sleep-chart/MoodChart"),
-//   { ssr: false }
-// )
-
-export default function MoodSleepChartWrapper() {
+export default function MoodChartWrapper() {
   const {
     user: { moodEntries },
   } = useUser()
