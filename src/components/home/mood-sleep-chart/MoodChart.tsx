@@ -1,5 +1,8 @@
+"use client"
+
 import * as d3 from "d3"
 import { format } from "date-fns"
+import { motion } from "motion/react"
 import useMeasure from "react-use-measure"
 
 import SVGIcon from "@/components/ui/SVGIcon"
@@ -22,7 +25,7 @@ function tickFormatter(id: number) {
   return match?.label ?? id
 }
 
-export default function Chart() {
+export default function MoodChart() {
   const {
     user: { moodEntries },
   } = useUser()
@@ -75,8 +78,11 @@ export default function Chart() {
             {yTicks.map((tick) => {
               if (tick === 0) return null
               return (
-                <line
+                <motion.line
                   key={tick}
+                  initial={{ scaleX: 0 }}
+                  animate={{ scaleX: 1 }}
+                  transition={{ delay: 0.15, duration: 0.25 }}
                   x1={0}
                   x2={chartWidth}
                   y1={yScale(tick)}
@@ -128,16 +134,35 @@ export default function Chart() {
 
               return (
                 <g key={entry.id}>
-                  <rect
+                  <motion.rect
+                    initial={{ height: 0 }}
+                    animate={{ height: barHeight < 0 ? 0 : barHeight }}
+                    transition={{
+                      delay: 0.6,
+                      type: "spring",
+                      stiffness: 250,
+                      damping: 35,
+                    }}
                     x={barXPos}
                     y={barYPos}
                     width={bandwidth}
-                    height={barHeight < 0 ? 0 : barHeight}
                     fill={moodToColorMap[entry.mood.id]}
                     rx={bandwidth / 2}
                   />
-                  <SVGIcon
+                  <MotionSVGIcon
                     name={entry.mood.iconWhite as SVGIconNameType}
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{
+                      delay: 0.4,
+                      type: "spring",
+                      stiffness: 300,
+                      damping: 15,
+                    }}
+                    // style={{ transformOrigin: "center" }}
+                    style={{
+                      transformOrigin: `${iconXPos + moodIconSize / 2}px ${iconYPos + moodIconSize / 2}px`,
+                    }}
                     x={iconXPos}
                     y={iconYPos}
                     width={moodIconSize}
@@ -152,3 +177,5 @@ export default function Chart() {
     </div>
   )
 }
+
+const MotionSVGIcon = motion.create(SVGIcon)

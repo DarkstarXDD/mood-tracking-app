@@ -1,17 +1,13 @@
 "use client"
-import dynamic from "next/dynamic"
+// import dynamic from "next/dynamic"
 
+import MoodChart from "@/components/home/mood-sleep-chart/MoodChart"
 import useUser from "@/hooks/useUser"
 
-// const MoodSleepChartNoSSR = dynamic(
-//   () => import(`@/components/home/mood-sleep-chart/MoodSleepChart`),
+// const MoodChartNoSSR = dynamic(
+//   () => import("@/components/home/mood-sleep-chart/MoodChart"),
 //   { ssr: false }
 // )
-
-const MoodChartNoSSR = dynamic(
-  () => import("@/components/home/mood-sleep-chart/MoodChart"),
-  { ssr: false }
-)
 
 export default function MoodSleepChartWrapper() {
   const {
@@ -30,8 +26,7 @@ export default function MoodSleepChartWrapper() {
           Not enough data yet. Please add at least one entry.
         </p>
       ) : (
-        // <MoodSleepChartNoSSR />
-        <MoodChartNoSSR />
+        <MoodChart />
       )}
     </div>
   )

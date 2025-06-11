@@ -1,10 +1,7 @@
 import type { SVGIconNameType } from "@/lib/types"
 import type { ComponentProps } from "react"
 
-type SVGIconProps = { name: SVGIconNameType } & Pick<
-  ComponentProps<"svg">,
-  "width" | "height" | "x" | "y" | "className" | "aria-hidden" | "aria-label"
->
+type SVGIconProps = { name: SVGIconNameType } & ComponentProps<"svg">
 
 export default function SVGIcon({ name, ...props }: SVGIconProps) {
   return (
