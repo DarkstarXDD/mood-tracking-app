@@ -9,7 +9,6 @@ import {
   Menu,
   MenuItem,
   Separator,
-  MenuItemProps,
 } from "react-aria-components"
 import { FiSettings, FiLogOut } from "react-icons/fi"
 
@@ -62,14 +61,20 @@ export default function AccountMenu() {
             </div>
             <Separator className="h-0.25 border-none bg-blue-100" />
             <Menu className="outline-none">
-              <AccountMenuItem onAction={openDialog}>
+              <MenuItem
+                onAction={openDialog}
+                className="rac-focus-visible:ring-2 rac-pressed:bg-blue-50 rac-hover:bg-blue-50 flex cursor-pointer items-center justify-start gap-2.5 rounded-md px-3 py-2 text-base leading-normal font-normal tracking-tight text-neutral-900 ring-blue-600 outline-none"
+              >
                 <FiSettings className="size-4" />
                 <span>Settings</span>
-              </AccountMenuItem>
-              <AccountMenuItem onAction={logoutUser}>
+              </MenuItem>
+              <MenuItem
+                onAction={logoutUser}
+                className="rac-focus-visible:ring-2 rac-pressed:bg-blue-50 rac-hover:bg-blue-50 flex cursor-pointer items-center justify-start gap-2.5 rounded-md px-3 py-2 text-base leading-normal font-normal tracking-tight text-neutral-900 ring-blue-600 outline-none"
+              >
                 <FiLogOut className="size-4" />
                 <span>Logout</span>
-              </AccountMenuItem>
+              </MenuItem>
             </Menu>
           </div>
         </Popover>
@@ -79,14 +84,5 @@ export default function AccountMenu() {
         onDialogClose={closeDialog}
       />
     </>
-  )
-}
-
-function AccountMenuItem(props: MenuItemProps) {
-  return (
-    <MenuItem
-      {...props}
-      className="rac-focus-visible:ring-2 rac-pressed:bg-blue-50 rac-hover:bg-blue-50 flex cursor-pointer items-center justify-start gap-2.5 rounded-md px-3 py-2 text-base leading-normal font-normal tracking-tight text-neutral-900 ring-blue-600 outline-none"
-    />
   )
 }
