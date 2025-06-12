@@ -1,4 +1,4 @@
-import Tooltip from "@/components/ui/Tooltip"
+import Popover from "@/components/ui/Popover"
 import { cn } from "@/lib/utils"
 
 import type { ComponentProps, ReactNode } from "react"
@@ -18,7 +18,7 @@ export default function Label({
       )}
     >
       {children}
-      {tooltip && <Tooltip>{tooltip}</Tooltip>}
+      {tooltip && <Popover>{tooltip}</Popover>}
     </label>
   )
 }
