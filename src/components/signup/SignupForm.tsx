@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form"
 
 import { registerUser } from "@/actions/auth"
 import Button from "@/components/ui/Button"
+import { DemoAccessInfo } from "@/components/ui/DemoAccessInfo"
 import LoadingDots from "@/components/ui/LoadingDots"
 import TextField from "@/components/ui/TextField"
 import { signupSchema, type SignupSchemaType } from "@/lib/schema"
@@ -52,6 +53,7 @@ export default function SignupForm() {
             autoComplete="email"
             {...register("email")}
             errorMessage={errors.email?.message}
+            tooltip={<DemoAccessInfo />}
           />
           <TextField
             label="Password"

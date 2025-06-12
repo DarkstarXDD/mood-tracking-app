@@ -7,11 +7,12 @@ import Input from "@/components/ui/Input"
 import Label from "@/components/ui/Label"
 import { cn } from "@/lib/utils"
 
-import type { ComponentProps } from "react"
+import type { ComponentProps, ReactNode } from "react"
 
 type TextFieldProps = {
   label: string
   errorMessage?: string
+  tooltip?: ReactNode
 } & Omit<ComponentProps<"input">, "type"> & {
     type?: "text" | "email" | "password"
   }
@@ -21,6 +22,7 @@ export default function TextField({
   id,
   className,
   errorMessage,
+  tooltip,
   ...props
 }: TextFieldProps) {
   const defaultId = useId()
@@ -32,7 +34,9 @@ export default function TextField({
 
   return (
     <div className={cn("grid gap-2", className)}>
-      <Label htmlFor={inputId}>{label}</Label>
+      <Label htmlFor={inputId} tooltip={tooltip}>
+        {label}
+      </Label>
       <Input
         id={inputId}
         {...props}
