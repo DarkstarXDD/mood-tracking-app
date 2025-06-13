@@ -25,11 +25,11 @@ export function DemoAccessInfo() {
         <div className="rounded border border-blue-200 bg-blue-100 p-2 text-xs">
           <div className="flex">
             <span className="w-20 text-neutral-600">Email:</span>
-            <span className="text-neutral-900">demo@example.com</span>
+            <span className="text-neutral-900">jane@doe.com</span>
           </div>
           <div className="flex">
             <span className="w-20 text-neutral-600">Password:</span>
-            <span className="text-neutral-900">Demo1234</span>
+            <span className="text-neutral-900">Jane1234</span>
           </div>
         </div>
       </div>

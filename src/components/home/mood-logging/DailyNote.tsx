@@ -41,11 +41,10 @@ export default function DailyNote() {
           htmlFor={inputId}
           className="text-3xl leading-snug font-bold tracking-tight text-neutral-900"
         >
-          Write about your day...
-          <span className="text-lg font-medium text-neutral-600">
-            {" "}
+          Write about your day... (Optional)
+          {/* <span className="text-lg font-medium text-neutral-600">
             (Optional)
-          </span>
+          </span> */}
         </Label>
 
         <div className="grid gap-2">
