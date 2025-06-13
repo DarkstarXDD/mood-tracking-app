@@ -22,6 +22,6 @@ export const errorMessages = {
 
   demoUserNotAllowed: {
     type: "auth_error",
-    message: "Updates to name or avatar are disabled for the demo user.",
+    message: "Updates to name and avatar are disabled for the demo user.",
   },
 }
