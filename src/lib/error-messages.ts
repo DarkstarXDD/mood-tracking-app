@@ -19,4 +19,9 @@ export const errorMessages = {
     type: "auth_error",
     message: "Incorrect username or password.",
   },
+
+  demoUserNotAllowed: {
+    type: "auth_error",
+    message: "Updates to name or avatar are disabled for the demo user.",
+  },
 }

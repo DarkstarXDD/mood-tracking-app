@@ -12,6 +12,7 @@ import FieldError from "@/components/ui/FieldError"
 import LoadingDots from "@/components/ui/LoadingDots"
 import SVGIcon from "@/components/ui/SVGIcon"
 import TextField from "@/components/ui/TextField"
+import useUser from "@/hooks/useUser"
 import { userProfileSchemaClient } from "@/lib/schema"
 
 type UpdateProfileFormProps = {
@@ -40,6 +41,11 @@ export default function UpdateProfileForm({
       avatarFile: undefined,
     },
   })
+  const {
+    user: { email },
+  } = useUser()
+
+  const isDemoUser = email === "jane@doe.com"
 
   return (
     <form
@@ -53,9 +59,14 @@ export default function UpdateProfileForm({
         } else onSuccess()
       })}
     >
+      {isDemoUser && (
+        <p className="text-sm font-medium text-red-700">
+          Updates to name or avatar are disabled for the demo user.
+        </p>
+      )}
       <fieldset
         className="grid gap-6 disabled:opacity-60"
-        disabled={status === "loading"}
+        disabled={status === "loading" || isDemoUser}
       >
         <TextField
           label="Name"
@@ -103,7 +114,7 @@ export default function UpdateProfileForm({
           </div>
         </div>
       </fieldset>
-      <Button type="submit" isDisabled={status === "loading"}>
+      <Button type="submit" isDisabled={status === "loading" || isDemoUser}>
         {status === "loading" ? <LoadingDots /> : buttonText}
       </Button>
     </form>

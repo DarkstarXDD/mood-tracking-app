@@ -9,6 +9,7 @@ import FieldError from "@/components/ui/FieldError"
 import Label from "@/components/ui/Label"
 import TextArea from "@/components/ui/TextArea"
 import useMoodForm from "@/hooks/useMoodForm"
+import useUser from "@/hooks/useUser"
 import { moodFormSchema } from "@/lib/schema"
 
 import type { MoodFormSchemaType } from "@/lib/schema"
@@ -27,6 +28,10 @@ export default function DailyNote() {
   const inputId = useId()
   const errorId = `${inputId}-error`
   const isInvalid = errors.dailyNote?.message ? true : false
+  const {
+    user: { email },
+  } = useUser()
+  const isDemoUser = email === "jane@doe.com"
 
   return (
     <form
@@ -42,17 +47,21 @@ export default function DailyNote() {
           className="text-3xl leading-snug font-bold tracking-tight text-neutral-900"
         >
           Write about your day... (Optional)
-          {/* <span className="text-lg font-medium text-neutral-600">
-            (Optional)
-          </span> */}
         </Label>
+
+        {isDemoUser && (
+          <p className="text-sm font-medium text-red-700">
+            Adding notes is disabled for the demo user.
+          </p>
+        )}
 
         <div className="grid gap-2">
           <TextArea
+            disabled={isDemoUser}
             id={inputId}
             {...register("dailyNote")}
             placeholder="Today, I felt…"
-            className="h-38 resize-none placeholder:italic"
+            className="h-38 resize-none placeholder:italic disabled:opacity-60"
             aria-invalid={isInvalid || undefined}
             aria-describedby={isInvalid ? errorId : undefined}
           />

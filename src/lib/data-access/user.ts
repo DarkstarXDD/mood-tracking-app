@@ -55,6 +55,10 @@ export async function updateUser({
   const userId = await verifySession()
   if (!userId) redirect("/login")
 
+  const isDemoUser = userId === "cmbu8akjb0000fxkg2hka3v2q"
+  if (isDemoUser)
+    return { success: false, error: errorMessages.demoUserNotAllowed }
+
   let cloudinaryResult: UploadApiResponse | undefined = undefined
 
   if (avatarFile && avatarFile.size > 0) {
@@ -105,6 +109,9 @@ export async function createMoodEntry(
 ): ActionResultType {
   const userId = await verifySession()
   if (!userId) redirect("/login")
+
+  const isDemoUser = userId === "cmbu8akjb0000fxkg2hka3v2q"
+
   try {
     await prisma.moodEntry.create({
       data: {
@@ -112,7 +119,7 @@ export async function createMoodEntry(
         tags: {
           connect: moodData.moodTags.map((tag) => ({ name: tag })),
         },
-        note: moodData.dailyNote,
+        note: isDemoUser ? undefined : moodData.dailyNote,
         hoursOfSleep: { connect: { id: moodData.hoursOfSleep } },
         user: { connect: { id: userId } },
       },
