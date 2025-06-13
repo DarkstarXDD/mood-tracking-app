@@ -16,17 +16,17 @@ export const metadata: Metadata = {
 
   openGraph: {
     type: "website",
-    url: "https://mood-tracker-darkstarxdd.vercel.app/",
+    url: "https://mood-tracker-darkstar.vercel.app/",
     title: "Mood Tracker",
 
     description:
       "Check out Darkstar's solution for the Mood Tracking App challenge on Frontend Mentor",
 
     images: {
-      url: "https://mood-tracker-darkstarxdd.vercel.app/og-img.jpeg",
+      url: "https://mood-tracker-darkstar.vercel.app/og-img.jpeg",
       type: "image/jpeg",
-      width: 1440,
-      height: 756,
+      width: 1200,
+      height: 630,
     },
   },
 }
