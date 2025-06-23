@@ -6,7 +6,7 @@ import useUser from "@/hooks/useUser"
 import { getFirstName } from "@/lib/utils"
 
 export default function Hero() {
-  const { user, hasMoodLoggedToday } = useUser()
+  const { user } = useUser()
 
   return (
     <div className="flex flex-col items-center justify-center gap-12 lg:gap-16">
@@ -20,8 +20,8 @@ export default function Hero() {
         <TodayDate />
       </div>
 
-      {!hasMoodLoggedToday && <MoodLogDialog />}
-      {/* <MoodLogDialog /> */}
+      {/* {!hasMoodLoggedToday && <MoodLogDialog />} */}
+      <MoodLogDialog />
     </div>
   )
 }
