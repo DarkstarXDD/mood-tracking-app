@@ -6,7 +6,7 @@ export default function MoodLogDialog() {
   return (
     <Modal title="Log your mood">
       <ModalTrigger>
-        <Button size="lg">Log today&apos;s mood</Button>
+        <Button size="lg">Log today&apos;s mood...</Button>
       </ModalTrigger>
       <ModalContent>
         <MoodLogForm />

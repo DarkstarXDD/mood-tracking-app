@@ -15,7 +15,7 @@ This is my solution to the [Mood Tracking App](https://www.frontendmentor.io/cha
 - Next.js
 - TypeScript
 - Tailwind
-- Prisma
+- Prisma ORM
 - React Aria Components
 - Motion
 - React Hook Form
@@ -57,7 +57,7 @@ This is my solution to the [Mood Tracking App](https://www.frontendmentor.io/cha
 #### UI and Components
 
 - I used React Aria Components, which is headless, for components like Radio Group, Modal, Menu etc.
-- Added some small animations using Motion (formerly Framer Motion).
+- Added some small animations using Motion (formerly Framer Motion). They are present in many places across the app. Radio buttons, checkboxes, loading and success states, multi step form transitions etc.
 - Chart was done using D3. I initially did it using Recharts (which uses D3 under the hood) but I didn’t like the result I got, both UI wise and code wise. Going a level deep and doing everything with D3 and Motion gave the result I was looking for. Also it was more fun than working with the abstraction Recharts gave.
 
 #
